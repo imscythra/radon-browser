@@ -9,7 +9,7 @@
       xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
       xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
       xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-      winui:BackdropMaterial.ApplyToRootOrPageBackground="True"
+      xmlns:tenmica="using:TenMica"
       x:Name="MainWindow"
       DataContext="BrowserTabViewModel">
     <Page.KeyboardAccelerators>
@@ -33,6 +33,9 @@
         </ResourceDictionary>
         
     </Page.Resources>
+    <Page.Background>
+        <tenmica:TenMicaBrush/>
+    </Page.Background>
 
     <Grid x:Name="BasicGrid">
        
@@ -262,7 +265,7 @@
                     KeyDown="SearchBar_KeyDown"
                     VerticalAlignment="Center"
                     Margin="43,3,45,0"
-                    BorderThickness="0"
+                    BorderThickness="1" BorderBrush="Transparent"
                     Padding="50,6,50,2"
                     FontSize="13" Height="21" 
                     IsSpellCheckEnabled="False"
@@ -527,6 +530,7 @@
                                 <Grid.ChildrenTransitions>
                                     <TransitionCollection>
                                         <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                                        <RepositionThemeTransition/>
                                     </TransitionCollection>
                                 </Grid.ChildrenTransitions>
                                 
@@ -534,18 +538,6 @@
                                     <!--TODO: The button should add a new tab -->
 
                                     <Grid x:Name="compacttitlebar_rightpadding" Width="40" Visibility="Collapsed"/>
-                                    <winui:TeachingTip IsOpen="False" x:Name="addtabtip" Target="{x:Bind addtab_button}" Title="Didn't see anything?"
-                                                   >
-                                        <winui:TeachingTip.IconSource>
-                                            <winui:SymbolIconSource Symbol="Repair"/>
-                                        </winui:TeachingTip.IconSource>
-                                        <StackPanel>
-
-                                            <TextBlock Text="There have been reports that tabs aren't displaying the page." TextWrapping="WrapWholeWords"/>
-                                            <TextBlock Text="To fix this, go to any other open tabs and go back to the tab you're currently on." Margin="0,10,0,0" TextWrapping="WrapWholeWords"/>
-                                            <Button HorizontalAlignment="Stretch" Content="Got it!" Margin="0,20,0,0" Click="Button_Click_1"/>
-                                        </StackPanel>
-                                    </winui:TeachingTip>
                                 </StackPanel>
                                 <Grid x:Name="tabaction">
 
@@ -613,10 +605,18 @@
                                         <EntranceThemeTransition IsStaggeringEnabled="True"/>
                                     </TransitionCollection>
                                 </StackPanel.ChildrenTransitions>
-                                <Button Visibility="Collapsed"  x:Name="addtab_button" BorderBrush="{x:Null}" Padding="10,6.8" Width="auto" Click="addtab_button_Click" Background="Transparent" HorizontalAlignment="Right">
-                                    <FontIcon Glyph="&#xe710;" FontSize="16"/>
+                                <Button Visibility="Visible" x:Name="updatedButton" BorderBrush="{x:Null}" Padding="10,6.8" Width="auto" Background="Transparent" HorizontalAlignment="Right"
+                                         ToolTipService.ToolTip="What's new?" Click="updatedButton_Click">
+                                    <FontIcon Glyph="&#xf133;" FontFamily="segoe fluent icons" FontSize="16" Foreground="{ThemeResource SystemAccentColorLight3}"/>
                                 </Button>
-                                
+                                <winui:TeachingTip x:Name="updatedDialog" Closed="updatedDialog_Closed" IsOpen="True" Target="{x:Bind updatedButton}" PreferredPlacement="RightBottom" Title="What's new?"
+                                                   Loaded="updatedDialog_Loaded" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                                    <toolkit:MarkdownTextBlock x:Name="updatedDialog_text" TextWrapping="Wrap" Background="{x:Null}" IsTextSelectionEnabled="False">
+                                        
+                                    </toolkit:MarkdownTextBlock>
+                                    
+                                </winui:TeachingTip>
+
                                 <Button x:Name="controlCenterButton" Click="controlCenterToggleButton_Click" VerticalAlignment="Center" Grid.Column="1" Padding="10,6.8" Margin="0,4,5,0" BorderBrush="{x:Null}" Background="Transparent" HorizontalAlignment="Right">
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" FontSize="17"/>
                                     <Button.Flyout>
@@ -646,11 +646,11 @@
                                                             <StackPanel Orientation="Horizontal">
 
                                                                 <Button Click="addtab_button_Click" Background="Transparent" HorizontalAlignment="Stretch" Padding="0,10,0,10" Width="98" BorderThickness="0">
-                                                                <StackPanel>
-                                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;" FontSize="18"/>
-                                                                    <TextBlock Margin="0,8" Text="New tab" TextAlignment="Center"/>
-                                                                </StackPanel>
-                                                            </Button>
+                                                                    <StackPanel>
+                                                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;" FontSize="18"/>
+                                                                        <TextBlock Margin="0,8" Text="New tab" TextAlignment="Center"/>
+                                                                    </StackPanel>
+                                                                </Button>
                                                                 <Border BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" Margin="0,8" Opacity="0.3"  BorderThickness="1"/>
                                                                 <Button x:Name="newWindow" Click="newWindow_Click" Background="Transparent" HorizontalAlignment="Stretch" Padding="0,10,0,10" Width="98" BorderThickness="0">
                                                                     <StackPanel>
@@ -670,7 +670,7 @@
                                                             </StackPanel>
                                                         </Grid>
                                                         <Border Margin="8,4" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
-                                                        
+
                                                         <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                                 HorizontalContentAlignment="Left" Click="downloadbutton_Click">
                                                             <StackPanel Orientation="Horizontal">
@@ -723,9 +723,9 @@
                                                         <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                                 HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                    <FontIcon Glyph="&#xE118;" FontSize="15"/>
-                                                                    <TextBlock Margin="9,0,0,0" Text="Share"/>
-                                                                    <FontIcon FontSize="14" FontFamily="Segoe Fluent Icons" Glyph="&#xE097;" Margin="201,0,0,0"/>
+                                                                <FontIcon Glyph="&#xE118;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Share"/>
+                                                                <FontIcon FontSize="14" FontFamily="Segoe Fluent Icons" Glyph="&#xE097;" Margin="201,0,0,0"/>
                                                             </StackPanel>
                                                             <Button.Flyout>
                                                                 <MenuFlyout Placement="RightEdgeAlignedTop" ShouldConstrainToRootBounds="False">
@@ -830,7 +830,10 @@
 
                             </StackPanel>
                         </winui:TabView.TabStripFooter>
-
+                        <!--<winui:TabView.Transitions>
+                            <RepositionThemeTransition/>
+                            <AddDeleteThemeTransition/>
+                        </winui:TabView.Transitions>-->
 
 
                     </winui:TabView>

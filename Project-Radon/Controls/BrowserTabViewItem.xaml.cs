@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
+using Yttrium_browser;
 using IconSource = Microsoft.UI.Xaml.Controls.IconSource;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -79,7 +80,7 @@ namespace Project_Radon.Controls
 
         private void tabcontext_closetab_Click(object sender, RoutedEventArgs e)
         {
-            
         }
+        
     }
 }

@@ -9,7 +9,6 @@
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:cubekit="using:CubeKit.UI.Materials"
     mc:Ignorable="d">
 
     <Grid CornerRadius="8" Margin="4,0,4,4" BorderBrush="{ThemeResource SystemBaseLowColor}" Opacity="1" BorderThickness="1">
@@ -23,9 +22,9 @@
             />
         <Grid x:Name="ntpGrid" Visibility="Collapsed">
             <Grid.Background>
-                <ImageBrush x:Name="ntpbackgroundbrush" Opacity="0" Stretch="UniformToFill" ImageSource="https://bing.biturl.top/?resolution=1366&amp;format=image&amp;index=random&amp;mkt=en-US"/>
+                <ImageBrush x:Name="ntpbackgroundbrush" Stretch="UniformToFill" ImageSource="https://bing.biturl.top/?resolution=1366&amp;format=image&amp;index=random&amp;mkt=en-US"/>
             </Grid.Background>
-            <cubekit:AuroraLite />
+
             <Grid Background="Black" Opacity="0"/>
             
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="100,90" MinWidth="500">

@@ -13,6 +13,7 @@ using Project_Radon.Settings;
 using Windows.Storage;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.Foundation.Collections;
+using Project_Radon.Controls;
 
 // TODO: Import Cubekit.UI (Firecube's GlowUI refer https://github.com/FireCubeStudios/TemplateApp)
 
@@ -78,12 +79,13 @@ namespace Yttrium_browser
 
                     // profile check mechanisms
                     string username = localSettings.Values["username"] as string;
+                    string campaignRan = localSettings.Values["campaignRan"] as string;
                     if (username == null)
                     {
                         rootFrame.Navigate(typeof(oobe1), null);
                     }
-
-                    else { rootFrame.Navigate(typeof(MainPage), e.Arguments); }
+                    else if (campaignRan != "1") { rootFrame.Navigate(typeof(tempcampaign), null); }
+                    else { rootFrame.Navigate(typeof(BrowserWindowed), e.Arguments); }
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter

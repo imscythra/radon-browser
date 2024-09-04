@@ -1,0 +1,9 @@
+﻿_Version 1.14.9 BETA_
+
+> With this update, I'm starting to run a fundraising to help me restore my development environment. [Read more here.]("https://sites.google.com")
+
+- Added a new dialog to announce new updates and features
+- Added some animation to the tabs when rearranged
+- Implemented "standalone window" view mode
+- ~~Restored access to the currently in development settings page~~ (This feature will be disabled until further notice)
+- Some minor bug fixes regarding multiple window which sometimes kills WebView2 unexpectedly.

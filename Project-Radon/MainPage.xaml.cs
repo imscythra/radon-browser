@@ -623,11 +623,6 @@ namespace Yttrium_browser
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            addtabtip.IsOpen = false;
-        }
-
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -770,6 +765,26 @@ namespace Yttrium_browser
         private void verttablist_DropCompleted(UIElement sender, DropCompletedEventArgs args)
         {
             
+        }
+
+        private void updatedButton_Click(object sender, RoutedEventArgs e)
+        {
+            updatedDialog.IsOpen = true;
+        }
+
+        private void updatedDialog_Closed(TeachingTip sender, TeachingTipClosedEventArgs args)
+        {
+            updatedButton.Visibility = Visibility.Collapsed;
+        }
+
+        private async void updatedDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            // load the latest update note bundled
+            Windows.Storage.StorageFolder storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            Windows.Storage.StorageFile file = await storageFolder.GetFileAsync(@"\Settings\UpdateNotes.txt");
+
+            string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+            updatedDialog_text.Text = text;
         }
     }
 }

@@ -11,7 +11,7 @@
     <AssemblyName>Project Radon</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22621.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -112,14 +112,8 @@
     <Compile Include="Controls\BrowserTabViewItem.xaml.cs">
       <DependentUpon>BrowserTabViewItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SplitView.xaml.cs">
-      <DependentUpon>SplitView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SplitViewBrowser.xaml.cs">
-      <DependentUpon>SplitViewBrowser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SplitViewRoot.xaml.cs">
-      <DependentUpon>SplitViewRoot.xaml</DependentUpon>
+    <Compile Include="Controls\BrowserWindowed.xaml.cs">
+      <DependentUpon>BrowserWindowed.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\BrowserBackend.cs" />
     <Compile Include="Helpers\ConfirmExitDialog.xaml.cs">
@@ -138,9 +132,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DataTransfer.cs" />
-    <Compile Include="HomePage.xaml.cs">
-      <DependentUpon>HomePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -182,6 +173,9 @@
     <Compile Include="Settings\RadonSettings_User.xaml.cs">
       <DependentUpon>RadonSettings_User.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\tempcampaign.xaml.cs">
+      <DependentUpon>tempcampaign.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\UserProfileDialog.xaml.cs">
       <DependentUpon>UserProfileDialog.xaml</DependentUpon>
     </Compile>
@@ -212,7 +206,9 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
+    <Content Include="Assets\campaign.png" />
     <Content Include="Assets\clipboard_3d.png" />
+    <Content Include="Assets\fragile.mp3" />
     <Content Include="Assets\laptop_3d.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
@@ -318,6 +314,7 @@
     <Content Include="Wallpapers\Sweet.png" />
     <Content Include="Wallpapers\Unknown.png" />
     <Content Include="Wallpapers\Unknown1.png" />
+    <Content Include="Settings\UpdateNotes.txt" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -332,15 +329,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\SplitView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SplitViewBrowser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SplitViewRoot.xaml">
+    <Page Include="Controls\BrowserWindowed.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -361,10 +350,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\AboutDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -420,6 +405,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Settings\tempcampaign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings\UserProfileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -428,6 +417,9 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm">
       <Version>8.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Uwp.Controls.Primitives">
+      <Version>8.0.240109</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Uwp.Controls.Sizers">
       <Version>8.0.230907</Version>
@@ -451,7 +443,10 @@
       <Version>7.1.3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.5</Version>
+      <Version>2.8.6</Version>
+    </PackageReference>
+    <PackageReference Include="TenMica">
+      <Version>1.0.0-beta</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -462,13 +457,8 @@
     <None Include="Screenshots\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Styles\" />
     <Folder Include="ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CubeKit.UI\CubeKit.UI.csproj">
-      <Project>{73936751-6325-49ce-8a7b-7006d6135b19}</Project>
-      <Name>CubeKit.UI</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
