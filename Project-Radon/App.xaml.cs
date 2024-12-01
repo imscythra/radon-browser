@@ -84,8 +84,8 @@ namespace Yttrium_browser
                     {
                         rootFrame.Navigate(typeof(oobe1), null);
                     }
-                    else if (campaignRan != "1") { rootFrame.Navigate(typeof(tempcampaign), null); }
-                    else { rootFrame.Navigate(typeof(BrowserWindowed), e.Arguments); }
+                    else if (campaignRan != "1") { rootFrame.Navigate(typeof(WelcomeScreen), null); }
+                    else { rootFrame.Navigate(typeof(WelcomeScreen), e.Arguments); }
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter

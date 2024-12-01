@@ -23,22 +23,9 @@
             </Border>
         </Grid>
         <Grid Grid.Row="1" Margin="30,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            
-            <StackPanel VerticalAlignment="Center" Margin="20,0">
-                <Image Source="ms-appx:///Assets/clipboard_3d.png" Width="120"/>
-                <TextBlock Text="License Agreements" Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="Before you can use Radon, please agree to the following license agreements." TextWrapping="WrapWholeWords" Style="{ThemeResource SubheaderTextBlockStyle}" FontSize="18" TextAlignment="Center" Margin="0,8"/>
-            </StackPanel>
             <ScrollViewer Grid.Column="1" Margin="20,0,20,130" Padding="0,20" CornerRadius="8" BorderThickness="1" BorderBrush="{ThemeResource SystemBaseLowColor}">
             <StackPanel CornerRadius="8">
 
-            
-
-            
             <TextBlock x:Name="LicenseTextBox" IsTextSelectionEnabled="True" TextAlignment="Justify" TextWrapping="WrapWholeWords" Margin="30,20,30,0" Text="Getting license..."/>
             
 

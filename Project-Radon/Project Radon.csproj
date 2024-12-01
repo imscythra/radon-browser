@@ -173,11 +173,17 @@
     <Compile Include="Settings\RadonSettings_User.xaml.cs">
       <DependentUpon>RadonSettings_User.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\tempcampaign.xaml.cs">
-      <DependentUpon>tempcampaign.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Settings\UserProfileDialog.xaml.cs">
       <DependentUpon>UserProfileDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\WelcomeScreen.xaml.cs">
+      <DependentUpon>WelcomeScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\qrcodedialog.xaml.cs">
+      <DependentUpon>qrcodedialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdatedDialog.xaml.cs">
+      <DependentUpon>UpdatedDialog.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +288,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="Wallpapers\abstractic [experimental].png" />
+    <Content Include="Wallpapers\garden of peace [experimental].png" />
+    <Content Include="Wallpapers\neon [experimental].png" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Project Radon.png" />
     <Content Include="Properties\Default.rd.xml" />
@@ -310,9 +319,11 @@
     <Content Include="Wallpapers\Forest.png" />
     <Content Include="Wallpapers\Maple.png" />
     <Content Include="Wallpapers\Midnight.png" />
+    <Content Include="Wallpapers\purple sky [experimental].png" />
     <Content Include="Wallpapers\Rainbow.png" />
     <Content Include="Wallpapers\Sweet.png" />
-    <Content Include="Wallpapers\Unknown.png" />
+    <Content Include="Wallpapers\radon vibes.png" />
+    <Content Include="Wallpapers\tokyo night [experimental].png" />
     <Content Include="Wallpapers\Unknown1.png" />
     <Content Include="Settings\UpdateNotes.txt" />
   </ItemGroup>
@@ -405,11 +416,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\tempcampaign.xaml">
+    <Page Include="Settings\UserProfileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\UserProfileDialog.xaml">
+    <Page Include="Settings\WelcomeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\qrcodedialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdatedDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -420,6 +439,9 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Uwp.Controls.Primitives">
       <Version>8.0.240109</Version>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Uwp.Controls.SettingsControls">
+      <Version>8.1.240916</Version>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Uwp.Controls.Sizers">
       <Version>8.0.230907</Version>
@@ -445,6 +467,9 @@
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.6</Version>
     </PackageReference>
+    <PackageReference Include="QRCoder">
+      <Version>1.6.0</Version>
+    </PackageReference>
     <PackageReference Include="TenMica">
       <Version>1.0.0-beta</Version>
     </PackageReference>
@@ -457,7 +482,6 @@
     <None Include="Screenshots\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Styles\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

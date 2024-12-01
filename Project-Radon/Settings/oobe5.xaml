@@ -22,22 +22,7 @@
             </StackPanel>
         </Border>
         <Grid Grid.Row="1" Margin="30,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel VerticalAlignment="Center" Margin="20,0">
-                <Ellipse Width="120" Height="120">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="ms-appx:///accountpictures/clippy.png" Stretch="UniformToFill"/>
-                    </Ellipse.Fill>
-                    <Ellipse.RenderTransform>
-                        <CompositeTransform/>
-                    </Ellipse.RenderTransform>
-                </Ellipse>
-                <TextBlock Text="Profile" Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="Before you start using Radon Browser, take a moment to complete your profile." TextWrapping="WrapWholeWords" Style="{ThemeResource SubheaderTextBlockStyle}" FontSize="18" TextAlignment="Center" Margin="0,8"/>
-            </StackPanel>
+
             <ScrollViewer Grid.Column="1" Margin="40,0,0,100">
                     <StackPanel Margin="0,0,16,0">
                         

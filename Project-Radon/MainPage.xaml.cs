@@ -33,6 +33,9 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.WindowManagement;
 using System.Reflection;
 using Windows.ApplicationModel.Contacts;
+using Project_Radon.Views;
+using Windows.ApplicationModel.DataTransfer;
+using System.Data.SqlClient;
 
 namespace Yttrium_browser
 {
@@ -109,12 +112,15 @@ namespace Yttrium_browser
                 localSettings.Values["systemTitleBar"] = "False";
             }
 
-            // Fix: Topbar flyout showing on startup
+            // TODO: Add logics to initiate update announcements
+            ShowUpdateAnnouncement();
 
-            
+        }
 
-
-
+        private async void ShowUpdateAnnouncement()
+        {
+            UpdatedDialog dialog = new UpdatedDialog();
+            await dialog.ShowAsync();
         }
 
         public class TabViewItemData
@@ -145,12 +151,12 @@ namespace Yttrium_browser
         {
             if (args.WindowActivationState == CoreWindowActivationState.Deactivated)
             {
-                appthemebackground.Opacity = 0.2;
+                appthemebackground.Opacity = 0.7;
             }
 
             else
             {
-                appthemebackground.Opacity = 0.4;
+                appthemebackground.Opacity = 1;
             }
         }
         private async void BackButton_Click(object sender, RoutedEventArgs e)
@@ -767,24 +773,45 @@ namespace Yttrium_browser
             
         }
 
-        private void updatedButton_Click(object sender, RoutedEventArgs e)
-        {
-            updatedDialog.IsOpen = true;
-        }
+        
 
         private void updatedDialog_Closed(TeachingTip sender, TeachingTipClosedEventArgs args)
         {
-            updatedButton.Visibility = Visibility.Collapsed;
+            
         }
 
-        private async void updatedDialog_Loaded(object sender, RoutedEventArgs e)
+        private void copyurltoclipboardBtn_Click(object sender, RoutedEventArgs e)
         {
-            // load the latest update note bundled
-            Windows.Storage.StorageFolder storageFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
-            Windows.Storage.StorageFile file = await storageFolder.GetFileAsync(@"\Settings\UpdateNotes.txt");
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.RequestedOperation = DataPackageOperation.Copy;
+            dataPackage.SetText(CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri.ToString());
+            Clipboard.SetContent(dataPackage);
+            controlCenterButton.Flyout.Hide();
+            actionMsg_Icon.Glyph = "\xe71b";
+            actionMsg_Text.Text = "Link copied to clipboard!";
+            actionMsg.IsOpen = true;
+            actionMsgTimeoutHandler();
+        }
 
-            string text = await Windows.Storage.FileIO.ReadTextAsync(file);
-            updatedDialog_text.Text = text;
+        private async void continueonmobileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["qrUrl"] = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri.ToString();
+
+            qrcodedialog dialog = new qrcodedialog();
+            controlCenterButton.Flyout.Hide();
+            await dialog.ShowAsync();
+        }
+
+        private async void actionMsgTimeoutHandler()
+        {
+            actionMsg_Timeout.Value = 300;
+            while (actionMsg_Timeout.Value > 0)
+            {
+                actionMsg_Timeout.Value -= 2;
+                await Task.Delay(20);
+            }
+            actionMsg.IsOpen = false;
         }
     }
 }
