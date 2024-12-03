@@ -26,5 +26,22 @@ namespace Project_Radon.Settings
         {
             this.InitializeComponent();
         }
+
+        private void opt1_Click(object sender, RoutedEventArgs e)
+        {
+            if (opt1.IsChecked == true) { opt2.IsChecked = false; page2nextBtn.IsEnabled = true; }
+            else { page2nextBtn.IsEnabled = false; }
+        }
+
+        private void opt2_Click(object sender, RoutedEventArgs e)
+        {
+            if (opt2.IsChecked == true) { opt1.IsChecked = false; page2nextBtn.IsEnabled = true; }
+            else { page2nextBtn.IsEnabled = false; }
+        }
+
+        private void migrateOptHandler()
+        {
+
+        }
     }
 }
