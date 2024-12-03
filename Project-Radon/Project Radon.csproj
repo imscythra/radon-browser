@@ -212,7 +212,6 @@
     <Content Include="Assets\BadgeLogo.scale-150.png" />
     <Content Include="Assets\BadgeLogo.scale-200.png" />
     <Content Include="Assets\BadgeLogo.scale-400.png" />
-    <Content Include="Assets\briefcase.png" />
     <Content Include="Assets\campaign.png" />
     <Content Include="Assets\clipboard_3d.png" />
     <Content Include="Assets\fragile.mp3" />
@@ -225,7 +224,6 @@
     <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\oobe1img.jpg" />
     <Content Include="Assets\paintbrush_3d.png" />
-    <Content Include="Assets\rocket.png" />
     <Content Include="Assets\settings-about-icon.png" />
     <Content Include="Assets\settings-advanced-icon.png" />
     <Content Include="Assets\settings-general-icon.png" />
