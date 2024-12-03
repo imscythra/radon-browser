@@ -6,9 +6,53 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:materials="using:Cubekit.UI.Materials"
     Background="#000000">
 
     <Grid>
-        
+        <StackPanel x:Name="page1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" MaxWidth="600" Margin="48,0">
+            <Image Source="ms-appx:///Assets/StoreLogo.scale-400.png" Width="120"/>
+            <TextBlock Margin="0,24,0,-8" TextAlignment="Center" FontWeight="SemiBold" FontSize="24" Text="Welcome to the new"/>
+            <TextBlock TextAlignment="Center" FontWeight="SemiBold" FontSize="48" Text="Radon." Foreground="Violet"/>
+            <TextBlock TextAlignment="Center" FontWeight="SemiLight" FontSize="18" FontStyle="Italic" Text="Where elegance meets beauty."  Opacity="0.6"/>
+            <Grid CornerRadius="4" HorizontalAlignment="Center"  Margin="0,32,0,0">
+                <Button Foreground="Black" Style="{ThemeResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="8" >
+                        <TextBlock x:Name="page1nextBtn" Style="{ThemeResource BaseTextBlockStyle}" Text="Let's start"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xea47;" FontSize="16"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel x:Name="page2" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="600" Margin="48,0" Spacing="8">
+            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Want to start off fresh?"/>
+            <TextBlock Text="Radon has got some facelifts in the latest updates. You can choose to begin from nothing or continue with your existing data."
+                       TextWrapping="Wrap" Opacity="0.8"/>
+            <ToggleButton x:Name="opt1" Click="opt1_Click" Padding="24,16" Margin="0,24,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="Transparent" CornerRadius="8">
+                <StackPanel Orientation="Horizontal" Spacing="16">
+                    <Image Source="ms-appx:///Assets/rocket.png" Width="60"/>
+                    <Grid>
+                        <StackPanel Spacing="4">
+                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Start off fresh!"/>
+                            <TextBlock Text="This will clear all of your data from previous version of Radon." TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ToggleButton>
+            <ToggleButton x:Name="opt2" Click="opt2_Click" Padding="24,16" Margin="0,0,0,24" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="Transparent" CornerRadius="8">
+                <StackPanel Orientation="Horizontal" Spacing="16">
+                    <Image Source="ms-appx:///Assets/briefcase.png" Width="60"/>
+                    <Grid>
+                        <StackPanel Spacing="4">
+                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Continue with existing data"/>
+                            <TextBlock Text="Use your current existing data from previous version." TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ToggleButton>
+            <Button x:Name="page2nextBtn" Style="{ThemeResource AccentButtonStyle}" FontWeight="SemiBold" Content="Next" HorizontalAlignment="Center"/>
+        </StackPanel>
     </Grid>
 </Page>
