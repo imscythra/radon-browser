@@ -16,7 +16,6 @@ using Yttrium;
 using Project_Radon.Settings;
 using Microsoft.UI.Xaml.Media.Animation;
 using System.Linq;
-using Microsoft.Web.WebView2.Core;
 using Microsoft.UI.Xaml.Input;
 using Windows.System;
 
@@ -74,9 +73,9 @@ namespace Project_Radon.Controls
                 WebBrowser.CoreWebView2.Settings.UserAgent = GoogleSignInUserAgent;
                 WebBrowser.CoreWebView2.DocumentTitleChanged += (_, e) => InvokePropertyChanged();
                 WebBrowser.CoreWebView2.SourceChanged += (_, e) => InvokePropertyChanged();
-                WebBrowser.CoreWebView2.ContextMenuRequested += async (s, e) =>
-                
-                
+                WebBrowser.CoreWebView2.ContextMenuRequested += (s, e) =>
+
+
                 {
                     IList<CoreWebView2ContextMenuItem> menuList = e.MenuItems;
                     if (e.ContextMenuTarget.HasLinkUri)

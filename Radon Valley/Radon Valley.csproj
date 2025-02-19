@@ -25,6 +25,9 @@
 		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
 		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
 		<AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+		<WindowsPackageType>MSIX</WindowsPackageType>
+		<PublishTrimmed>True</PublishTrimmed>
+		<PublishAot>True</PublishAot>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
 		<OutputPath>bin\x86\Debug\</OutputPath>
