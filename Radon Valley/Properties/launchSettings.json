@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Project_Radon (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Project_Radon (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
