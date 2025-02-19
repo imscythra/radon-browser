@@ -1,44 +1,30 @@
+using Microsoft.UI;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
+using Project_Radon;
 using Project_Radon.Controls;
 using Project_Radon.Helpers;
 using Project_Radon.Settings;
+using Project_Radon.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Windows.System;
-using Windows.UI.ViewManagement;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Yttrium;
-using Windows.ApplicationModel.Core;
-using SymbolIconSource = Microsoft.UI.Xaml.Controls.SymbolIconSource;
-using Windows.UI.Core;
-using Windows.UI;
-using Microsoft.Web.WebView2.Core;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System.Numerics;
-using Windows.UI.Core.Preview;
-using Windows.Devices.Enumeration;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Storage;
-using Microsoft.UI.Xaml.Media.Animation;
-using Windows.UI.WindowManagement;
-using System.ServiceModel.Channels;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml.Hosting;
-using Windows.UI.WindowManagement;
-using System.Reflection;
-using Windows.ApplicationModel.Contacts;
-using Project_Radon.Views;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
-using System.Data.SqlClient;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI;
-using Project_Radon;
+using Windows.Storage;
 using Windows.System;
+using Windows.UI.Core;
+using Windows.UI.Core.Preview;
+using Windows.UI.ViewManagement;
+using Yttrium;
+using SymbolIconSource = Microsoft.UI.Xaml.Controls.SymbolIconSource;
 
 namespace Yttrium_browser
 {
@@ -164,7 +150,7 @@ namespace Yttrium_browser
         {
             await new ConfirmExitDialog().ShowAsync();
         }
-        
+
         private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
             backbutton_icon.Translation = new Vector3(-12, 0, 0);
@@ -485,8 +471,8 @@ namespace Yttrium_browser
             ContentDialog aboutdialog = new AboutDialog();
         }
 
-         private static ContentDialog SetContentDialogRoot(ContentDialog contentDialog, UserControl control)
-         {
+        private static ContentDialog SetContentDialogRoot(ContentDialog contentDialog, UserControl control)
+        {
             if (Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
             {
                 contentDialog.XamlRoot = control.Content.XamlRoot;
@@ -519,7 +505,7 @@ namespace Yttrium_browser
         {
             //MenuButton.Flyout.Hide();
             // TODO Windows.UI.ViewManagement.ApplicationView is no longer supported. Use Microsoft.UI.Windowing.AppWindow instead. For more details see https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
-                        var view = ApplicationView.GetForCurrentView();
+            var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
                 view.TryEnterFullScreenMode();
@@ -754,7 +740,8 @@ namespace Yttrium_browser
             {
                 profileCenter_UsernameHeader.Text = localValue;
             }
-            else {
+            else
+            {
                 // this.Frame.Navigate(typeof(oobe1), null, new EntranceNavigationTransitionInfo());
             }
         }
@@ -789,14 +776,14 @@ namespace Yttrium_browser
 
         private void verttablist_DropCompleted(UIElement sender, DropCompletedEventArgs args)
         {
-            
+
         }
 
-        
+
 
         private void updatedDialog_Closed(TeachingTip sender, TeachingTipClosedEventArgs args)
         {
-            
+
         }
 
         private void copyurltoclipboardBtn_Click(object sender, RoutedEventArgs e)
