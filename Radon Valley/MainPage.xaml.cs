@@ -35,6 +35,10 @@ using Windows.ApplicationModel.Contacts;
 using Project_Radon.Views;
 using Windows.ApplicationModel.DataTransfer;
 using System.Data.SqlClient;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI;
+using Project_Radon;
+using Windows.System;
 
 namespace Yttrium_browser
 {
@@ -50,7 +54,7 @@ namespace Yttrium_browser
             CurrentTabs.Add(new BrowserTabViewItem());
             CurrentTabs[0].Tab.PropertyChanged += SelectedTabPropertyChanged;
 
-            App.Window.CoreWindow.Activated += CoreWindow_Activated;
+            App.Window.Activated += Window_Activated;
 
             // TitleBar customizations
 
@@ -70,7 +74,7 @@ namespace Yttrium_browser
             if (inlineMode == "True")
             {
                 compactuibar.Visibility = Visibility.Visible;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(0);
+                DefaultBarUI.Height = new GridLength(0);
 
                 BrowserTabs.TabWidthMode = TabViewWidthMode.Compact;
                 compacttitlebar_rightpadding.Visibility = Visibility.Visible;
@@ -78,7 +82,7 @@ namespace Yttrium_browser
             else
             {
                 compactuibar.Visibility = Visibility.Collapsed;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(40);
+                DefaultBarUI.Height = new GridLength(40);
 
                 BrowserTabs.TabWidthMode = TabViewWidthMode.Equal;
 
@@ -118,6 +122,19 @@ namespace Yttrium_browser
 
         }
 
+        private void Window_Activated(object sender, Microsoft.UI.Xaml.WindowActivatedEventArgs args)
+        {
+            if (args.WindowActivationState == WindowActivationState.Deactivated)
+            {
+                appthemebackground.Opacity = 0.7;
+            }
+
+            else
+            {
+                appthemebackground.Opacity = 1;
+            }
+        }
+
         private async void ShowUpdateAnnouncement()
         {
             UpdatedDialog dialog = new UpdatedDialog();
@@ -147,19 +164,7 @@ namespace Yttrium_browser
         {
             await new ConfirmExitDialog().ShowAsync();
         }
-
-        private void CoreWindow_Activated(CoreWindow sender, WindowActivatedEventArgs args)
-        {
-            if (args.WindowActivationState == CoreWindowActivationState.Deactivated)
-            {
-                appthemebackground.Opacity = 0.7;
-            }
-
-            else
-            {
-                appthemebackground.Opacity = 1;
-            }
-        }
+        
         private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
             backbutton_icon.Translation = new Vector3(-12, 0, 0);
@@ -478,8 +483,6 @@ namespace Yttrium_browser
         {
             //MenuButton.Flyout.Hide();
             ContentDialog aboutdialog = new AboutDialog();
-            /* TODO You should replace 'this' with the instance of UserControl that this ContentDialog is meant to be a part of. */
-            var result = await SetContentDialogRoot(aboutdialog.ShowAsync,this);
         }
 
          private static ContentDialog SetContentDialogRoot(ContentDialog contentDialog, UserControl control)
@@ -524,8 +527,8 @@ namespace Yttrium_browser
                 // TODO Windows.UI.ViewManagement.ApplicationView is no longer supported. Use Microsoft.UI.Windowing.AppWindow instead. For more details see https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
                 ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
                 fullscreenbutton_icon.Glyph = "\uE740";
-                BrowserTabs.Margin = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(40);
+                BrowserTabs.Margin = new Thickness(0, 0, 0, 0);
+                DefaultBarUI.Height = new GridLength(40);
                 fullscreentopbar.Visibility = Visibility.Collapsed;
             }
             else
@@ -534,8 +537,8 @@ namespace Yttrium_browser
                 // TODO Windows.UI.ViewManagement.ApplicationView is no longer supported. Use Microsoft.UI.Windowing.AppWindow instead. For more details see https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
                 ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
                 fullscreenbutton_icon.Glyph = "\uE73F";
-                BrowserTabs.Margin = new Windows.UI.Xaml.Thickness(0, -40, 0, 0);
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(0);
+                BrowserTabs.Margin = new Thickness(0, -40, 0, 0);
+                DefaultBarUI.Height = new GridLength(0);
                 fullscreentopbar.Visibility = Visibility.Visible;
 
             }
@@ -612,17 +615,6 @@ namespace Yttrium_browser
             dialog.Content = "The developer tools window has launched in the background— you may access it from the taskbar.";
             dialog.CloseButtonText = "Got it!";
             dialog.DefaultButton = ContentDialogButton.Close;
-            /* TODO You should replace 'this' with the instance of UserControl that this ContentDialog is meant to be a part of. */
-            SetContentDialogRoot(            dialog.ShowAsync,this);
-        }
-
-         private static ContentDialog SetContentDialogRoot(ContentDialog contentDialog, UserControl control)
-         {
-            if (Windows.Foundation.Metadata.ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 8))
-            {
-                contentDialog.XamlRoot = control.Content.XamlRoot;
-            }
-            return contentDialog;
         }
 
         private void tabaction_inline_Click(object sender, RoutedEventArgs e)
@@ -632,7 +624,7 @@ namespace Yttrium_browser
             if (compactuibar.Visibility == Visibility.Collapsed)
             {
                 compactuibar.Visibility = Visibility.Visible;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(0);
+                DefaultBarUI.Height = new GridLength(0);
 
                 BrowserTabs.TabWidthMode = TabViewWidthMode.Compact;
                 compacttitlebar_rightpadding.Visibility = Visibility.Visible;
@@ -643,7 +635,7 @@ namespace Yttrium_browser
             else
             {
                 compactuibar.Visibility = Visibility.Collapsed;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(40);
+                DefaultBarUI.Height = new GridLength(40);
 
                 BrowserTabs.TabWidthMode = TabViewWidthMode.Equal;
 
@@ -658,7 +650,7 @@ namespace Yttrium_browser
 
         }
 
-        private void ZoomSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void ZoomSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
 
         }

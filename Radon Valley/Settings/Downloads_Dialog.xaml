@@ -27,7 +27,7 @@
                     <EntranceThemeTransition IsStaggeringEnabled="True"/>
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
-            <muxc:WebView2 x:Name="wv2" Source="about:blank"  CornerRadius="8" NavigationStarting="wv2_NavigationStarting" Opacity="0" NavigationCompleted="WebView2_NavigationCompleted">
+            <muxc:WebView2 x:Name="wv2" Source="about:blank" NavigationStarting="wv2_NavigationStarting" Opacity="0" NavigationCompleted="WebView2_NavigationCompleted">
                 <muxc:WebView2.OpacityTransition>
                     <ScalarTransition/>
                 </muxc:WebView2.OpacityTransition>

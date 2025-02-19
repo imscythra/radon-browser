@@ -15,7 +15,7 @@ namespace Project_Radon.Helpers
 
         private void ContentDialog_Closed(ContentDialog sender, ContentDialogClosedEventArgs args)
         {
-            App.Window.Exit();
+            App.Window.Close();
         }
     }
 }

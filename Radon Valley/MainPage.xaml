@@ -6,10 +6,7 @@
       mc:Ignorable="d"
       xmlns:winui="using:Microsoft.UI.Xaml.Controls"
       xmlns:controls="using:Project_Radon.Controls"
-      xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-      xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-      xmlns:tenmica="using:TenMica"
+      xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
       x:Name="MainWindow"
       DataContext="BrowserTabViewModel">
     <Page.KeyboardAccelerators>
@@ -31,11 +28,8 @@
         <ResourceDictionary>
             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="Transparent"  />
         </ResourceDictionary>
-        
+
     </Page.Resources>
-    <Page.Background>
-        <tenmica:TenMicaBrush/>
-    </Page.Background>
 
     <Grid x:Name="BasicGrid">
        
@@ -927,8 +921,7 @@
                 <StackPanel Orientation="Horizontal">
 
                 </StackPanel>
-                <winui:WebView2 Source="https://google.com" Margin="10" Grid.Row="1"
-                                BorderBrush="{ThemeResource SystemBaseLowColor}" BorderThickness="1"/>
+                <winui:WebView2 Source="https://google.com" Margin="10" Grid.Row="1"/>
             </Grid>
             </Popup.Child>
         </Popup>

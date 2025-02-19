@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp uap3 desktop4 iot2 iot">
-  <Identity Name="30868ItzBluebxrry.RadonBrowserDev" Publisher="CN=EAB9B2B6-6338-4C0C-A002-D1666231438D" Version="1.14.17.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop4="http://schemas.microsoft.com/appx/manifest/desktop/windows10/4" xmlns:iot2="http://schemas.microsoft.com/appx/manifest/iot/windows10/2" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp uap3 desktop4 iot2 iot rescap">
+  <Identity Name="30868ItzBluebxrry.RadonBrowserDev" Publisher="CN=Test" Version="1.14.17.0" />
   <Properties>
     <DisplayName>Radon (Developer preview)</DisplayName>
     <PublisherDisplayName>ItzBluebxrry</PublisherDisplayName>
@@ -45,6 +46,6 @@
     <DeviceCapability Name="webcam" />
     <DeviceCapability Name="location" />
     <DeviceCapability Name="microphone" />
-    <rescap:Capability Name="runFullTrust" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" />
+	  <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>

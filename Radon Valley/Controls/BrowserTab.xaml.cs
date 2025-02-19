@@ -1,5 +1,4 @@
-﻿using Fluent.Icons;
-using Microsoft.Web.WebView2.Core;
+﻿using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,14 +12,13 @@ using Microsoft.Windows.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.Toolkit.Uwp;
-using Microsoft.Toolkit.Uwp.Connectivity;
 using Yttrium;
-using Microsoft.Toolkit.Uwp.Notifications;
 using Project_Radon.Settings;
 using Microsoft.UI.Xaml.Media.Animation;
 using System.Linq;
 using Microsoft.Web.WebView2.Core;
+using Microsoft.UI.Xaml.Input;
+using Windows.System;
 
 namespace Project_Radon.Controls
 {
@@ -148,7 +146,7 @@ namespace Project_Radon.Controls
             }
             else
             {
-                if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == false & !WebBrowser.Source.AbsoluteUri.Contains("edge://"))
+                /*if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == false & !WebBrowser.Source.AbsoluteUri.Contains("edge://"))
                 {
                     WebBrowser.Visibility = Visibility.Collapsed;
                     ntpGrid.Visibility = Visibility.Collapsed;
@@ -159,7 +157,7 @@ namespace Project_Radon.Controls
                     WebBrowser.Visibility = Visibility.Visible;
                     ntpGrid.Visibility = Visibility.Collapsed;
                     offlinePage.Visibility = Visibility.Collapsed;
-                }
+                }*/
             }
         }
         public void Close() => WebBrowser.Close();
@@ -172,8 +170,8 @@ namespace Project_Radon.Controls
             WebBrowser.Focus(FocusState.Keyboard);
 
 
-            if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == false)
-            {
+            /*if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == false)
+            {*/
                 if (!WebBrowser.Source.AbsoluteUri.Contains("edge://"))
                 {
                     offlinePage.Visibility = Visibility.Visible;
@@ -181,14 +179,14 @@ namespace Project_Radon.Controls
                     while (isOffline == true)
                     {
                         await Task.Delay(1000);
-                        if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == true)
-                        {
+                        /*if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == true)
+                        {*/
 
                             WebBrowser.Reload();
                             WebBrowser.Visibility = Visibility.Collapsed;
                             isOffline = false;
 
-                            new ToastContentBuilder()
+                            /*new ToastContentBuilder()
                                .AddArgument("action", "viewConversation")
                                .AddArgument("conversationId", 9813)
                                    .AddButton(new ToastButton()
@@ -197,13 +195,13 @@ namespace Project_Radon.Controls
                                .AddText("The Internet connection has been restored. You can now continue browsing.")
                                .AddAttributionText("via Radon Browser")
                                .AddAppLogoOverride(new Uri("ms-appx:///Assets/StoreLogo.scale-100.png"), ToastGenericAppLogoCrop.Circle)
-                               .Show();
+                               .Show();*/
                             await Task.Delay(500);
                             
-                        }
+                        //}
                     }
                 }
-            }
+            //}
 
         }
         public async Task GoTo(string url)
@@ -281,7 +279,7 @@ namespace Project_Radon.Controls
             await WebBrowser.CoreWebView2.ExecuteScriptAsync(script);
         }
 
-        private void ntpSearchBar_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        private void ntpSearchBar_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter && !string.IsNullOrEmpty(ntpSearchBar.Text))
             {
@@ -291,7 +289,7 @@ namespace Project_Radon.Controls
             }
         }
 
-        private void ntpSearchBar_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        private void ntpSearchBar_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
 
         }

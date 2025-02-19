@@ -22,7 +22,7 @@ namespace Project_Radon.Settings
         {
         }
 
-        private void closebutton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void closebutton_Click(object sender, RoutedEventArgs e)
         {
             Hide();
         }
