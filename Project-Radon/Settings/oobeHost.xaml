@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="Project_Radon.Settings.oobeHost"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project_Radon.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:materials="using:Project_Radon.Materials"
+    RequestedTheme="Dark"
+    Background="#000000">
+
+    <Grid>
+        <materials:AuroraLite/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Spacing="2">
+            <Image Source="ms-appx:///Assets/storelogo.scale-400.png" Width="100" Margin="0,0,0,16"/>
+            <TextBlock FontSize="24" FontWeight="SemiBold" TextAlignment="Center"
+                       Text="Welcome to the new"/>
+            <TextBlock FontSize="48" FontWeight="SemiBold" TextAlignment="Center"
+           Text="Radon." Foreground="#f337e3"/>
+            <TextBlock FontSize="20" Opacity="0.7" FontStyle="Italic" TextAlignment="Center"
+           Text="Where elegance meets beauty." FontWeight="Light"/>
+            <CheckBox HorizontalAlignment="Center" Margin="32">
+                <Button x:Name="eulaBtn" Click="eulaBtn_Click" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center">
+                    <TextBlock Foreground="{ThemeResource SystemAccentColorLight2}" FontWeight="SemiBold"
+                               Text="I agree to the end-user license agreements."/>
+                </Button>
+            </CheckBox>
+            <Button Style="{ThemeResource AccentButtonStyle}" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="Let's start" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <FontIcon Glyph="&#xEA47;" VerticalAlignment="Center" FontSize="16"/>
+                </StackPanel>
+            </Button>
+
+        </StackPanel>
+        <ToggleButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16" Padding="6,4"
+                      CornerRadius="12" Background="Transparent">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+                <FontIcon Glyph="&#xEC4F;" FontSize="12"/>
+                <TextBlock FontSize="12">Music on</TextBlock>
+            </StackPanel>
+        </ToggleButton>
+    </Grid>
+</Page>

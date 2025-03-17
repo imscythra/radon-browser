@@ -125,6 +125,9 @@
     <Compile Include="Helpers\loginpage.xaml.cs">
       <DependentUpon>loginpage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Materials\AuroraLite.xaml.cs">
+      <DependentUpon>AuroraLite.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
@@ -158,6 +161,9 @@
     <Compile Include="Settings\oobe6.xaml.cs">
       <DependentUpon>oobe6.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings\oobeHost.xaml.cs">
+      <DependentUpon>oobeHost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Settings\RadonSettings.xaml.cs">
       <DependentUpon>RadonSettings.xaml</DependentUpon>
     </Compile>
@@ -178,6 +184,9 @@
     </Compile>
     <Compile Include="Settings\WelcomeScreen.xaml.cs">
       <DependentUpon>WelcomeScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\eulaDialog.xaml.cs">
+      <DependentUpon>eulaDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\qrcodedialog.xaml.cs">
       <DependentUpon>qrcodedialog.xaml</DependentUpon>
@@ -358,6 +367,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Materials\AuroraLite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionaries\TabViewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -398,6 +411,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Settings\oobeHost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings\RadonSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -423,6 +440,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings\WelcomeScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\eulaDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

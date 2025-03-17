@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:materials="using:Cubekit.UI.Materials"
     Background="#000000">
 
     <Grid>

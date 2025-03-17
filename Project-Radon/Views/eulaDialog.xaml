@@ -1,0 +1,25 @@
+﻿<ContentDialog
+    x:Class="Project_Radon.Views.eulaDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project_Radon.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" RequestedTheme="Dark"
+    Margin="0,40,0,40" CornerRadius="6" Background="#101010" Width="600">
+
+    <Grid>
+        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">End-user license agreements</TextBlock>
+        <Button x:Name="closeBtn" Style="{ThemeResource AccentButtonStyle}" Content="Close" Click="closeBtn_Click" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+        <Grid Margin="0,48,0,0">
+            <ScrollViewer Grid.Column="1" Padding="0,20" CornerRadius="8" BorderThickness="1" BorderBrush="{ThemeResource SystemBaseLowColor}">
+                <StackPanel CornerRadius="8">
+
+                    <TextBlock x:Name="LicenseTextBox" IsTextSelectionEnabled="True" TextAlignment="Justify" TextWrapping="WrapWholeWords" Margin="30,20,30,0" Text="Getting license..."/>
+
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</ContentDialog>

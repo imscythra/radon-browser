@@ -77,20 +77,21 @@ namespace Yttrium_browser
                 {
                     ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
+                    rootFrame.Navigate(typeof(oobeHost), null);
+
                     // profile check mechanisms
-                    string username = localSettings.Values["username"] as string;
-                    string campaignRan = localSettings.Values["campaignRan"] as string;
-                    if (username == null)
-                    {
-                        rootFrame.Navigate(typeof(oobe1), null);
-                    }
-                    else if (campaignRan != "1") { rootFrame.Navigate(typeof(WelcomeScreen), null); }
-                    else { rootFrame.Navigate(typeof(WelcomeScreen), e.Arguments); }
+                    //string username = localSettings.Values["username"] as string;
+                    //string campaignRan = localSettings.Values["campaignRan"] as string;
+                    //if (username == null)
+                    //{
+                    //    rootFrame.Navigate(typeof(oobe1), null);
+                    //}
+                    //else { rootFrame.Navigate(typeof(oobe1), e.Arguments); }
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
 
-                    
+
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
