@@ -88,7 +88,10 @@
             <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Photo: Bing daily photos"
                        Style="{ThemeResource CaptionTextBlockStyle}" Margin="0,12"/>
         </Grid>
-        <Grid x:Name="offlinePage" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid x:Name="offlinePage" Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{ThemeResource AppBarBackgroundThemeBrush}">
+            <Grid.OpacityTransition>
+                <ScalarTransition/>
+            </Grid.OpacityTransition>
             <ScrollViewer>
                 <StackPanel Margin="0,30">
                     <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center" FontWeight="SemiLight">No Internet </TextBlock>
@@ -96,9 +99,12 @@
                     <StackPanel Orientation="Horizontal" Margin="0,12" HorizontalAlignment="Center">
                         <FontIcon Glyph="&#xE7F8;" FontSize="50"/>
                         <winui:ProgressBar x:Name="pcToNet" Width="100" Margin="10" Value="100" Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}"/>
-                        <FontIcon x:Name="netIcon" Glyph="&#xEC3F;" FontSize="50" Opacity="1" />
+                        <Grid>
+                            <FontIcon x:Name="netIcon" Glyph="&#xE704;" FontSize="50"/>
+                            <winui:ProgressRing x:Name="netIconLoadIndicator" Width="50" Height="50"/>
+                        </Grid>
                         <!--Foreground="BlueViolet"-->
-                        <winui:ProgressBar x:Name="netToWeb" Width="100" Margin="10" Value="100"  Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}"/>
+                        <winui:ProgressBar x:Name="netToWeb" Width="100" Margin="10" Value="0"  Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}"/>
                         <FontIcon Glyph="&#xE12B;" FontSize="50" Opacity="0.3"/>
                     </StackPanel>
                     <TextBlock Margin="20,8,20,8" MaxWidth="600" Style="{ThemeResource SubtitleTextBlockStyle}" FontSize="16">Let's get you back online!</TextBlock>

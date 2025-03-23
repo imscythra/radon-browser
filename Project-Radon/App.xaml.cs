@@ -10,10 +10,14 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Project_Radon;
 using Project_Radon.Settings;
+using Project_Radon.Views;
 using Windows.Storage;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Windows.Foundation.Collections;
 using Project_Radon.Controls;
+using Windows.UI.WindowManagement;
+using Windows.UI.Popups;
+using Project_Radon.Helpers;
 
 // TODO: Import Cubekit.UI (Firecube's GlowUI refer https://github.com/FireCubeStudios/TemplateApp)
 
@@ -122,10 +126,12 @@ namespace Yttrium_browser
                 titleBar.BackgroundColor = Colors.Transparent;
 
 
-
+                
                 // set min window size
                 ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
+                ApplicationView.GetForCurrentView().TryResizeView(new Size(1080,720)) ;
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(630,400));
+
                 
 
                 

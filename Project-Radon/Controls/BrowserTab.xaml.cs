@@ -138,13 +138,12 @@ namespace Project_Radon.Controls
         {
             ntpSearchBar.Text = string.Empty;
             IsLoading = false;
-            if (WebBrowser.Source.AbsoluteUri.Contains("edge://radon-ntp"))
+            if (WebBrowser.Source.AbsoluteUri.Contains("edge://"))
             {
                 WebBrowser.Visibility = Visibility.Collapsed;
                 ntpGrid.Visibility = Visibility.Visible;
                 ntpbackgroundbrush.ImageSource = new BitmapImage(new Uri("https://bing.biturl.top/?resolution=1366&format=image&index=random&mkt=en-US"));
-
-
+                HideOfflinePage();
             }
             else
             {
@@ -152,7 +151,7 @@ namespace Project_Radon.Controls
                 {
                     WebBrowser.Visibility = Visibility.Collapsed;
                     ntpGrid.Visibility = Visibility.Collapsed;
-                    offlinePage.Visibility = Visibility.Visible;
+                    ShowOfflinePage();
                 }
                 else
                 {
@@ -164,47 +163,79 @@ namespace Project_Radon.Controls
         }
         public void Close() => WebBrowser.Close();
 
-        private async void WebBrowser_NavigationStarting(Microsoft.UI.Xaml.Controls.WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
+        private void WebBrowser_NavigationStarting(Microsoft.UI.Xaml.Controls.WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
         {
-            offlinePage.Visibility = Visibility.Collapsed;
+            
             IsLoading = true;
             WebBrowser.Focus(FocusState.Pointer);
             WebBrowser.Focus(FocusState.Keyboard);
+            //if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == false)
+            //{
+            //    OfflineHandler();
+            //}
+        }
 
-
-            if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == false)
+        private async void OfflineHandler()
+        {
+            bool isOffline = true;
+            if (WebBrowser.Source.AbsoluteUri.Contains("edge://"))
             {
-                if (!WebBrowser.Source.AbsoluteUri.Contains("edge://"))
+                    HideOfflinePage();
+                    isOffline = true;
+            }
+            else if (!WebBrowser.Source.AbsoluteUri.Contains("edge://"))
+            {
+                ShowOfflinePage();
+                netIconLoadIndicator.Opacity = 0.3;
+                netIcon.Opacity = 0;
+                while (isOffline == true)
                 {
-                    offlinePage.Visibility = Visibility.Visible;
-                    bool isOffline = true;
-                    while (isOffline == true)
+                    
+                    await Task.Delay(1000);
+                    // checks current connection status with glyphs to represent
+                    if (NetworkHelper.Instance.ConnectionInformation.ConnectionType.ToString() == "Unknown")
                     {
-                        await Task.Delay(1000);
-                        if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == true)
-                        {
+                        pcToNet.Value = 0;
+                        netIconLoadIndicator.Opacity = 0;
+                        netIcon.Glyph = "\uEA39";
+                        netIcon.Opacity = 0.3;
+                    }
 
-                            WebBrowser.Reload();
-                            WebBrowser.Visibility = Visibility.Collapsed;
-                            isOffline = false;
+                    // check if Internet is back
+                    if (NetworkHelper.Instance.ConnectionInformation.IsInternetAvailable == true)
+                    {
+                        WebBrowser.Reload();
 
-                            new ToastContentBuilder()
-                               .AddArgument("action", "viewConversation")
-                               .AddArgument("conversationId", 9813)
-                                   .AddButton(new ToastButton()
-                                   .SetContent("Dismiss"))
-                               .AddText("You're now online!")
-                               .AddText("The Internet connection has been restored. You can now continue browsing.")
-                               .AddAttributionText("via Radon Browser")
-                               .AddAppLogoOverride(new Uri("ms-appx:///Assets/StoreLogo.scale-100.png"), ToastGenericAppLogoCrop.Circle)
-                               .Show();
-                            await Task.Delay(500);
-                            
-                        }
+                        isOffline = false;
+                        new ToastContentBuilder()
+                           .AddArgument("action", "viewConversation")
+                           .AddArgument("conversationId", 9813)
+                               .AddButton(new ToastButton()
+                               .SetContent("Dismiss"))
+                           .AddText("You're now online!")
+                           .AddText("The Internet connection has been restored. You can now continue browsing.")
+                           .AddAttributionText("via Radon Browser")
+                           .AddAppLogoOverride(new Uri("ms-appx:///Assets/StoreLogo.scale-100.png"), ToastGenericAppLogoCrop.Circle)
+                           .Show();
+                        await Task.Delay(500);
+
                     }
                 }
-            }
 
+            }
+        }
+        private async void HideOfflinePage()
+        {
+            offlinePage.Opacity = 0;
+            await Task.Delay(500);
+            offlinePage.Visibility = Visibility.Collapsed;
+        }
+        private void ShowOfflinePage()
+        {
+            netIconLoadIndicator.Opacity = 0.3;
+            netIcon.Opacity = 0;
+            offlinePage.Opacity = 1;
+            offlinePage.Visibility = Visibility.Visible;
         }
         public async Task GoTo(string url)
         {

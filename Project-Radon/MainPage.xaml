@@ -805,7 +805,7 @@
                                                         </Button>
                                                         <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
 
-                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                        <Button x:Name="experiments" Click="experiments_Click" Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                             HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
                                                                 <FontIcon Glyph="&#xf1ad;" FontSize="15"/>

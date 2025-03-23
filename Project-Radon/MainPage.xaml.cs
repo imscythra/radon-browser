@@ -813,5 +813,10 @@ namespace Yttrium_browser
             }
             actionMsg.IsOpen = false;
         }
+
+        private void experiments_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

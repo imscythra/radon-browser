@@ -1,0 +1,52 @@
+﻿<ContentDialog
+    x:Class="Project_Radon.Views.oobe3pfpdialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project_Radon.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" CornerRadius="6" RequestedTheme="Dark" Background="#050505">
+
+    <Grid>
+        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Pick an image"/>
+        <ScrollViewer Margin="0,48,0,0" >
+            <StackPanel Spacing="4">
+                <StackPanel Padding="24,8,24,0" CornerRadius="4" Background="#101010">
+                    <TextBlock x:Name="pfpDisplayText" Style="{ThemeResource BaseTextBlockStyle}" Text="None"/>
+                    <GridView x:Name="pfpPicker" SelectionChanged="pfpPicker_SelectionChanged" SelectedIndex="0" Margin="0,16,0,0">
+                        <GridView.Items>
+                            <Image Source="ms-appx:///accountpictures/default.png" Tag="Default" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/ball.png" Tag="Ball" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/bot.png" Tag="Bot" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/butterfly.png" Tag="Butterfly" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/car.png" Tag="Car" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/clippy.png" Tag="Clippy" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/cool duck.png" Tag="Cool Duck" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/crayon.png" Tag="Crayon" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/fish.png" Tag="Fish" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/gift.png" Tag="Gift" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/guitar.png" Tag="Guitar" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/stairs.png" Tag="Stairs" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/starfish.png" Tag="Starfish" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/sunflower.png" Tag="Sunflower" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/vinyl.png" Tag="Vinyl" Stretch="UniformToFill" Width="80" Height="80"/>
+                            <Image Source="ms-appx:///accountpictures/window.png" Tag="Window" Stretch="UniformToFill" Width="80" Height="80"/>
+                        </GridView.Items>
+                    </GridView>
+                </StackPanel>
+                <Grid Background="#101010" Padding="24" CornerRadius="4">
+                    <StackPanel Orientation="Horizontal" Spacing="8" Opacity="0.5">
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8B9;" />
+                        <StackPanel>
+                            <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Pick a custom image"/>
+                            <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="Browse for an image from your PC."/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button HorizontalAlignment="Right" IsEnabled="False" Content="Coming soon"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Button x:Name="closeButton" Click="closeButton_Click" FontWeight="SemiBold" Content="Done" VerticalAlignment="Top"
+                HorizontalAlignment="Right" Style="{ThemeResource AccentButtonStyle}"/>
+    </Grid>
+</ContentDialog>

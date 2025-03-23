@@ -57,7 +57,7 @@ namespace Project_Radon.Settings
             localSettings.Values["username"] = username_textbox.Text;
             localSettings.Values["email"] = username_textbox.Text;
             username_Header.Text = username_textbox.Text;
-            this.Frame.Navigate(typeof(MainPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            this.Frame.Navigate(typeof(oobe6), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

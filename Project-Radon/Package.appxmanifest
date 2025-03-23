@@ -57,7 +57,7 @@
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.protocol">
+        <uap:Extension Category="windows.protocol" StartPage="MainPage">
           <uap:Protocol Name="radon">
             <uap:DisplayName>Project Radon</uap:DisplayName>
             <uap:Logo>Project Radon.png</uap:Logo>

@@ -14,6 +14,8 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Project_Radon.Views;
+using Windows.UI.Xaml.Media.Animation;
+using Yttrium_browser;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,10 +35,19 @@ namespace Project_Radon.Settings
             coreTitleBar.ExtendViewIntoTitleBar = true;
         }
 
-        private void eulaBtn_Click(object sender, RoutedEventArgs e)
+        private void hostFrame_Loaded(object sender, RoutedEventArgs e)
         {
-            eulaDialog dialog = new eulaDialog();
-            dialog.ShowAsync();
+            hostFrame.Navigate(typeof(WelcomeScreen), null, new DrillInNavigationTransitionInfo());
+        }
+
+        private void debugSkip_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void oobeTitleBar_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window.Current.SetTitleBar(oobeTitleBar);
         }
     }
 }

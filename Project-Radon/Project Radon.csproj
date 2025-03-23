@@ -161,7 +161,19 @@
     <Compile Include="Settings\oobe6.xaml.cs">
       <DependentUpon>oobe6.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\oobeHost.xaml.cs">
+    <Compile Include="Views\oobe2.xaml.cs">
+      <DependentUpon>oobe2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\oobe3.xaml.cs">
+      <DependentUpon>oobe3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\oobe3pfpdialog.xaml.cs">
+      <DependentUpon>oobe3pfpdialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\oobe4.xaml.cs">
+      <DependentUpon>oobe4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\oobeHost.xaml.cs">
       <DependentUpon>oobeHost.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings\RadonSettings.xaml.cs">
@@ -182,8 +194,8 @@
     <Compile Include="Settings\UserProfileDialog.xaml.cs">
       <DependentUpon>UserProfileDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings\WelcomeScreen.xaml.cs">
-      <DependentUpon>WelcomeScreen.xaml</DependentUpon>
+    <Compile Include="Views\oobe1.xaml.cs">
+      <DependentUpon>oobe1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\eulaDialog.xaml.cs">
       <DependentUpon>eulaDialog.xaml</DependentUpon>
@@ -207,13 +219,14 @@
     <Content Include="accountpictures\car.png" />
     <Content Include="accountpictures\clippy.png" />
     <Content Include="accountpictures\crayon.png" />
+    <Content Include="accountpictures\default.png" />
     <Content Include="accountpictures\sunflower.png" />
-    <Content Include="accountpictures\duckcool.png" />
+    <Content Include="accountpictures\cool duck.png" />
     <Content Include="accountpictures\fish.png" />
-    <Content Include="accountpictures\goofywindow.png" />
+    <Content Include="accountpictures\window.png" />
     <Content Include="accountpictures\guitar.png" />
-    <Content Include="accountpictures\music.png" />
-    <Content Include="accountpictures\present.png" />
+    <Content Include="accountpictures\vinyl.png" />
+    <Content Include="accountpictures\gift.png" />
     <Content Include="accountpictures\stairs.png" />
     <Content Include="accountpictures\starfish.png" />
     <Content Include="Assets\BadgeLogo.scale-100.png" />
@@ -411,7 +424,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\oobeHost.xaml">
+    <Page Include="Views\oobe2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\oobe3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\oobe3pfpdialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\oobe4.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\oobeHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -439,7 +468,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Settings\WelcomeScreen.xaml">
+    <Page Include="Views\oobe1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

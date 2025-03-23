@@ -5,14 +5,17 @@
     xmlns:local="using:Project_Radon.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Dark"
-    Margin="0,40,0,40" CornerRadius="6" Background="#101010" Width="600">
+    mc:Ignorable="d" RequestedTheme="Dark" VerticalContentAlignment="Top" VerticalAlignment="Top"
+    Margin="0,20,0,40" CornerRadius="6" Background="#101010" Width="600">
 
-    <Grid>
-        <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">End-user license agreements</TextBlock>
+    <Grid VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" Spacing="16" VerticalAlignment="Top">
+            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEE56;" />
+            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">End-user license agreements</TextBlock>
+        </StackPanel>
         <Button x:Name="closeBtn" Style="{ThemeResource AccentButtonStyle}" Content="Close" Click="closeBtn_Click" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-        <Grid Margin="0,48,0,0">
-            <ScrollViewer Grid.Column="1" Padding="0,20" CornerRadius="8" BorderThickness="1" BorderBrush="{ThemeResource SystemBaseLowColor}">
+        <Grid Margin="0,48,0,0" MaxHeight="400">
+            <ScrollViewer Grid.Column="1" Padding="0,20" CornerRadius="8" BorderThickness="1" BorderBrush="{ThemeResource SystemBaseLowColor}" Background="{ThemeResource SystemAltMediumLowColor}">
                 <StackPanel CornerRadius="8">
 
                     <TextBlock x:Name="LicenseTextBox" IsTextSelectionEnabled="True" TextAlignment="Justify" TextWrapping="WrapWholeWords" Margin="30,20,30,0" Text="Getting license..."/>
