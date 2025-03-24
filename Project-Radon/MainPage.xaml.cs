@@ -113,8 +113,10 @@ namespace Yttrium_browser
             }
 
             // TODO: Add logics to initiate update announcements
-            ShowUpdateAnnouncement();
+            // ShowUpdateAnnouncement();
 
+            // TODO: Download prompt debug, remove after done debugging
+            new DownloadPrompt().ShowAsync();
         }
 
         private async void ShowUpdateAnnouncement()

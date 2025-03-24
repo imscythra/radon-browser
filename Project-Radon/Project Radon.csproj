@@ -119,6 +119,9 @@
     <Compile Include="Helpers\ConfirmExitDialog.xaml.cs">
       <DependentUpon>ConfirmExitDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DownloadPrompt.xaml.cs">
+      <DependentUpon>DownloadPrompt.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -369,6 +372,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Helpers\ConfirmExitDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Helpers\DownloadPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

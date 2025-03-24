@@ -81,7 +81,7 @@ namespace Yttrium_browser
                 {
                     ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
-                    rootFrame.Navigate(typeof(oobeHost), null);
+                    rootFrame.Navigate(typeof(MainPage), null);
 
                     // profile check mechanisms
                     //string username = localSettings.Values["username"] as string;
