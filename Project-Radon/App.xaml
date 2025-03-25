@@ -9,6 +9,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
+                <ResourceDictionary Source="ms-appx:///Cube.UI/Resources/ResourcesHub.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/TabViewItem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Thickness x:Key="TabViewItemAddButtonContainerPadding">3,0,0,8</Thickness>

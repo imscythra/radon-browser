@@ -543,6 +543,12 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cube.UI\Cube.UI.csproj">
+      <Project>{3a46be0f-ab80-40ec-955d-2f97cb1ba4f2}</Project>
+      <Name>Cube.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
