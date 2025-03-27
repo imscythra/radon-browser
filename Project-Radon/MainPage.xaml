@@ -225,7 +225,7 @@
             </StackPanel>
 
             <!-- SSL certification icon-->
-            <Button x:Name="SSLButton"
+            <Button x:Name="SSLButton" Style="{ThemeResource ToolbarButton}"
                     VerticalAlignment="Center"
                     Grid.Column="1" CornerRadius="40"
                     Margin="44,2,0,0"
