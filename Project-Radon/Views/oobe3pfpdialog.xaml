@@ -5,7 +5,7 @@
     xmlns:local="using:Project_Radon.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" CornerRadius="6" RequestedTheme="Dark" Background="#050505">
+    mc:Ignorable="d" CornerRadius="6" Background="#050505">
 
     <Grid>
         <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Pick an image"/>

@@ -6,10 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    RequestedTheme="Dark"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls" Background="Transparent">
 
-    <Grid Background="#050505" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="600" Margin="16"
+    <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="600" Margin="16"
           CornerRadius="6" BorderBrush="{ThemeResource AcrylicInAppFillColorDefaultBrush}" BorderThickness="1">
         <Button x:Name="backBtn" Click="backBtn_Click" CornerRadius="48" Padding="8" VerticalAlignment="Top" Margin="16,32" Background="Transparent"
                 BorderBrush="Transparent">
@@ -21,7 +20,7 @@
             <TextBlock Text="Radon has got some massive upgrades including a revamped profile management and a whole set of new features. If you're interested, you can decide to start off fresh to try the new experience."
                        TextWrapping="Wrap" Opacity="0.8"/>
             <GridView x:Name="selectionBox" Margin="0,16,0,8" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
-                      SelectedIndex="0" Background="#080808" CornerRadius="6" Padding="8">
+                      SelectedIndex="0" Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}" CornerRadius="6" Padding="8">
                 <GridView.Items>
                     <Grid Padding="24,12" HorizontalAlignment="Stretch">
                         <Image Source="ms-appx:///Assets/rocket.png" Width="60" HorizontalAlignment="Left"/>

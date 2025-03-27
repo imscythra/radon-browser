@@ -5,12 +5,12 @@
     xmlns:local="using:Project_Radon.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Dark"
+    mc:Ignorable="d"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
     xmlns:ui="using:CommunityToolkit.WinUI"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls" Background="Transparent">
 
-    <Grid Background="#050505" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="500" Margin="16"
+    <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="500" Margin="16"
           CornerRadius="6" BorderBrush="{ThemeResource AcrylicInAppFillColorDefaultBrush}" BorderThickness="1">
         <Button x:Name="backBtn" Click="backBtn_Click" CornerRadius="48" Padding="8" VerticalAlignment="Top" Margin="16,32" Background="Transparent"
                 BorderBrush="Transparent">

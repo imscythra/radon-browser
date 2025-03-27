@@ -8,8 +8,8 @@
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:materials="using:Project_Radon.Materials"
-    RequestedTheme="Dark"
-    Background="#000000">
+    x:Name="dbgTarget"
+    Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}">
 
     <Grid>
         <Grid x:Name="oobeTitleBar" VerticalAlignment="Top" Padding="0,8" Loaded="oobeTitleBar_Loaded" Canvas.ZIndex="1" Background="Transparent">
@@ -29,5 +29,6 @@
         </Frame>
         <Button x:Name="debugSkip" Click="debugSkip_Click" Content="Skip (debug only)" HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" Style="{ThemeResource TextBlockButtonStyle}" FontWeight="SemiBold" FontSize="12"/>
+        <Button x:Name="debugTheme" Click="debugTheme_Click" Content="Switch theme" VerticalAlignment="Bottom" Background="Transparent"/>
     </Grid>
 </Page>

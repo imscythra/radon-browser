@@ -5,7 +5,7 @@
     xmlns:local="using:Project_Radon.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Dark"
+    mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls" Background="Transparent">
 
     <Grid>
@@ -14,12 +14,12 @@
             <TextBlock FontSize="24" FontWeight="SemiBold" TextAlignment="Center"
             Text="Welcome to the new"/>
             <TextBlock FontSize="48" FontWeight="SemiBold" TextAlignment="Center"
-Text="Radon." Foreground="#f337e3"/>
-            <TextBlock FontSize="20" Opacity="0.7" FontStyle="Italic" TextAlignment="Center"
-Text="Where elegance meets beauty." FontWeight="Light"/>
+Text="Radon." Foreground="DeepPink"/>
+            <TextBlock FontSize="20" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontStyle="Italic" TextAlignment="Center"
+Text="Where elegance meets beauty." FontWeight="SemiLight"/>
             <CheckBox x:Name="eulaCheckBox" Click="eulaCheckBox_Click" HorizontalAlignment="Center" Margin="32">
                 <Button x:Name="eulaBtn" Click="eulaBtn_Click" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center">
-                    <TextBlock Foreground="{ThemeResource SystemAccentColorLight2}" FontWeight="SemiBold"
+                    <TextBlock Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" FontWeight="SemiBold"
                     Text="I agree to the end-user license agreements."/>
                 </Button>
             </CheckBox>

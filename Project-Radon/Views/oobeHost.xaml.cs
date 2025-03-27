@@ -49,5 +49,10 @@ namespace Project_Radon.Settings
         {
             Window.Current.SetTitleBar(oobeTitleBar);
         }
+
+        private void debugTheme_Click(object sender, RoutedEventArgs e)
+        {
+            dbgTarget.RequestedTheme = dbgTarget.RequestedTheme == ElementTheme.Light ? ElementTheme.Dark : ElementTheme.Light;
+        }
     }
 }
