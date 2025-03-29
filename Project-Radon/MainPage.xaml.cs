@@ -36,6 +36,10 @@ using Windows.ApplicationModel.Contacts;
 using Project_Radon.Views;
 using Windows.ApplicationModel.DataTransfer;
 using System.Data.SqlClient;
+using Project_Radon.Contracts.Services;
+using Project_Radon.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Project_Radon.Models;
 
 namespace Yttrium_browser
 {
@@ -45,13 +49,22 @@ namespace Yttrium_browser
         string GoogleSignInUserAgent;
         public static string SearchValue;
         private readonly ObservableCollection<BrowserTabViewItem> CurrentTabs = new ObservableCollection<BrowserTabViewItem>();
+
+        public MainPageViewModel ViewModel { get; }
         public MainPage()
         {
+            ViewModel = App.Current.Services.GetService<MainPageViewModel>();
+
             InitializeComponent();
+        
             CurrentTabs.Add(new BrowserTabViewItem());
             CurrentTabs[0].Tab.PropertyChanged += SelectedTabPropertyChanged;
 
             Window.Current.CoreWindow.Activated += CoreWindow_Activated;
+            Window.Current.CoreWindow.Closed += (s, e) => {
+                //save last instance of history from the last tab
+                ViewModel._SettingService.HistoryStore = ViewModel.MyHistory;
+            };
 
             // TitleBar customizations
 
@@ -116,7 +129,7 @@ namespace Yttrium_browser
             // ShowUpdateAnnouncement();
 
             // TODO: Download prompt debug, remove after done debugging
-            new DownloadPrompt().ShowAsync();
+            //new DownloadPrompt().ShowAsync();
         }
 
         private async void ShowUpdateAnnouncement()
@@ -818,6 +831,18 @@ namespace Yttrium_browser
 
         private void experiments_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private async void HistoryPanel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (sender is FrameworkElement element && element.DataContext is HistoryModel item)
+            {
+                await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(item.TheUrl.AbsoluteUri);
+            }
+
+            RadonOverflowMenu.Hide();
+            e.Handled = true;
 
         }
     }

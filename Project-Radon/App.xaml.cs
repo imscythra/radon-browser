@@ -18,6 +18,17 @@ using Project_Radon.Controls;
 using Windows.UI.WindowManagement;
 using Windows.UI.Popups;
 using Project_Radon.Helpers;
+using Windows.UI.Core;
+using CommunityToolkit.Mvvm.Messaging;
+using Project_Radon.Contracts.Services;
+using Project_Radon.ViewModels;
+using System.IO;
+using System.Reflection;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using Project_Radon.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 // TODO: Import Cubekit.UI (Firecube's GlowUI refer https://github.com/FireCubeStudios/TemplateApp)
 
@@ -26,12 +37,28 @@ namespace Yttrium_browser
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
+    
+
     sealed partial class App : Application
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+
+        public static new App Current => (App)Application.Current;
+        public CoreWindow? MainWindow => CoreWindow.GetForCurrentThread();
+        public IServiceProvider Services { get; set; }
+
+        public static T GetService<T>() where T : class
+        {
+            return App.Current is null || App.Current.Services is null
+                ? throw new NullReferenceException("Application or Services are not properly initialized.")
+                : App.Current.Services.GetService(typeof(T)) is not T service
+                ? throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.")
+                : service;
+        }
+
         public App()
         {
             InitializeComponent();
@@ -45,6 +72,12 @@ namespace Yttrium_browser
                 App.Current.RequestedTheme = (ApplicationTheme)(int)value;
             }
 
+            var pathToUDF = ApplicationData.Current.LocalFolder.Path;
+
+            Environment.SetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER", pathToUDF + @"\RadonBrowser\");
+
+            SetupCoreFolders().ConfigureAwait(false);
+
         }
 
         /// <summary>
@@ -54,6 +87,9 @@ namespace Yttrium_browser
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
+            Services = App.Current.ConfigureServices();
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -179,6 +215,132 @@ namespace Yttrium_browser
                 // TODO: Show the corresponding content
                 
             }
+        }
+
+        static int tryCount = 0;
+        private Task SetupCoreFolders()
+        {
+
+
+            if (tryCount > 2)
+                return Task.FromException(new Exception("Radon Browser core folders can't be create in you documents"));
+
+            tryCount++;
+
+            var path = Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER");
+
+            if (path != null)
+            {
+                if (Directory.Exists(path))
+                {
+
+                    if (!Directory.Exists(Path.Combine(path, "Favorites")))
+                    {
+                        _ = Directory.CreateDirectory(Path.Combine(path, "Favorites"));
+
+                        if (!File.Exists(Path.Combine(path, "Favorites\\favorites.json")))
+                        {
+                            using (var fs = File.Create(Path.Combine(path, "Favorites\\favorites.json"))) { };
+                        }
+                    }
+
+                    if (!Directory.Exists(Path.Combine(path, "History")))
+                    {
+                        _ = Directory.CreateDirectory(Path.Combine(path, "History"));
+
+                        if (!File.Exists(Path.Combine(path, "History\\history.json")))
+                        {
+                            using (var fs = File.Create(Path.Combine(path, "History\\history.json"))) { };
+                        }
+                    }
+
+                    if (!Directory.Exists(Path.Combine(path, "Settings")))
+                    {
+                        _ = Directory.CreateDirectory(Path.Combine(path, "Settings"));
+
+                        if (!File.Exists(Path.Combine(path, "Settings\\settings.json")))
+                        {
+
+                            var AppSettings = new RadonAppSettings() { DefaultSearchProvider = 0, HomeUrl = new Uri("https://google.com"), IsLocationOnOff = false, SideKick = false };
+
+                            if (File.Exists(Path.Combine(path, "Settings", "settings.json")))
+                            {
+                                FileInfo fileInfo = new FileInfo(Path.Combine(path, "settings", "settings.json"));
+                                if (fileInfo.Length <= 0)
+                                {
+
+                                    File.WriteAllText(Path.Combine(path, "settings", "settings.json"), JsonConvert.SerializeObject(AppSettings));
+                                }
+                            }
+                            else
+                            {
+                                using (var file = File.Create(Path.Combine(path, "Settings", "settings.json")))
+                                {
+
+                                    byte[] data = new System.Text.UTF8Encoding(true).GetBytes(JsonConvert.SerializeObject(AppSettings));
+                                    file.Write(data, 0, data.Length);
+
+                                }
+
+                            }
+
+
+                        }
+                    }
+
+                    if (!Directory.Exists(Path.Combine(path, "WebView")))
+                    {
+
+                        _ = Directory.CreateDirectory(Path.Combine(path, "WebView"));
+
+                        if (!File.Exists(Path.Combine(path, "WebView\\view.png")))
+                            using (var fs = File.Create(Path.Combine(path, "WebView\\view.png"))) { };
+
+                    }
+
+                }
+                else
+                {
+                    _ = Directory.CreateDirectory(path);
+                    SetupCoreFolders().ConfigureAwait(false);
+                }
+
+            }
+            return Task.CompletedTask;
+        }
+        public static string Get_Appx_AssemblyDirectory(Assembly assembly)
+        {
+            string assemblyLocation = assembly.Location;
+            string directoryPath = Path.GetDirectoryName(assemblyLocation);
+
+            return directoryPath ?? throw new DirectoryNotFoundException("Publish directory not found");
+
+        }
+        public static string GetFullPathToExe()
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            int pos = path.LastIndexOf("\\");
+            return path.Substring(0, pos);
+        }
+
+        public static string GetFullPathToAsset(string assetName)
+        {
+            return GetFullPathToExe() + "\\Assets\\" + assetName;
+        }
+        private System.IServiceProvider ConfigureServices()
+        {
+            // TODO WTS: Register your services, viewmodels and pages here
+            var services = new ServiceCollection();
+            // Default Activation Handler
+            _ = services.AddSingleton<ISettingsService, SettingsService>();
+            _ = services.AddSingleton<IWebViewService, WebViewService>();
+            _ = services.AddTransient<MainPageViewModel>();
+            // Core Services
+            _ = services.AddSingleton<WeakReferenceMessenger>();
+            _ = services.AddSingleton<IMessenger, WeakReferenceMessenger>(provider =>
+                provider.GetRequiredService<WeakReferenceMessenger>());
+
+            return services.BuildServiceProvider();
         }
     }
 }
