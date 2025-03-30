@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Project_Radon.Contracts.Services;
+using System;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,8 +12,11 @@ namespace Yttrium
 {
     public sealed partial class UserProfileDialog : ContentDialog
     {
+        private readonly ISettingsService settingsService;
         public UserProfileDialog()
         {
+            settingsService = Yttrium_browser.App.Current.Services.GetService<ISettingsService>();
+
             InitializeComponent();
         }
 
@@ -25,9 +30,8 @@ namespace Yttrium
 
         private void ContentDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            String username = localSettings.Values["username"] as string;
-            Username_Display.Text = username;
+            
+            Username_Display.Text = settingsService.AppSettings.Username;
         }
 
         private void pfpchanged_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,8 +43,8 @@ namespace Yttrium
 
         private void updateprofile_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationData.Current.LocalSettings.Values["username"] = username_box.Text;
-            Username_Display.Text = username_box.Text;
+
+            Username_Display.Text = settingsService.AppSettings.Username;  
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -50,14 +54,14 @@ namespace Yttrium
 
         private void debug_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationData.Current.LocalSettings.Values["username"] = null;
-            Username_Display.Text = username_box.Text;
+            
+            Username_Display.Text = settingsService.AppSettings.Username; 
         }
 
         private void KeyboardAccelerator_Invoked(Windows.UI.Xaml.Input.KeyboardAccelerator sender, Windows.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs args)
         {
-            ApplicationData.Current.LocalSettings.Values["username"] = null;
-            Username_Display.Text = username_box.Text;
+            
+            Username_Display.Text = settingsService.AppSettings.Username;
         }
     }
 }

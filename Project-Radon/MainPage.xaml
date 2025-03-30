@@ -6,10 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:models="using:Project_Radon.Models"
     xmlns:tenmica="using:TenMica"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls" xmlns:models="using:Project_Radon.Models"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     x:Name="MainWindow"
     DataContext="BrowserTabViewModel"
     mc:Ignorable="d">

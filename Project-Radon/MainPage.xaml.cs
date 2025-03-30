@@ -56,7 +56,7 @@ namespace Yttrium_browser
             ViewModel = App.Current.Services.GetService<MainPageViewModel>();
 
             InitializeComponent();
-        
+
             CurrentTabs.Add(new BrowserTabViewItem());
             CurrentTabs[0].Tab.PropertyChanged += SelectedTabPropertyChanged;
 
@@ -66,23 +66,24 @@ namespace Yttrium_browser
                 ViewModel._SettingService.HistoryStore = ViewModel.MyHistory;
             };
 
-            // TitleBar customizations
-
-
-
+            
             profileCheck();
 
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
             //load theme settings
-            String colorthemevalue = localSettings.Values["appcolortheme"] as string;
-            appthemebackground.Source = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/" + colorthemevalue + ".png" })));
-            fullscreentopbarbackground.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/" + colorthemevalue + ".png" })));
-
+            
+            string colorthemevalue = ViewModel._SettingService.AppSettings.AppColorTheme;
+            string wallpaperPath = $"ms-appx:///wallpapers/{colorthemevalue}.png";
+            appthemebackground.Source = new BitmapImage(new Uri(wallpaperPath));
+            fullscreentopbarbackground.ImageSource = new BitmapImage(new Uri(wallpaperPath));
             //load Inline Mode settings
-            String inlineMode = localSettings.Values["inlineMode"] as string;
-            if (inlineMode == "True")
+            
+            if (ViewModel._SettingService.AppSettings.InlineMode)
             {
+                var inlineMode = ViewModel._SettingService.AppSettings.InlineMode;
+                compactuibar.Visibility = inlineMode ? Visibility.Visible : Visibility.Collapsed;
+                DefaultBarUI.Height = inlineMode ? new Windows.UI.Xaml.GridLength(0) : new Windows.UI.Xaml.GridLength(40);
+                BrowserTabs.TabWidthMode = inlineMode ? TabViewWidthMode.Compact : TabViewWidthMode.Equal;
+                compacttitlebar_rightpadding.Visibility = inlineMode ? Visibility.Visible : Visibility.Collapsed;
                 compactuibar.Visibility = Visibility.Visible;
                 DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(0);
 
@@ -101,9 +102,9 @@ namespace Yttrium_browser
 
             //load titlebar settings
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            String systemTitleBar = localSettings.Values["systemTitleBar"] as string;
+            
 
-            if (systemTitleBar == "True")
+            if (ViewModel._SettingService.AppSettings.SystemTitleBar)
             {
                 coreTitleBar.ExtendViewIntoTitleBar = false;
 
@@ -113,16 +114,15 @@ namespace Yttrium_browser
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 titleBar.BackgroundColor = Colors.Transparent;
 
-                localSettings.Values["systemTitleBar"] = "True";
+                ViewModel._SettingService.AppSettings.SystemTitleBar = true;
             }
-
             else
             {
                 var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
                 coreTitleBar.ExtendViewIntoTitleBar = true;
 
-                localSettings.Values["systemTitleBar"] = "False";
+                ViewModel._SettingService.AppSettings.SystemTitleBar = false; 
             }
 
             // TODO: Add logics to initiate update announcements
@@ -148,11 +148,8 @@ namespace Yttrium_browser
 
         private void profileCheck()
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
-            // profile check mechanisms
-            string username = localSettings.Values["username"] as string;
-            if (username == null)
+            
+            if (ViewModel._SettingService.AppSettings.Username == null)
             {
                 //this.Frame.Navigate(typeof(oobe1), null);
             }
@@ -618,8 +615,7 @@ namespace Yttrium_browser
 
         private void tabaction_inline_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
+            
             if (compactuibar.Visibility == Visibility.Collapsed)
             {
                 compactuibar.Visibility = Visibility.Visible;
@@ -628,7 +624,7 @@ namespace Yttrium_browser
                 BrowserTabs.TabWidthMode = TabViewWidthMode.Compact;
                 compacttitlebar_rightpadding.Visibility = Visibility.Visible;
 
-                localSettings.Values["inlineMode"] = "True";
+                ViewModel._SettingService.AppSettings.InlineMode = true;    
             }
 
             else
@@ -640,7 +636,7 @@ namespace Yttrium_browser
 
                 compacttitlebar_rightpadding.Visibility = Visibility.Collapsed;
 
-                localSettings.Values["inlineMode"] = "False";
+                ViewModel._SettingService.AppSettings.InlineMode = false;
             }
         }
 
@@ -656,9 +652,9 @@ namespace Yttrium_browser
 
         private void tabaction_titlebar_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
+            
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+
             if (coreTitleBar.ExtendViewIntoTitleBar == true)
             {
                 coreTitleBar.ExtendViewIntoTitleBar = false;
@@ -669,7 +665,8 @@ namespace Yttrium_browser
                 titleBar.ButtonInactiveBackgroundColor = null;
                 titleBar.BackgroundColor = null;
 
-                localSettings.Values["systemTitleBar"] = "True";
+                ViewModel._SettingService.AppSettings.SystemTitleBar = true;
+                
             }
 
             else
@@ -681,7 +678,8 @@ namespace Yttrium_browser
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
                 titleBar.BackgroundColor = null;
 
-                localSettings.Values["systemTitleBar"] = "False";
+                ViewModel._SettingService.AppSettings.SystemTitleBar = false;
+
             }
         }
 
@@ -694,9 +692,8 @@ namespace Yttrium_browser
 
         private void ThemePickerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["appcolortheme"] = (ThemePickerComboBox.SelectedItem as ComboBoxItem).Content.ToString();
-
+            ViewModel._SettingService.AppSettings.AppColorTheme 
+                = (ThemePickerComboBox.SelectedItem as ComboBoxItem).Content.ToString();
 
             appthemebackground.Source = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/", (ThemePickerComboBox.SelectedItem as ComboBoxItem).Content.ToString(), ".png" })));
 
@@ -744,12 +741,9 @@ namespace Yttrium_browser
 
         private void profileCenter_Opened(object sender, object e)
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            String localValue = localSettings.Values["username"] as string;
-
-            if (localValue != null)
+            if (ViewModel._SettingService.AppSettings.Username is not null)
             {
-                profileCenter_UsernameHeader.Text = localValue;
+                profileCenter_UsernameHeader.Text = ViewModel._SettingService.AppSettings.Username;
             }
             else {
                 // this.Frame.Navigate(typeof(oobe1), null, new EntranceNavigationTransitionInfo());
@@ -810,8 +804,7 @@ namespace Yttrium_browser
 
         private async void continueonmobileBtn_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["qrUrl"] = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri.ToString();
+            ViewModel._SettingService.AppSettings.QRCodeUrl = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri.ToString();
 
             qrcodedialog dialog = new qrcodedialog();
             controlCenterButton.Flyout.Hide();

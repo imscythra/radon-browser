@@ -21,6 +21,7 @@ using System.Collections.Generic;
 
 namespace Project_Radon.Services
 {
+
     interface IAppSettings
     {
 
@@ -59,7 +60,18 @@ namespace Project_Radon.Services
         public bool TitleBarPinned { get; set; }
         public string HomeUrlString { get; set; }
         
+        public string AppColorTheme { get; set;  }
 
+        public bool InlineMode { get; set;  }
+
+        public bool SystemTitleBar { get; set; }
+
+        public string Username { get; set; }
+
+        public string QRCodeUrl { get; set; }
+        public string ProfilePicture { get; set; }  
+        public string OpenUrl { get; set; }
+        public int AppThemeSetting { get; set; }
     }
 
     class SettingsService : ISettingsService
@@ -365,7 +377,7 @@ namespace Project_Radon.Services
         {
             get
             {
-                return historyModels;   
+                return historyModels?.OrderByDescending(t=> t.DateTime).ToObservableCollection() ?? new();   
 
                 //var result = ReadHistory<ObservableCollection<HistoryModel>>().GetAwaiter().GetResult();
                 //return result ?? new ObservableCollection<HistoryModel>();
@@ -383,7 +395,98 @@ namespace Project_Radon.Services
             }
         }
 
-        
+        public string OpenUrl
+        {
+            get
+            {
+                return AppSettings.OpenUrl;
+            }
+            set
+            {
+                AppSettings.OpenUrl = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
+
+
+        public string ProfilePicture
+        {
+            get
+            {
+                return AppSettings.ProfilePicture;
+            }
+            set
+            {
+                AppSettings.ProfilePicture = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
+
+
+        public string AppColorTheme
+        {
+            get
+            {
+                return AppSettings.AppColorTheme;
+            }
+            set
+            {
+                AppSettings.AppColorTheme = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
+
+        public bool InlineMode
+        {
+            get
+            {
+                return AppSettings.InlineMode;
+            }
+            set
+            {
+                AppSettings.InlineMode = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
+
+        public bool SystemTileBar
+        {
+            get
+            {
+                return AppSettings.SystemTitleBar;
+            }
+            set
+            {
+                AppSettings.SystemTitleBar = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
+
+        public string Username
+        {
+            get
+            {
+                return AppSettings.Username;
+            }
+            set
+            {
+                AppSettings.Username = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
+
+        public string QRCodeUrl
+        {
+            get
+            {
+                return AppSettings.QRCodeUrl;
+            }
+            set
+            {
+                AppSettings.QRCodeUrl = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
 
         public string HomeUrlString
         {
@@ -507,7 +610,21 @@ namespace Project_Radon.Services
             }
         }
 
-       
+        public int AppThemeSetting
+        {
+
+            get
+            {
+                return AppSettings.AppThemeSetting;
+            }
+            set
+            {
+                AppSettings.AppThemeSetting = value;
+                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
+            }
+        }
+
+
 
 
         public ObservableCollection<Bookmarks> FavoritesStore

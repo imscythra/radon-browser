@@ -59,18 +59,22 @@ namespace Project_Radon.Controls
         public bool IsCoreInitialized { get; private set; }
 
         private readonly IWebViewService viewService;
+        private readonly ISettingsService settingService; 
 
         public BrowserTab()
         {
+            
             InitializeComponent();
+
+            settingService = App.Current.Services.GetService<ISettingsService>();
+            viewService = App.Current.Services.GetService<IWebViewService>(); // App.Current.Services.GetService<IWebViewService>();
+            viewService.Initialize(this.WebBrowser);
 
 
             var options = new CoreWebView2EnvironmentOptions();
             options.AdditionalBrowserArguments = "--edge-webview-optional-enable-uwp-regular-downloads";
 
-            viewService = App.Current.Services.GetService<IWebViewService>(); // App.Current.Services.GetService<IWebViewService>();
-            viewService.Initialize(WebBrowser);
-
+            
             WebBrowser.Source = new Uri("edge://radon-ntp");
 
             //Windows.System.Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
@@ -106,14 +110,13 @@ namespace Project_Radon.Controls
                     }
                 };
             };
-
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            String username = localSettings.Values["username"] as string;
-            if (username != null)
+            
+            
+            if (settingService.AppSettings.Username is not null)
             {
                 ToolTip toolTip = new ToolTip
                 {
-                    Content = username
+                    Content = settingService.AppSettings.Username
                 };
                 ToolTipService.SetToolTip(profileCenterToggle, toolTip);
             }
