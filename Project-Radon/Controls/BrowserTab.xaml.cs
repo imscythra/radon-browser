@@ -87,9 +87,13 @@ namespace Project_Radon.Controls
                 WebBrowser.CoreWebView2.Settings.UserAgent = GoogleSignInUserAgent;
                 WebBrowser.CoreWebView2.DocumentTitleChanged += (_, e) => InvokePropertyChanged();
                 WebBrowser.CoreWebView2.SourceChanged += (_, e) => InvokePropertyChanged();
+                WebBrowser.CoreWebView2.NewWindowRequested += (s, e) =>
+                {
+                    NewTabRequested.Invoke(s, e.Uri);
+                    e.Handled = true;   
+                };
+
                 WebBrowser.CoreWebView2.ContextMenuRequested += async (s, e) =>
-                
-                
                 {
                     IList<CoreWebView2ContextMenuItem> menuList = e.MenuItems;
                     if (e.ContextMenuTarget.HasLinkUri)

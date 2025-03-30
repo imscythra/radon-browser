@@ -1004,6 +1004,7 @@
                                                                         <ListView
                                                                             x:Name="HistoryBack"
                                                                             Width="400"
+                                                                            MaxHeight="600"
                                                                             Margin="2"
                                                                             Background="{ThemeResource MicaDarkBrush}"
                                                                             BorderBrush="{ThemeResource ListBoxBorderThemeBrush}"

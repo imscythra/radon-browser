@@ -131,19 +131,18 @@ namespace Project_Radon.Services
 
         private void HistoryStore_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            
-            __Locker_acids_events.WaitAsync();
-            
-            // this is bubbling up to historyviewmodel and mainpageviewmodel for myhistory collection. need to add to other pages sortly 
-            HistoryCollectionChanged?.Invoke(this, e);
 
-            __Locker_acids_events.Release();    
-
+            lock (historyModels) {
+                WriteHistory(historyModels.Distinct());
+                // this is bubbling up to historyviewmodel and mainpageviewmodel for myhistory collection. need to add to other pages sortly 
+                HistoryCollectionChanged?.Invoke(this, e);
+            }
 
         }
 
         private void FavoritesStore_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            
             __Locker_acids_events.WaitAsync();
 
             FavoritesCollectionChanged?.Invoke(this, e);
@@ -151,6 +150,35 @@ namespace Project_Radon.Services
             __Locker_acids_events.Release();
         }
 
+        public void AddToHistory(string key, string value)
+        {
+            //   throw new NotImplementedException();
+        }
+
+        public void RemoveFromHistory(string key, string value)
+        {
+            //   throw new NotImplementedException();
+        }
+
+        public void AddToHistory(HistoryModel historyItem)
+        {
+            lock (historyModels)
+            {
+                historyModels.Add(historyItem);
+                WriteHistory(historyModels.Distinct());
+                HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, historyItem));
+            }
+        }
+
+        public void RemoveFromHistory(HistoryModel historyItem)
+        {
+            lock (historyModels)
+            {
+                historyModels.Remove(historyItem);
+                WriteHistory(historyModels.Distinct());
+                HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, historyItem));
+            }
+        }
         public void Remove(string key)
         {
             throw new NotImplementedException();
@@ -170,7 +198,7 @@ namespace Project_Radon.Services
                 return false;
             }
         }
-
+        #region FileReadWriteAccessIO
         async Task<T> ReadFavorites<T>()
         {
             string json = "{}";
@@ -202,7 +230,6 @@ namespace Project_Radon.Services
                 throw;
             }
         }
-
         async Task<T> ReadSettings<T>()
         {
             string json = "{}";
@@ -277,7 +304,6 @@ namespace Project_Radon.Services
                 throw;
             }
         }
-
         async void WriteHistory<T>(T history)
         {
             try
@@ -336,8 +362,6 @@ namespace Project_Radon.Services
                 throw;
             }
         }
-        
-
         async Task WriteSettings<T>(T settings)
         {
 
@@ -371,7 +395,10 @@ namespace Project_Radon.Services
 
 
         }
-       
+
+        
+        #endregion
+
         private ObservableCollection<HistoryModel> historyModels = new ObservableCollection<HistoryModel>();
         public ObservableCollection<HistoryModel> HistoryStore
         {
@@ -384,11 +411,13 @@ namespace Project_Radon.Services
             }
             set
             {
-                var obj = new object();
-
-                lock (obj)
+                lock (historyModels)
                 {
-                    historyModels.Add((value as ObservableCollection<HistoryModel>).FirstOrDefault());
+                    historyModels.Clear(); 
+                    foreach(var item in value)
+                    {
+                        historyModels.Add(item); 
+                    }
                     WriteHistory(historyModels.Distinct());
                     HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 }

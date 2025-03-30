@@ -20,18 +20,22 @@ using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using Project_Radon.Helpers;
 using Project_Radon.ViewModels.Providers;
+using Newtonsoft.Json.Linq;
 
 
 
 
 namespace Project_Radon.Services
 {
-    //https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2environment.createasync?view=webview2-dotnet-1.0.2088.41
-    //https://learn.microsoft.com/en-us/microsoft-edge/webview2/get-started/winui
-    //https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.1293.44#createcorewebview2environmentwithoptions
-    //https://www.chromium.org/developers/how-tos/run-chromium-with-flags/
-    //https://peter.sh/experiments/chromium-command-line-switches/
-
+    #region Online Knowledge 
+    /*
+        https://learn.microsoft.com/en-us/dotnet/api/microsoft.web.webview2.core.corewebview2environment.createasync?view=webview2-dotnet-1.0.2088.41
+        https://learn.microsoft.com/en-us/microsoft-edge/webview2/get-started/winui
+        https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl?view=webview2-1.0.1293.44#createcorewebview2environmentwithoptions
+        https://www.chromium.org/developers/how-tos/run-chromium-with-flags/
+        https://peter.sh/experiments/chromium-command-line-switches/
+    */
+    #endregion
 
     public class WebViewService : ObservableObject, IWebViewService
     {
@@ -47,7 +51,6 @@ namespace Project_Radon.Services
         public int UsingSearchProvider { get { return _usingSearProvider; } set { _usingSearProvider = value; SettingsService.DefaultSearchProvider = value; } }
         public bool IsLocationOnOff { get; set; }
 
-
         public string Address =>
             _webView.Source?.AbsoluteUri?.ToString();
         public bool CanGoBack
@@ -59,27 +62,25 @@ namespace Project_Radon.Services
         private Uri _AddressUrl = default;
         public Uri AddressUrl { get { return _AddressUrl; } set { _AddressUrl = value; } }
 
-
-
         private BitmapImage _AddressPicture = new BitmapImage();
         public BitmapImage AddressPicture { get { return _AddressPicture; } set { _AddressPicture = value; } }
 
         private BitmapImage _WebViewPicture = new BitmapImage();
         public BitmapImage WebViewPicture { get { return _WebViewPicture; } set { _WebViewPicture = value; } }
 
-        internal string CorePathWebView { get; set; } = @"WebDiveCore\" + System.Security.Principal.WindowsIdentity.GetCurrent().Name! + @"\WebView\";
+        internal string CorePathWebView { get; set; } = @"RadonCore\" + System.Security.Principal.WindowsIdentity.GetCurrent().Name! + @"\Service_WebviewController\";
 
         public bool NavigationProgress { get; set; }
 
         private readonly ISettingsService SettingsService;
-        
+
         WebView2 IWebViewService.WebView => _webView;
 
         private ObservableCollection<HistoryModel> historyModels = new ObservableCollection<HistoryModel>();
         public ObservableCollection<HistoryModel> HistoryStore { get { return historyModels; } set { historyModels = value; } }
 
         #endregion
-        #region Events
+        #region Events_Handle_Webview2
 
 
         public event EventHandler<CoreWebView2WebErrorStatus> NavigationCompleted;
@@ -100,26 +101,31 @@ namespace Project_Radon.Services
 
         private void SettingsService_HistoryCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    //HistoryStore = SettingsService.HistoryStore;
-                    OnPropertyChanged(nameof(HistoryStore));
-                    break;
-                case NotifyCollectionChangedAction.Move:
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    OnPropertyChanged(nameof(HistoryStore));
-                    break;
-                case NotifyCollectionChangedAction.Replace:
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    HistoryStore = SettingsService.HistoryStore;
-                    OnPropertyChanged(nameof(HistoryStore));
-                    break;
-                default:
-                    break;
+            // Active Instance's HistoryStore will directly -> catch acid effects on collection to update binding. 
+
+            lock (HistoryStore) {
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        //HistoryStore = SettingsService.HistoryStore;
+                        OnPropertyChanged(nameof(HistoryStore));
+                        break;
+                    case NotifyCollectionChangedAction.Move:
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        OnPropertyChanged(nameof(HistoryStore));
+                        break;
+                    case NotifyCollectionChangedAction.Replace:
+                        break;
+                    case NotifyCollectionChangedAction.Reset:
+                        HistoryStore = SettingsService.HistoryStore;
+                        OnPropertyChanged(nameof(HistoryStore));
+                        break;
+                    default:
+                        break;
+                }
             }
+            
         }
 
         public void ChangeServiceProvider(int SearchProvider)
@@ -161,7 +167,8 @@ namespace Project_Radon.Services
                     semaphoreSlim.Release();
                 }
 
-            };
+            }
+            ;
 
         }
 
@@ -192,9 +199,9 @@ namespace Project_Radon.Services
 
                         throw;
                     }
-                    
+
                     return await Task.FromResult(bitmap);
-                    
+
                 }
 
             }
@@ -253,7 +260,6 @@ namespace Project_Radon.Services
 
 
         }
-
         public async Task<HistoryModel> GatherWebViewInfoAsync()
         {
             string title = default;
@@ -305,7 +311,6 @@ namespace Project_Radon.Services
 
 
         }
-
         public BitmapImage Base64StringToBitmap()
         {
             string base64String = @"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQklEQVQ4jWP87if3nwEH4Nz0iLF+FwNO+UY3BkYmXJLEglEDqGAAxYCRYcl7nPHMECPI+H8n7nTA6D6aDgaHARQDAKgRDRsLiHU6AAAAAElFTkSuQmCC";
@@ -347,14 +352,15 @@ namespace Project_Radon.Services
 
         private async void CoreWebView2_HistoryChanged(CoreWebView2 sender, object args)
         {
-            
-            
+
+
             try
             {
                 if (_webView.Source is not null)
                     if (_webView.Source.OriginalString! == "about:blank" || _webView.Source.OriginalString.StartsWith("edge://"))
                         return;
-                    else {
+                    else
+                    {
                         await SaveHistoryToLocalStorageAsync(new HistoryModel(_webView.CoreWebView2?.DocumentTitle, _webView.Source?.AbsoluteUri));
                     }
             }
@@ -364,7 +370,7 @@ namespace Project_Radon.Services
             }
         }
 
-         
+
         private async void OnWebViewNavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
         {
             // wait for loading of page.. 
@@ -383,7 +389,7 @@ namespace Project_Radon.Services
                     try
                     {
                         _webView.Dispatcher?.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,
-                        async () 
+                        async ()
                         =>
                         {
 
@@ -391,30 +397,9 @@ namespace Project_Radon.Services
                             AddressPicture = item.TheContents;
                             AddressUrl = string.IsNullOrEmpty(_webView.CoreWebView2?.FaviconUri) ? new Uri(string.Format("https://www.google.com/s2/favicons?domain_url={0}", _webView.Source.Host.ToString())) : new Uri(_webView.CoreWebView2?.FaviconUri);
 
-                            // TODO: need to account for multiple instance on the Model 2025/3/27
-                            if (HistoryStore.Any(t => t.TheUrl.ToString() == item.TheUrl.AbsoluteUri))
-                            {
-                                var exits = HistoryStore.Where(x => x.TheUrl.ToString() == item.TheUrl.AbsoluteUri).ToList();
-                                if (exits is not null)
-                                {
-                                    var index = exits.Count - 1;
-                                    if (index >= 0)
-                                    {
-
-                                        HistoryStore.RemoveAt(index);
-                                        HistoryStore.Add(item);
-
-
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                HistoryStore.Add(item);
-                            }
-
-
-                            SettingsService.HistoryStore = HistoryStore;
+                            SettingsService.AddToHistory(item);
+                            // internal listener will fire Handlers =>4 subscribers 
+                            // listener will also handle property changes locally. 
                             OnPropertyChanged(nameof(CanGoBack));
                             OnPropertyChanged(nameof(CanGoForward));
                             NavigationCompleted?.Invoke(this, args.WebErrorStatus);
@@ -442,10 +427,13 @@ namespace Project_Radon.Services
             {
                 string jsonItem = JsonConvert.SerializeObject(item);
                 string script = $@"
-                    (function() {{
-                        localStorage.setItem('radon_edge_history', '{jsonItem}');
-                    }})();
-                ";
+                                    (function() {{
+                                        console.log('Saving history to local storage');
+                                        localStorage.setItem('radon_edge_history', '{jsonItem}');
+                                        console.log('History saved');
+                                    }})();
+                                ";
+
                 await _webView.ExecuteScriptAsync(script);
             }
             catch (Exception ex)
@@ -453,17 +441,7 @@ namespace Project_Radon.Services
                 Console.WriteLine($"Error saving history to local storage: {ex.Message}");
             }
         }
-        private void OnWebViewProgressStartingAsync(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
-        {
 
-            NavigateStarted?.Invoke(this, args);
-
-
-        }
-        private void OnWebViewProgressCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
-        {
-            NavigateCompleted?.Invoke(this, args);
-        }
 
 
         public void Initialize(WebView2 webView)
@@ -477,6 +455,16 @@ namespace Project_Radon.Services
             HistoryStore = SettingsService.HistoryStore ?? new ObservableCollection<HistoryModel>();
 
 
+        }
+
+        // scribe for progress rings.
+        private void OnWebViewProgressStartingAsync(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
+        {
+            NavigateStarted?.Invoke(this, args);
+        }
+        private void OnWebViewProgressCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
+        {
+            NavigateCompleted?.Invoke(this, args);
         }
 
         private async void CoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
@@ -500,9 +488,6 @@ namespace Project_Radon.Services
                 }
             }
         }
-
-
-
         private async void CoreWebView2_DOMContentLoaded(CoreWebView2 sender, CoreWebView2DOMContentLoadedEventArgs args)
         {
 
@@ -519,7 +504,6 @@ namespace Project_Radon.Services
             }
 
         }
-
         private async void CoreWebView2_PermissionRequested(CoreWebView2 sender, CoreWebView2PermissionRequestedEventArgs args)
         {
 
@@ -560,16 +544,12 @@ namespace Project_Radon.Services
             }
 
         }
-
         private void CoreWebView2_NewWindowRequested(CoreWebView2 sender, CoreWebView2NewWindowRequestedEventArgs args)
         {
-
+            // generic handle on subscriber let them handle -> abstract in line
             NewWindowRequested?.Invoke(this, args);
 
         }
-
-
-
         public void UnregisterEvents()
         {
             _webView.CoreWebView2?.Stop();
@@ -605,33 +585,17 @@ namespace Project_Radon.Services
             return await _webView.CoreWebView2?.CallDevToolsProtocolMethodAsync("Page.stopLoading", "{}");
         }
 
-        //public async Task<string> BlockUrlsCoreWebView2() {
+        //public async Task<string> BlockUrlsCoreWebView2()
+        //{
 
         //    dynamic obj = new JObject();
-        //    obj.urls = new JArray("https://msn.com", "https://yahoo.com");
+        //    obj.urls = new JArray("https://ebay.com", "https://yahoo.com");
 
         //    string blocking = JsonConvert.SerializeObject(obj);
 
         //    return await _webView.CoreWebView2?.CallDevToolsProtocolMethodAsync("Network.setBlockedURLs", blocking);
         //}
-        //public async Task<string> ZoomingCoreWebView2() {
-        //    dynamic obj = new JObject();
-        //    obj.width = 300;
-        //    obj.height = 400;
-        //    obj.deviceScaleFactor = false;
-        //    obj.mobile = false;
-        //    var factors = JsonConvert.SerializeObject(obj);
-        //    return await _webView.CoreWebView2?.CallDevToolsProtocolMethodAsync("Emulation.clearDeviceMetricsOverride", factors);
 
-        //}
-
-        public async Task ShowMessageShellPage(string contentMessage)
-        {
-
-            await new MessageToUI(contentMessage).ShowMessage();
-
-
-        }
         //public async Task<object> GetPostionWebViewView()
         //{
 
@@ -649,6 +613,27 @@ namespace Project_Radon.Services
         //    return answer;
 
         //}
+        public async Task<string> ZoomingCoreWebView2()
+        {
+            dynamic obj = new JObject();
+            obj.width = 300;
+            obj.height = 400;
+            obj.deviceScaleFactor = false;
+            obj.mobile = false;
+            var factors = JsonConvert.SerializeObject(obj);
+            return await _webView.CoreWebView2?.CallDevToolsProtocolMethodAsync("Emulation.clearDeviceMetricsOverride", factors);
+
+        }
+
+        //  for subscribers control to show whatever message to the UI.
+        public async Task ShowMessageShellPage(string contentMessage)
+        {
+
+            await new MessageToUI(contentMessage).ShowMessage();
+
+
+        }
+
         public async Task ClearCookiesCoreWebView2()
         {
             await _webView.CoreWebView2?.CallDevToolsProtocolMethodAsync("Network.clearBrowserCookies", "{}");
@@ -721,6 +706,8 @@ namespace Project_Radon.Services
             return uriOut;
 
         }
+
+        // anyone IOC subscribes can call this to search under the provider that is set in AppSettings
         async Task IWebViewService.GoToSearchText(string QueryText)
         {
             Uri uriOut = default;
@@ -754,17 +741,31 @@ namespace Project_Radon.Services
             await Task.CompletedTask;
         }
 
+        // used to subscribe to hide window that control whatever
         internal async Task SendToSearchWindowAsync(string uri)
         {
             //var commander = Ioc.Default.GetService<CommanderWebView>();
             //await commander.OpenSearchInNewWindowAsync(uri);
+            await Task.Delay(0); 
         }
 
-        public Windows.Foundation.IAsyncOperation<string> ExecuteScriptAsync(string javascriptCode)
+        // internal thread safe java => the subscribers webview (Wrap)
+        //public Windows.Foundation.IAsyncOperation<string> ExecuteScriptAsync(string javascriptCode)
+        //{
+        //    return _webView.ExecuteScriptAsync(javascriptCode);
+        //}
+
+        public async Task<string> ExecuteScriptAsync(string javascriptCode)
         {
-            return _webView.ExecuteScriptAsync(javascriptCode);
+            string result = string.Empty;
+
+            await _webView.Dispatcher.TryRunAsync( Windows.UI.Core.CoreDispatcherPriority.High , async () =>
+            {
+                result = await _webView.ExecuteScriptAsync(javascriptCode);
+            });
+
+            return result;
         }
-       
     }
-}
+};
 

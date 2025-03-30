@@ -15,6 +15,11 @@ namespace Project_Radon.Contracts.Services
         bool IsLocationOnOff { get; set; }
         void InitializeAsync();
         void Remove(string key);
+
+        void AddToHistory(string key, string value);
+        void RemoveFromHistory(string key, string value);
+        void AddToHistory(HistoryModel history);
+        void RemoveFromHistory(HistoryModel history);   
         string HomeUrlString { get; set; }
         ObservableCollection<Bookmarks> FavoritesStore { get; set; }
         int DefaultSearchProvider { get; set; }

@@ -48,7 +48,7 @@ namespace Project_Radon.Contracts.Services
         Task ClearCacheCoreWebView2();
         Task ClearCoreHistory();
         Task<string> StopPageLoad();
-        IAsyncOperation<string> ExecuteScriptAsync(string javascriptCode);
+        Task<string> ExecuteScriptAsync(string javascriptCode);
 
         WebView2 WebView { get; }
 
