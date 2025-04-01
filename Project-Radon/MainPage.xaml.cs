@@ -62,7 +62,7 @@ namespace Yttrium_browser
             CurrentTabs[0].Tab.PropertyChanged += SelectedTabPropertyChanged;
 
             Window.Current.CoreWindow.Activated += CoreWindow_Activated;
-     
+            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
             
             profileCheck();
 
@@ -97,6 +97,7 @@ namespace Yttrium_browser
                 compacttitlebar_rightpadding.Visibility = Visibility.Collapsed;
             }
 
+            
             //load titlebar settings
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             
@@ -129,6 +130,24 @@ namespace Yttrium_browser
             //new DownloadPrompt().ShowAsync();
         }
 
+        private void CoreWindow_KeyDown(CoreWindow sender, KeyEventArgs args)
+        {
+            if (args.VirtualKey == Windows.System.VirtualKey.Escape)
+            {
+              
+                var view = ApplicationView.GetForCurrentView();
+                if (view.IsFullScreenMode)
+                {
+                    view.ExitFullScreenMode();
+                    ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.Auto;
+                    fullscreenbutton_icon.Glyph = "\uE740";
+                    BrowserTabs.Margin = new Windows.UI.Xaml.Thickness(0, 0, 0, 0);
+                    DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(40);
+                    fullscreentopbar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
         private async void ShowUpdateAnnouncement()
         {
             UpdatedDialog dialog = new UpdatedDialog();
@@ -141,7 +160,6 @@ namespace Yttrium_browser
             public string FaviconURI { get; set; }
             public string SourceURL { get; set; }
         }
-
 
         private void profileCheck()
         {

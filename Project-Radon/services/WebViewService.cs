@@ -299,6 +299,7 @@ namespace Project_Radon.Services
                     }
                     else
                     {
+                        title = _webView.CoreWebView2?.DocumentTitle;
                         return new HistoryModel(title, _webView.Source.AbsoluteUri);
                     }
                 }
@@ -385,7 +386,7 @@ namespace Project_Radon.Services
 
                 await Task.Factory.StartNew(async () =>
                 {
-                    //await Task.Delay(640); //capture picture of page.
+                    await Task.Delay(640); //capture picture of page.
                     try
                     {
                         _webView.Dispatcher?.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,

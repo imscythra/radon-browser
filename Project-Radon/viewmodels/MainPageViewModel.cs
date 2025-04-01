@@ -68,7 +68,7 @@ namespace Project_Radon.ViewModels
                 if (item is HistoryModel)
                 {
                     _SettingService.RemoveFromHistory(item);
-                    await System.Threading.Tasks.Task.Run(() => new MessageToUI($"{item.TheDocumentTitle} has been removed").ShowMessage());
+                    await System.Threading.Tasks.Task.Run(() => new MessageToUI($"Radon History Operations\n{item.TheDocumentTitle}\nItem was removed").ShowMessage());
                 }
 
             }

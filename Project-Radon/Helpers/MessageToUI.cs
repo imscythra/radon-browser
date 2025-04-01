@@ -33,9 +33,6 @@ namespace Project_Radon.Helpers
         {
             await Task.Factory.StartNew(() =>
             {
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-                App.Current.MainWindow.Dispatcher?.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,  () =>
-                {
                     try
                     {
                         // Create the notification content
@@ -69,8 +66,6 @@ namespace Project_Radon.Helpers
                     {
                         throw;
                     }
-                });
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
             });
         }
 
@@ -78,8 +73,6 @@ namespace Project_Radon.Helpers
         {
             await Task.Factory.StartNew(() =>
             {
-                App.Current.MainWindow.Dispatcher?.RunAsync( Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                {
                     try
                     {
                         var builder = new ToastContentBuilder()
@@ -87,14 +80,12 @@ namespace Project_Radon.Helpers
                           .SetToastDuration(ToastDuration.Short);
 
                         var notification = builder.GetToastContent();
-
                         ToastNotificationManager.CreateToastNotifier().Show(new ToastNotification(notification.GetXml()));
                     }
                     catch (Exception)
                     {
                         throw;
                     }
-                });
             });
         }
     }

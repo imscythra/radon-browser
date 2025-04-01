@@ -1063,7 +1063,10 @@
                                                                             </ListView.Header>
                                                                             <ListView.ItemTemplate>
                                                                                 <DataTemplate x:DataType="models:HistoryModel">
-                                                                                    <Grid Margin="0,1.5,3,2" Tapped="HistoryPanel_Tapped">
+                                                                                    <Grid
+                                                                                        Margin="0,1.5,3,2"
+                                                                                        CornerRadius="5"
+                                                                                        Tapped="HistoryPanel_Tapped">
                                                                                         <Grid.RowDefinitions>
                                                                                             <RowDefinition />
                                                                                             <RowDefinition />
@@ -1084,7 +1087,7 @@
                                                                                                 Source="{Binding FavIconUrl, Mode=OneWay}" />
                                                                                             <TextBlock
                                                                                                 MinWidth="90"
-                                                                                                MaxWidth="200"
+                                                                                                MaxWidth="240"
                                                                                                 Margin="4,0,0,4"
                                                                                                 Padding="2"
                                                                                                 HorizontalAlignment="Right"

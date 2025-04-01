@@ -33,10 +33,10 @@ namespace Project_Radon.Services.Messages
 
         public Message_Settings_Actions(RadonAppSettings payload) : this(null, EnumMessageStatus.Settings)
         {
-            WebDiveSettings = payload;
+            AppSettings = payload;
         }
 
-        public RadonAppSettings WebDiveSettings { get; set; }
+        public RadonAppSettings AppSettings { get; set; }
         public EnumMessageStatus Status { get; }
         public string Payload { get; }
     }
