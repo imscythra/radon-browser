@@ -427,13 +427,11 @@ namespace Project_Radon.Services
             try
             {
                 string jsonItem = JsonConvert.SerializeObject(item);
-                string script = $@"
-                                    (function() {{
-                                        console.log('Saving history to local storage');
-                                        localStorage.setItem('radon_edge_history', '{jsonItem}');
-                                        console.log('History saved');
-                                    }})();
-                                ";
+                string script = $@"(function(){{ 
+                    console.log('Saving history to local storage');
+                    localStorage.setItem('radon_edge_history', JSON.stringify('{item}'));
+                    console.log('History saved');
+                }})();";
 
                 await _webView.ExecuteScriptAsync(script);
             }
