@@ -1063,45 +1063,58 @@
                                                                             </ListView.Header>
                                                                             <ListView.ItemTemplate>
                                                                                 <DataTemplate x:DataType="models:HistoryModel">
-
-                                                                                    <StackPanel
-                                                                                        x:Name="HistoryPanel"
-                                                                                        MinWidth="320"
-                                                                                        Margin="0,1.5,3,2"
-                                                                                        Padding="2"
-                                                                                        Orientation="Horizontal"
-                                                                                        Tapped="HistoryPanel_Tapped"
-                                                                                        ToolTipService.ToolTip="{Binding TheDocumentTitle, Mode=OneWay}">
-                                                                                        <Image
-                                                                                            Width="24"
-                                                                                            Height="24"
-                                                                                            Margin="2"
-                                                                                            HorizontalAlignment="Left"
-                                                                                            VerticalAlignment="Center"
-                                                                                            Source="{Binding FavIconUrl, Mode=OneWay}" />
+                                                                                    <Grid Margin="0,1.5,3,2" Tapped="HistoryPanel_Tapped">
+                                                                                        <Grid.RowDefinitions>
+                                                                                            <RowDefinition />
+                                                                                            <RowDefinition />
+                                                                                        </Grid.RowDefinitions>
+                                                                                        <StackPanel
+                                                                                            x:Name="HistoryPanel"
+                                                                                            Grid.Row="0"
+                                                                                            MinWidth="320"
+                                                                                            Padding="2"
+                                                                                            Orientation="Horizontal"
+                                                                                            ToolTipService.ToolTip="{Binding TheDocumentTitle, Mode=OneWay}">
+                                                                                            <Image
+                                                                                                Width="24"
+                                                                                                Height="24"
+                                                                                                Margin="2"
+                                                                                                HorizontalAlignment="Left"
+                                                                                                VerticalAlignment="Center"
+                                                                                                Source="{Binding FavIconUrl, Mode=OneWay}" />
+                                                                                            <TextBlock
+                                                                                                MinWidth="90"
+                                                                                                MaxWidth="200"
+                                                                                                Margin="4,0,0,4"
+                                                                                                Padding="2"
+                                                                                                HorizontalAlignment="Right"
+                                                                                                TextWrapping="WrapWholeWords">
+                                                                                                <Run Text="{Binding TheDocumentTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                                                <Run Text="-" />
+                                                                                                <Run Text="{Binding TheUrl.Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                                            </TextBlock>
+                                                                                            <StackPanel.ContextFlyout>
+                                                                                                <MenuFlyout>
+                                                                                                    <MenuFlyoutItem
+                                                                                                        Command="{Binding RemoveItem}"
+                                                                                                        CommandParameter="{Binding}"
+                                                                                                        Text="Remove Item">
+                                                                                                        <MenuFlyoutItem.Icon>
+                                                                                                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
+                                                                                                        </MenuFlyoutItem.Icon>
+                                                                                                    </MenuFlyoutItem>
+                                                                                                </MenuFlyout>
+                                                                                            </StackPanel.ContextFlyout>
+                                                                                        </StackPanel>
                                                                                         <TextBlock
-                                                                                            MinWidth="90"
-                                                                                            MaxWidth="200"
+                                                                                            Grid.Row="1"
                                                                                             Padding="2"
                                                                                             HorizontalAlignment="Right"
-                                                                                            TextWrapping="WrapWholeWords">
-                                                                                            <Run Text="{Binding TheDocumentTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                                                            <Run Text="-" />
-                                                                                            <Run Text="{Binding TheUrl.Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                                                        </TextBlock>
-                                                                                        <StackPanel.ContextFlyout>
-                                                                                            <MenuFlyout>
-                                                                                                <MenuFlyoutItem
-                                                                                                    Command="{Binding RemoveItem}"
-                                                                                                    CommandParameter="{Binding}"
-                                                                                                    Text="Remove Item">
-                                                                                                    <MenuFlyoutItem.Icon>
-                                                                                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
-                                                                                                    </MenuFlyoutItem.Icon>
-                                                                                                </MenuFlyoutItem>
-                                                                                            </MenuFlyout>
-                                                                                        </StackPanel.ContextFlyout>
-                                                                                    </StackPanel>
+                                                                                            FontSize="10"
+                                                                                            Foreground="LimeGreen"
+                                                                                            Text="{Binding DateTime}" />
+                                                                                    </Grid>
+
 
                                                                                 </DataTemplate>
                                                                             </ListView.ItemTemplate>

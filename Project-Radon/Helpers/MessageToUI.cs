@@ -15,7 +15,7 @@ namespace Project_Radon.Helpers
         private BitmapImage ViewImage { get; set; }
         private string Title { get; set; }
         private Uri UriViewd { get; set; }
-        internal string CorePathWebView { get; set; } = @"WebDiveCore\" + System.Security.Principal.WindowsIdentity.GetCurrent().Name! + @"\WebView\";
+        internal string CorePathWebView { get; set; } =  Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER") + @"WebView\";
         public MessageToUI(string message)
         {
             Message = message;
@@ -34,7 +34,7 @@ namespace Project_Radon.Helpers
             await Task.Factory.StartNew(() =>
             {
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-                App.Current.MainWindow.DispatcherQueue.TryEnqueue(async () =>
+                App.Current.MainWindow.Dispatcher?.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,  () =>
                 {
                     try
                     {
@@ -78,7 +78,7 @@ namespace Project_Radon.Helpers
         {
             await Task.Factory.StartNew(() =>
             {
-                App.Current.MainWindow.DispatcherQueue.TryEnqueue(() =>
+                App.Current.MainWindow.Dispatcher?.RunAsync( Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
                     try
                     {

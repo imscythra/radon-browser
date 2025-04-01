@@ -18,6 +18,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Collections.Generic;
 using Yttrium_browser;
 using Microsoft.Extensions.DependencyInjection;
+using Windows.ApplicationModel.VoiceCommands;
 
 
 
@@ -317,7 +318,7 @@ namespace Project_Radon.Services
         {
 
             lock (historyModels) {
-                WriteHistory(historyModels.Distinct());
+                WriteHistory(historyModels.Distinct(new HistoryModelEqualityComparer())).ConfigureAwait(false);
                 // this is bubbling up to historyviewmodel and mainpageviewmodel for myhistory collection. need to add to other pages sortly 
                 HistoryCollectionChanged?.Invoke(this, e);
             }
@@ -334,24 +335,32 @@ namespace Project_Radon.Services
             __Locker_acids_events.Release();
         }
 
-        public void AddToHistory(string key, string value)
+        
+        public void AddToHistory(HistoryModel historyItem)
         {
-            //   throw new NotImplementedException();
+            lock (historyModels)
+            {
+
+                if (!historyModels.Any(h => h.TheUrl == historyItem.TheUrl))
+                {
+                    historyModels.Add(historyItem);
+                    WriteHistory(historyModels.Distinct(new HistoryModelEqualityComparer())).ConfigureAwait(false);
+                    HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, historyItem));
+                }
+                else {
+                    
+                    var existingItem = historyModels.First(h => h.TheUrl == historyItem.TheUrl);
+                    historyModels.Remove(existingItem);
+                    historyModels.Add(historyItem);
+                    WriteHistory(historyModels.Distinct(new HistoryModelEqualityComparer())).ConfigureAwait(false);
+                    HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, historyItem));
+                }
+            }
         }
 
         public void RemoveFromHistory(string key, string value)
         {
             //   throw new NotImplementedException();
-        }
-
-        public void AddToHistory(HistoryModel historyItem)
-        {
-            lock (historyModels)
-            {
-                historyModels.Add(historyItem);
-                WriteHistory(historyModels.Distinct(new HistoryModelEqualityComparer())).ConfigureAwait(false);
-                HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, historyItem));
-            }
         }
 
         public void RemoveFromHistory(HistoryModel historyItem)
@@ -592,7 +601,12 @@ namespace Project_Radon.Services
 
 
         }
-        
+
+        public void AddToHistory(string key, string value)
+        {
+            //throw new NotImplementedException();
+        }
+
         #endregion
 
         private ObservableCollection<HistoryModel> historyModels = new ObservableCollection<HistoryModel>();
