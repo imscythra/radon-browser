@@ -159,7 +159,7 @@
                                     x:Name="BottomBar"
                                     Height="2"
                                     MinWidth="0.1"
-                                    Margin="0, 0, 0, 0"
+                                    Margin="0,0,0,0"
                                     VerticalAlignment="Bottom"
                                     CornerRadius="0, 0, 4, 4">
                                     <Grid.Background>
@@ -208,7 +208,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Width="30"
-                            Margin="0, 0, 30, 0"
+                            Margin="0,0,30,0"
                             Padding="{ThemeResource HelperButtonThemePadding}"
                             VerticalAlignment="Stretch"
                             AutomationProperties.AccessibilityView="Raw"
