@@ -23,6 +23,7 @@
         </Grid.Resources>
         <winui:WebView2
             x:Name="WebBrowser"
+            x:FieldModifier="Public"
             NavigationCompleted="WebBrowser_NavigationCompleted"
             NavigationStarting="WebBrowser_NavigationStarting"
             Source="edge://radon-ntp"

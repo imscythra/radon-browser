@@ -40,6 +40,7 @@ using Project_Radon.Contracts.Services;
 using Project_Radon.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Project_Radon.Models;
+using Project_Radon.Services;
 
 namespace Yttrium_browser
 {
@@ -61,11 +62,7 @@ namespace Yttrium_browser
             CurrentTabs[0].Tab.PropertyChanged += SelectedTabPropertyChanged;
 
             Window.Current.CoreWindow.Activated += CoreWindow_Activated;
-            Window.Current.CoreWindow.Closed += (s, e) => {
-                //save last instance of history from the last tab
-                ViewModel._SettingService.HistoryStore = ViewModel.MyHistory;
-            };
-
+     
             
             profileCheck();
 
@@ -365,6 +362,34 @@ namespace Yttrium_browser
 
 
         }
+
+        private async Task StopVideoFromPlaying(BrowserTabViewItem tabViewItem) {
+
+            try
+            {
+
+                if (!tabViewItem.Tab.IsLoading && tabViewItem.Tab.WebBrowser?.CoreWebView2 is CoreWebView2 coreWebView2)
+                {
+                    var response = await coreWebView2.ExecuteScriptAsync(@"(function() { 
+                        try
+                        {
+                            const videos = document.querySelectorAll('video');
+                            videos.forEach((video) => { video.pause();});
+                            console.log('WINUI3_CoreWebView2: YES_VIDEOS_CLOSED');
+                            return true; 
+                    
+                        }
+                        catch(error) {
+                          console.log('WINUI3_CoreWebView2: NO_VIDEOS_CLOSED');
+                          return error.message; 
+                        }
+                        })();");
+
+                }
+            }
+            catch {; }
+            
+        }
         private void BrowserTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var r = e.RemovedItems.Select(x => (BrowserTabViewItem)x).ToList();
@@ -372,6 +397,8 @@ namespace Yttrium_browser
             {
                 x.Tab.PropertyChanged -= SelectedTabPropertyChanged;
                 x.Tab.NewTabRequested -= NewTabRequested;
+                StopVideoFromPlaying(x).ConfigureAwait(false);
+
             });
             var s = e.AddedItems.Select(x => (BrowserTabViewItem)x).ToList();
             s.ForEach(x =>
