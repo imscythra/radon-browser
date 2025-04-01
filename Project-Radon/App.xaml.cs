@@ -333,7 +333,7 @@ namespace Yttrium_browser
             var services = new ServiceCollection();
             // Default Activation Handler
             _ = services.AddSingleton<ISettingsService, SettingsService>();
-            _ = services.AddSingleton<IWebViewService, WebViewService>();
+            _ = services.AddTransient<IWebViewService, WebViewService>();
             _ = services.AddTransient<MainPageViewModel>();
             // Core Services
             _ = services.AddSingleton<WeakReferenceMessenger>();

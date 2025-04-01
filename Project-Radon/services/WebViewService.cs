@@ -263,8 +263,7 @@ namespace Project_Radon.Services
         public async Task<HistoryModel> GatherWebViewInfoAsync()
         {
             string title = default;
-            await _webView.EnsureCoreWebView2Async();
-
+           
             try
             {
                 try
