@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using Windows.UI.Xaml;
 using Project_Radon.Models;
 using Project_Radon.Services;
+using System.Threading.Tasks;
 
 namespace Project_Radon.Contracts.Services
 {
@@ -12,24 +13,23 @@ namespace Project_Radon.Contracts.Services
     {
         event EventHandler<NotifyCollectionChangedEventArgs> FavoritesCollectionChanged;
         event EventHandler<NotifyCollectionChangedEventArgs> HistoryCollectionChanged;
-        bool IsLocationOnOff { get; set; }
         void InitializeAsync();
         void Remove(string key);
-
         void AddToHistory(string key, string value);
         void RemoveFromHistory(string key, string value);
         void AddToHistory(HistoryModel history);
-        void RemoveFromHistory(HistoryModel history);   
-        string HomeUrlString { get; set; }
+        void RemoveFromHistory(HistoryModel history);
+        Task<T> ReadFavorites<T>();
+        Task<T> ReadSettings<T>();
+        Task<T> ReadHistory<T>();
+        Task WriteHistory<T>(T history);
+        Task WriteFavorites<T>(T favorites);
+        Task WriteSettings<T>(T settings);
+
         ObservableCollection<Bookmarks> FavoritesStore { get; set; }
-        int DefaultSearchProvider { get; set; }
-        public bool TitleBarPinned { get; set; }
         public RadonAppSettings AppSettings { get; set; }
-        bool SideKick { get; set; }
         ObservableCollection<HistoryModel> HistoryStore { get; set; }
-        Uri HomeUrl { get; set; }
-        string UserAgentWebCore { get; set; }
-        ElementTheme ElementTheme { get; set; }
-        Visibility VisibilitySideToolBar { get; set; }
+        
+        
     }
 }

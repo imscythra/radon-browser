@@ -20,7 +20,6 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Project_Radon.Settings;
 using Windows.UI.Xaml.Media.Animation;
 using System.Linq;
-using Microsoft.Web.WebView2.Core;
 using Project_Radon.Contracts.Services;
 using Yttrium_browser;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,11 +54,13 @@ namespace Project_Radon.Controls
         public string WVBaseUri => IsCoreInitialized ? (WebBrowser.Source.Host.ToString()) : null;
         public string SourceUri => IsCoreInitialized ? (WebBrowser.Source.AbsoluteUri.ToLower().Contains("edge://") ? "radon://" + WebBrowser.Source.AbsoluteUri.Remove(0, 7) : WebBrowser.Source.AbsoluteUri) : "";
         public string Favicon => IsCoreInitialized && !IsLoading ? ("http://www.google.com/s2/favicons?domain=" + WebBrowser.Source.AbsoluteUri) : "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Document/SVG/ic_fluent_document_48_regular.svg";
-        public string Title => IsCoreInitialized && !IsLoading ? (WebBrowser.CoreWebView2.DocumentTitle ?? WebBrowser.Source.AbsoluteUri) : "Loading";
+        public string Title => IsCoreInitialized && !IsLoading ? (WebBrowser.CoreWebView2?.DocumentTitle ?? WebBrowser.Source.AbsoluteUri) : "Loading";
         public bool IsCoreInitialized { get; private set; }
 
+        public Uri ProfilePicture { get; private set; }
+
         private readonly IWebViewService viewService;
-        private readonly ISettingsService settingService; 
+        public ISettingsService settingService { get; } 
 
         public BrowserTab()
         {
@@ -67,6 +68,8 @@ namespace Project_Radon.Controls
             InitializeComponent();
 
             settingService = App.Current.Services.GetService<ISettingsService>();
+            ProfilePicture = new($"ms-appx:///accountpictures/{settingService.AppSettings.ProfilePicture}.png");
+            InvokePropertyChanged(nameof(ProfilePicture)); 
             viewService = App.Current.Services.GetService<IWebViewService>(); // App.Current.Services.GetService<IWebViewService>();
             viewService.Initialize(this.WebBrowser);
 
@@ -90,7 +93,7 @@ namespace Project_Radon.Controls
                 WebBrowser.CoreWebView2.NewWindowRequested += (s, e) =>
                 {
                     NewTabRequested.Invoke(s, e.Uri);
-                    e.Handled = true;   
+                    e.Handled = true;
                 };
 
                 WebBrowser.CoreWebView2.ContextMenuRequested += async (s, e) =>
@@ -344,6 +347,10 @@ namespace Project_Radon.Controls
         private async void profileCenterToggle_Click(object sender, RoutedEventArgs e)
         {
             await new UserProfileDialog().ShowAsync();
+           
+            ProfilePicture = new($"ms-appx:///accountpictures/{settingService.AppSettings.ProfilePicture}.png");
+            InvokePropertyChanged(nameof(ProfilePicture));  
+           
         }
     }
 }

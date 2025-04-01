@@ -48,7 +48,7 @@ namespace Project_Radon.Services
         public Uri DefaultUri { get { return homeURL; } set { SetProperty(ref homeURL, value); } }
 
         private int _usingSearProvider = default;
-        public int UsingSearchProvider { get { return _usingSearProvider; } set { _usingSearProvider = value; SettingsService.DefaultSearchProvider = value; } }
+        public int UsingSearchProvider { get { return _usingSearProvider; } set { _usingSearProvider = value; SettingsService.AppSettings.DefaultSearchProvider = value; } }
         public bool IsLocationOnOff { get; set; }
 
         public string Address =>
@@ -95,7 +95,7 @@ namespace Project_Radon.Services
             SettingsService = settingsService;
             HistoryStore = SettingsService.HistoryStore;
             SettingsService.HistoryCollectionChanged += SettingsService_HistoryCollectionChanged;
-            UsingSearchProvider = settingsService.DefaultSearchProvider;
+            UsingSearchProvider = settingsService.AppSettings.DefaultSearchProvider;
 
         }
 
@@ -521,7 +521,7 @@ namespace Project_Radon.Services
 
                     try
                     {
-                        args.State = SettingsService.IsLocationOnOff ? CoreWebView2PermissionState.Allow : CoreWebView2PermissionState.Deny;
+                        args.State = SettingsService.AppSettings.IsLocationOnOff ? CoreWebView2PermissionState.Allow : CoreWebView2PermissionState.Deny;
                         args.Handled = true;
                         def.Complete();
                     }
@@ -718,7 +718,7 @@ namespace Project_Radon.Services
 
                 if (uriOut is null) throw new ArgumentNullException(nameof(uriOut));
 
-                switch (SettingsService.SideKick)
+                switch (SettingsService.AppSettings.SideKick)
                 {
                     case true:
                         await SendToSearchWindowAsync(uriOut.ToString());

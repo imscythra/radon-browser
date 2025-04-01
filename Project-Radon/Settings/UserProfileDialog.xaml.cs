@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Project_Radon.Contracts.Services;
 using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using Windows.ApplicationModel;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,14 +16,31 @@ namespace Yttrium
     public sealed partial class UserProfileDialog : ContentDialog
     {
         private readonly ISettingsService settingsService;
+        public ObservableCollection<string> ProfilePictures { get; private set; }
         public UserProfileDialog()
         {
             settingsService = Yttrium_browser.App.Current.Services.GetService<ISettingsService>();
-
             InitializeComponent();
+            LoadProfilePictures();
+            pfppreview.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", settingsService.AppSettings.ProfilePicture ?? "default", ".png" })));
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+
+        private void LoadProfilePictures()
+        {
+            ProfilePictures = new ObservableCollection<string>();
+            var folder = Path.Combine(Package.Current.InstalledLocation.Path, "accountpictures");
+            var files = Directory.GetFiles(folder, "*.png");
+
+            foreach (var file in files)
+            {
+                ProfilePictures.Add(Path.GetFileNameWithoutExtension(file));
+            }
+        }
+
+
+
+    private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
         }
 
@@ -36,8 +56,8 @@ namespace Yttrium
 
         private void pfpchanged_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            pfppreview.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", (pfpchanged.SelectedItem as ComboBoxItem).Content.ToString(), ".png" })));
-
+            pfppreview.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpchanged.SelectedItem?.ToString() ?? "default", ".png" })));
+            settingsService.AppSettings.ProfilePicture = pfpchanged.SelectedItem?.ToString() ?? "default"; 
 
         }
 
@@ -45,11 +65,6 @@ namespace Yttrium
         {
 
             Username_Display.Text = settingsService.AppSettings.Username;  
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
         }
 
         private void debug_Click(object sender, RoutedEventArgs e)
@@ -62,6 +77,11 @@ namespace Yttrium
         {
             
             Username_Display.Text = settingsService.AppSettings.Username;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide(); 
         }
     }
 }

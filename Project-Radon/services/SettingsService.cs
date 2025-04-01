@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Threading;
 using System.Reflection.Metadata.Ecma335;
 using System.Collections.Generic;
+using Yttrium_browser;
+using Microsoft.Extensions.DependencyInjection;
 
 
 
@@ -34,44 +36,223 @@ namespace Project_Radon.Services
         Visibility VisibilitySideToolBar { get; set; }
         string HomeUrlString { get; set; }
         bool TitleBarPinned { get; set; }
+        string AppColorTheme { get; set; }
+        bool InlineMode { get; set; }
+        bool SystemTitleBar { get; set; }
+        string Username { get; set; }
+        string QRCodeUrl { get; set; }
+        string ProfilePicture { get; set; }
+        string OpenUrl { get; set; }
+        int AppThemeSetting { get; set; }
 
     }
 
-    public partial class RadonAppSettings : ObservableObject, IAppSettings 
+    public partial class RadonAppSettings : ObservableObject, IAppSettings
     {
-        private object settings;
-
-        public RadonAppSettings()
+        [JsonIgnore]
+        private RadonAppSettings _settings;
+        [JsonIgnore]
+        private readonly ISettingsService _settingsService;
+        public RadonAppSettings(ISettingsService settingsService)
         {
+            _settingsService = settingsService; 
         }
 
-        public RadonAppSettings(object settings)
+        public RadonAppSettings(RadonAppSettings settings)
         {
-            this.settings = settings;
+            _settings = settings;
         }
 
-        public Uri HomeUrl { get; set; }
-        public bool SideKick { get; set; }
-        public int DefaultSearchProvider { get; set; }
-        public bool IsLocationOnOff { get; set; }
-        public string UserAgentWebCore { get; set; }
-        public ElementTheme ThemeDefault { get; set; }
-        public Visibility VisibilitySideToolBar { get; set; }
-        public bool TitleBarPinned { get; set; }
-        public string HomeUrlString { get; set; }
-        
-        public string AppColorTheme { get; set;  }
+        public RadonAppSettings() {
+            _settingsService = SettingsService.Instance; 
+        }   
 
-        public bool InlineMode { get; set;  }
+        private Uri _homeUrl;
+        public Uri HomeUrl
+        {
+            get => _homeUrl;    
+            set
+            {
+                SetProperty(ref _homeUrl, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
 
-        public bool SystemTitleBar { get; set; }
+        private bool _sideKick;
+        public bool SideKick
+        {
+            get => _sideKick;
+            set
+            {
+                SetProperty(ref _sideKick, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
 
-        public string Username { get; set; }
+        private int _defaultSearchProvider;
+        public int DefaultSearchProvider
+        {
+            get => _defaultSearchProvider;
+            set
+            {
+                SetProperty(ref _defaultSearchProvider, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
 
-        public string QRCodeUrl { get; set; }
-        public string ProfilePicture { get; set; }  
-        public string OpenUrl { get; set; }
-        public int AppThemeSetting { get; set; }
+        private bool _isLocationOnOff;
+        public bool IsLocationOnOff
+        {
+            get => _isLocationOnOff;
+            set
+            {
+                SetProperty(ref _isLocationOnOff, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private string _userAgentWebCore;
+        public string UserAgentWebCore
+        {
+            get => _userAgentWebCore;
+            set
+            {
+                SetProperty(ref _userAgentWebCore, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private ElementTheme _themeDefault;
+        public ElementTheme ThemeDefault
+        {
+            get => _themeDefault;
+            set
+            {
+                SetProperty(ref _themeDefault, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private Visibility _visibilitySideToolBar;
+        public Visibility VisibilitySideToolBar
+        {
+            get => _visibilitySideToolBar;
+            set
+            {
+                SetProperty(ref _visibilitySideToolBar, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private bool _titleBarPinned;
+        public bool TitleBarPinned
+        {
+            get => _titleBarPinned;
+            set
+            {
+                SetProperty(ref _titleBarPinned, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private string _homeUrlString;
+        public string HomeUrlString
+        {
+            get => _homeUrlString;
+            set
+            {
+                SetProperty(ref _homeUrlString, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private string _appColorTheme;
+        public string AppColorTheme
+        {
+            get => _appColorTheme;
+            set
+            {
+                SetProperty(ref _appColorTheme, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private bool _inlineMode;
+        public bool InlineMode
+        {
+            get => _inlineMode;
+            set
+            {
+                SetProperty(ref _inlineMode, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private bool _systemTitleBar;
+        public bool SystemTitleBar
+        {
+            get => _systemTitleBar;
+            set
+            {
+                SetProperty(ref _systemTitleBar, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                SetProperty(ref _username, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private string _qrCodeUrl;
+        public string QRCodeUrl
+        {
+            get => _qrCodeUrl;
+            set
+            {
+                SetProperty(ref _qrCodeUrl, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private string _profilePicture;
+        public string ProfilePicture
+        {
+            get => _profilePicture;
+            set
+            {
+                SetProperty(ref _profilePicture, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private string _openUrl;
+        public string OpenUrl
+        {
+            get => _openUrl;
+            set
+            {
+                SetProperty(ref _openUrl, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
+
+        private int _appThemeSetting;
+        public int AppThemeSetting
+        {
+            get => _appThemeSetting;
+            set
+            {
+                SetProperty(ref _appThemeSetting, value);
+                _settingsService.WriteSettings(this).ConfigureAwait(false);
+            }
+        }
     }
 
     class SettingsService : ISettingsService
@@ -88,6 +269,9 @@ namespace Project_Radon.Services
 
         public SettingsService()
         {
+
+            Instance = this;
+
             InitializeAsync();
             
             var path = Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER");
@@ -109,7 +293,7 @@ namespace Project_Radon.Services
             }
             // load from file. 
             
-            Instance = this;
+            
             FavoritesStore.CollectionChanged += FavoritesStore_CollectionChanged;
             HistoryStore.CollectionChanged += HistoryStore_CollectionChanged;
 
@@ -123,7 +307,7 @@ namespace Project_Radon.Services
                 AppSettings = settings;
             }
             else {
-                AppSettings = new RadonAppSettings();
+                AppSettings = new RadonAppSettings(this);
             }
              
             historyModels =  await ReadHistory<ObservableCollection<HistoryModel>>();
@@ -165,7 +349,7 @@ namespace Project_Radon.Services
             lock (historyModels)
             {
                 historyModels.Add(historyItem);
-                WriteHistory(historyModels.Distinct());
+                WriteHistory(historyModels.Distinct()).ConfigureAwait(false);
                 HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, historyItem));
             }
         }
@@ -175,7 +359,7 @@ namespace Project_Radon.Services
             lock (historyModels)
             {
                 historyModels.Remove(historyItem);
-                WriteHistory(historyModels.Distinct());
+                WriteHistory(historyModels.Distinct()).ConfigureAwait(false);
                 HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, historyItem));
             }
         }
@@ -199,7 +383,7 @@ namespace Project_Radon.Services
             }
         }
         #region FileReadWriteAccessIO
-        async Task<T> ReadFavorites<T>()
+        public async Task<T> ReadFavorites<T>()
         {
             string json = "{}";
             string path = Path.Combine(Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER"), CorePathFavorites);
@@ -230,7 +414,7 @@ namespace Project_Radon.Services
                 throw;
             }
         }
-        async Task<T> ReadSettings<T>()
+        public async Task<T> ReadSettings<T>()
         {
             string json = "{}";
             string path = Path.Combine(Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER"), CorePathSettings);
@@ -264,7 +448,7 @@ namespace Project_Radon.Services
 
 
         }
-        async Task<T> ReadHistory<T>()
+        public async Task<T> ReadHistory<T>()
         {
             string json = "[]";
             string path = Path.Combine(Environment.GetEnvironmentVariable("WEBVIEW2_USER_DATA_FOLDER"), CorePathHistory);
@@ -304,7 +488,7 @@ namespace Project_Radon.Services
                 throw;
             }
         }
-        async void WriteHistory<T>(T history)
+        public async Task WriteHistory<T>(T history)
         {
             try
             {
@@ -333,7 +517,7 @@ namespace Project_Radon.Services
                 throw;
             }
         }
-        private async void WriteFavorite<T>(T favorites)
+        public async Task WriteFavorites<T>(T favorites)
         {
             try
             {
@@ -362,7 +546,7 @@ namespace Project_Radon.Services
                 throw;
             }
         }
-        async Task WriteSettings<T>(T settings)
+        public async Task WriteSettings<T>(T settings)
         {
 
 
@@ -395,7 +579,6 @@ namespace Project_Radon.Services
 
 
         }
-
         
         #endregion
 
@@ -423,239 +606,7 @@ namespace Project_Radon.Services
                 }
             }
         }
-
-        public string OpenUrl
-        {
-            get
-            {
-                return AppSettings.OpenUrl;
-            }
-            set
-            {
-                AppSettings.OpenUrl = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-
-        public string ProfilePicture
-        {
-            get
-            {
-                return AppSettings.ProfilePicture;
-            }
-            set
-            {
-                AppSettings.ProfilePicture = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-
-        public string AppColorTheme
-        {
-            get
-            {
-                return AppSettings.AppColorTheme;
-            }
-            set
-            {
-                AppSettings.AppColorTheme = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-        public bool InlineMode
-        {
-            get
-            {
-                return AppSettings.InlineMode;
-            }
-            set
-            {
-                AppSettings.InlineMode = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-        public bool SystemTileBar
-        {
-            get
-            {
-                return AppSettings.SystemTitleBar;
-            }
-            set
-            {
-                AppSettings.SystemTitleBar = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-        public string Username
-        {
-            get
-            {
-                return AppSettings.Username;
-            }
-            set
-            {
-                AppSettings.Username = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-        public string QRCodeUrl
-        {
-            get
-            {
-                return AppSettings.QRCodeUrl;
-            }
-            set
-            {
-                AppSettings.QRCodeUrl = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-        public string HomeUrlString
-        {
-            get
-            {
-                return AppSettings.HomeUrlString;
-
-            }
-            set
-            {
-                AppSettings.HomeUrlString = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-        public Visibility VisibilitySideToolBar
-        {
-
-            get
-            {
-                return AppSettings.VisibilitySideToolBar;
-
-            }
-            set
-            {
-                AppSettings.VisibilitySideToolBar = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-
-        }
-        public ElementTheme ElementTheme
-        {
-
-            get
-            {
-                return AppSettings.ThemeDefault;
-
-            }
-            set
-            {
-                AppSettings.ThemeDefault = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-
-
-        }
-
-        public bool TitleBarPinned
-        {
-            get
-            {
-                return AppSettings.TitleBarPinned;
-            }
-            set
-            {
-                AppSettings.TitleBarPinned = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-
-            }
-        }
-        public int DefaultSearchProvider
-        {
-            get
-            {
-                return AppSettings.DefaultSearchProvider;
-
-            }
-            set
-            {
-                AppSettings.DefaultSearchProvider = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-        public bool SideKick
-        {
-            get
-            {
-                return AppSettings.SideKick;
-            }
-            set
-            {
-                AppSettings.SideKick = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-        public string UserAgentWebCore
-        {
-            get
-            {
-                return AppSettings.UserAgentWebCore;
-            }
-            set
-            {
-                AppSettings.UserAgentWebCore = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-        public bool IsLocationOnOff
-        {
-            get
-            {
-                return AppSettings.IsLocationOnOff;
-            }
-            set
-            {
-                AppSettings.IsLocationOnOff = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-        public Uri HomeUrl
-        {
-
-            get
-            {
-                return AppSettings.HomeUrl;
-            }
-            set
-            {
-                AppSettings.HomeUrl = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-        public int AppThemeSetting
-        {
-
-            get
-            {
-                return AppSettings.AppThemeSetting;
-            }
-            set
-            {
-                AppSettings.AppThemeSetting = value;
-                WriteSettings<RadonAppSettings>(AppSettings).ConfigureAwait(false);
-            }
-        }
-
-
-
-
+        
         public ObservableCollection<Bookmarks> FavoritesStore
         {
             get
@@ -668,7 +619,7 @@ namespace Project_Radon.Services
                 var obj = new object();
                 lock (obj)
                 {
-                    WriteFavorite(value);
+                    WriteFavorites(value).ConfigureAwait(false);
 
                     //Write(nameof(FavoritesStore), value);
                     FavoritesCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));

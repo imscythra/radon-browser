@@ -1017,25 +1017,49 @@
                                                                                 </TransitionCollection>
                                                                             </ListView.Transitions>
                                                                             <ListView.Header>
-                                                                                <StackPanel
-                                                                                    Margin="1"
-                                                                                    Padding="2"
-                                                                                    HorizontalAlignment="Left"
-                                                                                    VerticalAlignment="Center"
-                                                                                    Orientation="Horizontal"
-                                                                                    Spacing="4">
-                                                                                    <Image
-                                                                                        Width="32"
-                                                                                        Height="32"
-                                                                                        Margin="2"
-                                                                                        Source="/Assets/StoreLogo.png"
-                                                                                        Stretch="Fill" />
+                                                                                <Grid>
+                                                                                    <Grid.RowDefinitions>
+                                                                                        <RowDefinition Height="Auto" />
+                                                                                        <RowDefinition Height="*" />
+                                                                                    </Grid.RowDefinitions>
+                                                                                    <StackPanel
+                                                                                        Grid.Row="0"
+                                                                                        Margin="1"
+                                                                                        Padding="2"
+                                                                                        HorizontalAlignment="Stretch"
+                                                                                        VerticalAlignment="Center"
+                                                                                        Orientation="Horizontal"
+                                                                                        Spacing="5">
+                                                                                        <Image
+                                                                                            Width="32"
+                                                                                            Height="32"
+                                                                                            Margin="2"
+                                                                                            HorizontalAlignment="Left"
+                                                                                            Source="/Assets/StoreLogo.png"
+                                                                                            Stretch="Fill" />
 
-                                                                                    <TextBlock
-                                                                                        FontWeight="Bold"
-                                                                                        Foreground="WhiteSmoke"
-                                                                                        Text="My History" />
-                                                                                </StackPanel>
+                                                                                        <TextBlock
+                                                                                            HorizontalAlignment="Center"
+                                                                                            FontSize="18"
+                                                                                            FontWeight="Bold"
+                                                                                            Foreground="WhiteSmoke"
+                                                                                            Text="My History" />
+                                                                                    </StackPanel>
+
+                                                                                    <Button
+                                                                                        Grid.Row="1"
+                                                                                        Margin="2"
+                                                                                        HorizontalAlignment="Right"
+                                                                                        Command="{x:Bind ViewModel.ClearAllHistoryCommand}"
+                                                                                        ToolTipService.Placement="Bottom"
+                                                                                        ToolTipService.ToolTip="Delete All History">
+                                                                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                                                                            <TextBlock Text="Delete All History" />
+                                                                                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
+                                                                                        </StackPanel>
+                                                                                    </Button>
+                                                                                </Grid>
+
                                                                             </ListView.Header>
                                                                             <ListView.ItemTemplate>
                                                                                 <DataTemplate x:DataType="models:HistoryModel">
@@ -1065,6 +1089,18 @@
                                                                                             <Run Text="-" />
                                                                                             <Run Text="{Binding TheUrl.Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                                                                         </TextBlock>
+                                                                                        <StackPanel.ContextFlyout>
+                                                                                            <MenuFlyout>
+                                                                                                <MenuFlyoutItem
+                                                                                                    Command="{Binding RemoveItem}"
+                                                                                                    CommandParameter="{Binding}"
+                                                                                                    Text="Remove Item">
+                                                                                                    <MenuFlyoutItem.Icon>
+                                                                                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
+                                                                                                    </MenuFlyoutItem.Icon>
+                                                                                                </MenuFlyoutItem>
+                                                                                            </MenuFlyout>
+                                                                                        </StackPanel.ContextFlyout>
                                                                                     </StackPanel>
 
                                                                                 </DataTemplate>

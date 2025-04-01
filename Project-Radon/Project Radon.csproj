@@ -121,6 +121,7 @@
     <Compile Include="Controls\BrowserWindowed.xaml.cs">
       <DependentUpon>BrowserWindowed.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ProfilePictureConverter.cs" />
     <Compile Include="Helpers\BrowserBackend.cs" />
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\ConfirmExitDialog.xaml.cs">
@@ -248,6 +249,7 @@
     <Content Include="accountpictures\clippy.png" />
     <Content Include="accountpictures\crayon.png" />
     <Content Include="accountpictures\default.png" />
+    <Content Include="accountpictures\music.png" />
     <Content Include="accountpictures\sunflower.png" />
     <Content Include="accountpictures\cool duck.png" />
     <Content Include="accountpictures\fish.png" />

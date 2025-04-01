@@ -186,19 +186,17 @@ namespace Project_Radon.ViewModels
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     MyHistory = SettingsService.HistoryStore.ToObservableCollection();
-                    MyHistory.All((t) =>
-                    {
-                        t.RemoveItem = RemoveItem;
-                        t.ShareTarget = ShareTarget;    
-                        return true;
-
-                    });
+                    //MyHistory.All((t) =>
+                    //{
+                    //    t.RemoveItem = new Task<object>(x => RemoveItem.Execute(x));
+                    //    t.ShareTarget = ShareTarget;
+                    //    return true;
+                    //});
                     OnPropertyChanged(nameof(MyHistory));
                     break;
                 default:
                     break;
             }
-
         }
 
         public void OnNavigatedTo(object parameter)

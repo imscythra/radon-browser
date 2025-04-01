@@ -65,7 +65,7 @@ namespace Project_Radon.Helpers
                         var toastContent = new ToastContentBuilder()
                            .AddArgument("action", "ToastClick")
                            .AddArgument("UserStatus", ((int)EnumMessageStatus.Updated).ToString())
-                           .AddAppLogoOverride(new Uri("file://" + App.GetFullPathToAsset("globe.png")), ToastGenericAppLogoCrop.Circle)
+                           .AddAppLogoOverride(new Uri("file://" + App.GetFullPathToAsset("StoreLogo.png")), ToastGenericAppLogoCrop.Circle)
                            .AddText("Error Occurred")
                            .AddText(this.Message!)
                            .GetToastContent();
