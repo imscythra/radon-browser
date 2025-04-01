@@ -349,7 +349,7 @@ namespace Project_Radon.Services
             lock (historyModels)
             {
                 historyModels.Add(historyItem);
-                WriteHistory(historyModels.Distinct()).ConfigureAwait(false);
+                WriteHistory(historyModels.Distinct(new HistoryModelEqualityComparer())).ConfigureAwait(false);
                 HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, historyItem));
             }
         }
@@ -359,8 +359,21 @@ namespace Project_Radon.Services
             lock (historyModels)
             {
                 historyModels.Remove(historyItem);
-                WriteHistory(historyModels.Distinct()).ConfigureAwait(false);
+                WriteHistory(historyModels.Distinct(new HistoryModelEqualityComparer())).ConfigureAwait(false);
                 HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, historyItem));
+            }
+        }
+
+        private class HistoryModelEqualityComparer : IEqualityComparer<HistoryModel>
+        {
+            public bool Equals(HistoryModel x, HistoryModel y)
+            {
+                return x.TheUrl == y.TheUrl;
+            }
+
+            public int GetHashCode(HistoryModel obj)
+            {
+                return obj.TheUrl.GetHashCode();
             }
         }
         public void Remove(string key)
@@ -601,7 +614,7 @@ namespace Project_Radon.Services
                     {
                         historyModels.Add(item); 
                     }
-                    WriteHistory(historyModels.Distinct());
+                    WriteHistory(historyModels.Distinct(new HistoryModelEqualityComparer())).ConfigureAwait(false);
                     HistoryCollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 }
             }
