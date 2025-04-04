@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Project_Radon.Contracts.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,6 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Yttrium_browser;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,13 +29,16 @@ namespace Project_Radon.Views
     /// </summary>
     public sealed partial class oobe3 : Page
     {
+        private readonly ISettingsService _settingsService; 
         public oobe3()
         {
+            _settingsService = App.Current.Services.GetService<ISettingsService>(); 
             this.InitializeComponent();
 
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            string pfpsrc = localSettings.Values["profilePicture"] as string;
-            profilePicture.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpsrc.ToString(), ".png" })));
+            
+            string pfpsrc = _settingsService.AppSettings.ProfilePicture ?? "bot";
+
+            profilePicture.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpsrc, ".png" })));
 
         }
 
@@ -46,8 +52,7 @@ namespace Project_Radon.Views
             if (themePicker.SelectedIndex != 0) { themeDisplayText.Text = (string)(themePicker.SelectedItem as Image).Tag.ToString(); ; }
             else { themeDisplayText.Text = "None"; }
 
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["appcolortheme"] = themeDisplayText.Text;
+            _settingsService.AppSettings.AppColorTheme = themeDisplayText.Text;
 
         }
 
@@ -55,17 +60,17 @@ namespace Project_Radon.Views
         {
             if (profileName.Text != string.Empty)
             {
-                ApplicationData.Current.LocalSettings.Values["username"] = profileName.Text;
+                _settingsService.AppSettings.Username = profileName.Text;
             }
-            else { ApplicationData.Current.LocalSettings.Values["username"] = "Radon user"; }
+            else { _settingsService.AppSettings.Username =  "Radon user"; }
         }
 
         private async void profilepictureButton_Click(object sender, RoutedEventArgs e)
         {
             oobe3pfpdialog dg = new oobe3pfpdialog();
             await dg.ShowAsync();
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            string pfpsrc = localSettings.Values["profilePicture"] as string;
+
+            string pfpsrc = _settingsService.AppSettings.ProfilePicture ?? "bot";
             profilePicture.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpsrc.ToString(), ".png" })));
         }
 

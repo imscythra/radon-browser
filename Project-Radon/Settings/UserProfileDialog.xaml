@@ -45,7 +45,10 @@
                         <StackPanel HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock VerticalAlignment="Center" TextAlignment="Left">Profile Picture:</TextBlock>
-                                <ComboBox x:Name="pfpchanged" PlaceholderText="Pick a picture" BorderThickness="1" SelectionChanged="pfpchanged_SelectionChanged" Width="200" Margin="10,0">
+                                <ComboBox x:Name="pfpchanged" PlaceholderText="Pick a picture" BorderThickness="1" SelectionChanged="pfpchanged_SelectionChanged" Width="200" Margin="10,0" ItemsSource="{x:Bind ProfilePictures}">
+                                </ComboBox>
+
+                                <!--<ComboBox x:Name="pfpchanged" PlaceholderText="Pick a picture" BorderThickness="1" SelectionChanged="pfpchanged_SelectionChanged" Width="200" Margin="10,0">
                                     <ComboBoxItem x:Name="ball" Content="Ball"/>
                                     <ComboBoxItem x:Name="bot" Content="Bot"/>
                                     <ComboBoxItem x:Name="butterfly" Content="Butterfly"/>
@@ -54,12 +57,12 @@
                                     <ComboBoxItem x:Name="crayon" Content="Crayon"/>
                                     <ComboBoxItem x:Name="sunflower" Content="Sunflower"/>
                                     <ComboBoxItem x:Name="duckcool" Content="Cool Duck"/>
-                                    <ComboBoxItem x:Name="fish" Content="Fish"/>
+                                    <ComboBoxItem x:Name="starfish" Content="Fish"/>
                                     <ComboBoxItem x:Name="goofywindow" Content="Window"/>
-                                    <ComboBoxItem x:Name="guitar" Content="Guitar"/>
+                                    <ComboBoxItem x:Name="guitar" Content="Guitar"/> 
                                     <ComboBoxItem x:Name="music" Content="Music"/>
                                     <ComboBoxItem x:Name="present" Content="Present"/>
-                                </ComboBox>
+                                </ComboBox>-->
                             </StackPanel>
                             <TextBlock x:Name="debuginfo" Text=""/>
                         </StackPanel>
@@ -74,7 +77,7 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <Button x:Name="CloseButton"  VerticalAlignment="Top" HorizontalAlignment="Right" ToolTipService.ToolTip="Close" Padding="10" CornerRadius="48" Margin="0" Click="CloseButton_Click">
+        <Button x:Name="CloseButton" VerticalAlignment="Top" HorizontalAlignment="Right" ToolTipService.ToolTip="Close" Padding="10" CornerRadius="48" Margin="0" Click="CloseButton_Click">
             <Button.Content>
                 <FontIcon Glyph="&#xE8BB;" FontSize="12"/>
             </Button.Content>

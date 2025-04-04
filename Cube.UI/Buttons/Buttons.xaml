@@ -39,7 +39,7 @@
                             ContentTransitions="{TemplateBinding ContentTransitions}"
                             CornerRadius="4" />
                         <icons:FluentSymbolIcon
-                            Margin="0, 0, 2, 2"
+                            Margin="0,0,2,2"
                             VerticalAlignment="Center"
                             Symbol="Dismiss16">
                             <icons:FluentSymbolIcon.Foreground>
@@ -908,7 +908,7 @@
                             ContentTransitions="{TemplateBinding ContentTransitions}"
                             CornerRadius="4" />
                         <icons:FluentSymbolIcon
-                            Margin="0, 0, 2, 2"
+                            Margin="0,0,2,2"
                             VerticalAlignment="Center"
                             Symbol="Dismiss12">
                             <icons:FluentSymbolIcon.Foreground>
