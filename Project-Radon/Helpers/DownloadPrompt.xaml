@@ -21,8 +21,7 @@
                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8AC;" FontSize="16"/>
                         <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="File name"/>
                     </StackPanel>
-                    <TextBox PlaceholderText="example.flp" Margin="0,0,8,0"
-                             Style="{ThemeResource GlowTextBox}"/>
+                    <TextBox PlaceholderText="example.flp" Style="{StaticResource GlowTextBox}"/>
                 </StackPanel>
             </Grid>
             <Grid Background="{StaticResource CardBackgroundFillColorSecondaryBrush}" Padding="16" CornerRadius="4">
