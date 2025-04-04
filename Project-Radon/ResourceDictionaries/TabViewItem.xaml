@@ -236,9 +236,9 @@
                                         <Setter Target="LeftRadiusRenderArc.Visibility" Value="Collapsed" />
                                         <Setter Target="LeftRadiusRenderTriangle.Visibility" Value="Collapsed" />
                                         <Setter Target="TabContainer.Margin" Value="{ThemeResource TabViewSelectedItemHeaderMargin}" />
-                                        <Setter Target="TabContainer.BorderBrush" Value="{ThemeResource SurfaceStrokeColorFlyoutBrush}" />
+                                        <Setter Target="TabContainer.BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
                                         <Setter Target="TabContainer.BorderThickness" Value="1" />
-                                        <Setter Target="TabContainer.Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}" />
+                                        <Setter Target="TabContainer.Background" Value="{ThemeResource ButtonPointerOverBackgroundThemeBrush}" />
                                         <Setter Target="TabContainer.Opacity" Value="0.9" />
                                         <Setter Target="TabContainer.Padding" Value="{ThemeResource TabViewSelectedItemHeaderPadding}" />
                                         <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundSelected}" />

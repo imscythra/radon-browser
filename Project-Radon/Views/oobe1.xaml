@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel x:Name="page1" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Visible" MaxWidth="600" Margin="48,0">
             <Image Source="ms-appx:///Assets/storelogo.scale-400.png" Width="100" Margin="0,0,0,16"/>
-            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" FontSize="24" FontWeight="SemiBold" TextAlignment="Center"
+            <TextBlock FontSize="24" FontWeight="SemiBold" TextAlignment="Center"
             Text="Welcome to the new"/>
             <TextBlock FontSize="48" FontWeight="SemiBold" TextAlignment="Center"
 Text="Radon." Foreground="DeepPink"/>

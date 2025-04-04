@@ -392,7 +392,6 @@
                                     <VisualState.Setters>
                                         <Setter Target="Pill.CornerRadius" Value="0" />
                                         <Setter Target="TabContainer.Background" Value="Transparent" />
-                                        <Setter Target="TabContainer.BorderBrush" Value="Transparent"/>
                                     </VisualState.Setters>
                                     <Storyboard>
                                         <ColorAnimation
@@ -412,7 +411,7 @@
                                 <VisualState x:Name="PointerOver">
                                     <VisualState.Setters>
                                         <Setter Target="Pill.CornerRadius" Value="0" />
-                                        <Setter Target="TabContainer.Background" Value="{ThemeResource ControlFillColorSecondaryBrush}" />
+                                        <Setter Target="TabContainer.Background" Value="Transparent" />
                                         <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPointerOver}" />
                                         <Setter Target="IconControl.Foreground" Value="{ThemeResource TabViewItemIconForegroundPointerOver}" />
                                         <Setter Target="CloseButton.Background" Value="{ThemeResource TabViewItemHeaderPointerOverCloseButtonBackground}" />

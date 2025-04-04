@@ -25,7 +25,7 @@
             <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="0,84,0,0" Padding="16,0,16,0">
                 <StackPanel Orientation="Vertical" Spacing="4">
                     <Button x:Name="profilepictureButton" Click="profilepictureButton_Click" HorizontalAlignment="Center" Padding="8"
-        BorderThickness="0" Background="Transparent" CornerRadius="68" Width="136" Height="136" Style="{ThemeResource ToolbarButton}">
+        BorderThickness="0" Background="Transparent" CornerRadius="68" Width="136" Height="136">
                         <Button.Content>
                             <Grid>
                                 <Ellipse Width="120" Height="120" Opacity="1">
@@ -41,7 +41,7 @@
                     </Button>
                     <StackPanel Spacing="8" HorizontalAlignment="Center" Margin="0,16">
                         <TextBox x:Name="profileName" TextChanged="profileName_TextChanged" FontSize="20" FontWeight="SemiBold" Text="Radon user" Width="250"
-                                 Background="Transparent" TextAlignment="Center" PlaceholderText="Radon user" BorderThickness="0,0,0,1" Style="{ThemeResource GlowTextBox}"/>
+                                 Background="Transparent" TextAlignment="Center" PlaceholderText="Radon user" BorderThickness="0,0,0,1"/>
 
                     </StackPanel>
                     <controls:SettingsExpander
