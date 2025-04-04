@@ -50,7 +50,7 @@
                             </controls:AnimatedVisualPlayer>
                             <icons:FluentSymbolIcon
                                 x:Name="CancelIcon"
-                                Margin="0,0,1,1"
+                                Margin="0, 0, 1, 1"
                                 VerticalAlignment="Center"
                                 Symbol="Dismiss16"
                                 Visibility="Collapsed">

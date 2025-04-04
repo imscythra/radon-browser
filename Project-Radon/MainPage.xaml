@@ -1,230 +1,147 @@
-﻿<Page
-    x:Class="Yttrium_browser.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="using:Project_Radon.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
-    xmlns:models="using:Project_Radon.Models"
-    xmlns:tenmica="using:TenMica"
-    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
-    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
-    x:Name="MainWindow"
-    DataContext="BrowserTabViewModel"
-    mc:Ignorable="d">
+﻿<Page x:Class="Yttrium_browser.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+      xmlns:controls="using:Project_Radon.Controls"
+      xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
+      xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+      xmlns:tenmica="using:TenMica"
+      x:Name="MainWindow"
+      DataContext="BrowserTabViewModel">
     <Page.KeyboardAccelerators>
-        <KeyboardAccelerator
-            Key="T"
-            Invoked="NewTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="W"
-            Invoked="CloseSelectedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number1"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number2"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number3"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number4"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number5"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number6"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number7"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number8"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="Number9"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="LeftButton"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
-        <KeyboardAccelerator
-            Key="RightButton"
-            Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked"
-            Modifiers="Control" />
+        <KeyboardAccelerator Key="T" Modifiers="Control" Invoked="NewTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="W" Modifiers="Control" Invoked="CloseSelectedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number1" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number2" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number3" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number4" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number5" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number6" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number7" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number8" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="Number9" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="LeftButton" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
+        <KeyboardAccelerator Key="RightButton" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
     </Page.KeyboardAccelerators>
     <Page.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="Transparent" />
+            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="Transparent"  />
         </ResourceDictionary>
-
+        
     </Page.Resources>
     <Page.Background>
-        <tenmica:TenMicaBrush />
+        <tenmica:TenMicaBrush/>
     </Page.Background>
 
     <Grid x:Name="BasicGrid">
-
+       
         <Grid.ChildrenTransitions>
             <TransitionCollection>
-                <EntranceThemeTransition IsStaggeringEnabled="True" />
+                <EntranceThemeTransition IsStaggeringEnabled="True"/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <Image
-            x:Name="appthemebackground"
-            Opacity="1"
-            Source="ms-appx:///wallpapers/10.png"
-            Stretch="UniformToFill">
+        <Image x:Name="appthemebackground" Stretch="UniformToFill" Source="ms-appx:///wallpapers/10.png" Opacity="1">
             <Image.OpacityTransition>
-                <ScalarTransition />
+                <ScalarTransition/>
             </Image.OpacityTransition>
         </Image>
         <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" Opacity="0.4"/>
 
 
+
         <Grid>
             <Grid.ChildrenTransitions>
                 <TransitionCollection>
-                    <EntranceThemeTransition IsStaggeringEnabled="True" />
+                    <EntranceThemeTransition IsStaggeringEnabled="True"/>
                 </TransitionCollection>
             </Grid.ChildrenTransitions>
             <Grid x:Name="BaseGrid" SizeChanged="BaseGrid_SizeChanged">
                 <Grid.ChildrenTransitions>
                     <TransitionCollection>
-                        <EntranceThemeTransition IsStaggeringEnabled="True" />
+                        <EntranceThemeTransition IsStaggeringEnabled="True"/>
                     </TransitionCollection>
                 </Grid.ChildrenTransitions>
-                <Grid
-                    x:Name="TitleBarGrid"
-                    Grid.Row="0"
-                    Canvas.ZIndex="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition
-                            x:Name="navbuttonbar"
-                            Width="*"
-                            MinWidth="143"
-                            MaxWidth="400" />
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition
-                            x:Name="righttitlebarpadding"
-                            Width="*"
-                            MinWidth="143"
-                            MaxWidth="300" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition x:Name="DefaultBarUI" Height="38" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <Grid x:Name="TitleBarGrid"
+              Grid.Row="0"
+              Canvas.ZIndex="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" x:Name="navbuttonbar" MinWidth="143" MaxWidth="400"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition x:Name="righttitlebarpadding" Width="*" MinWidth="143" MaxWidth="300"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="DefaultBarUI" Height="38"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                    <!--  titlebar drag area  -->
-                    <Border
-                        x:Name="DragArea"
-                        Grid.RowSpan="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="4"
-                        Background="Transparent"
-                        Canvas.ZIndex="0"
-                        Loaded="DragArea_Loaded" />
+            <!-- titlebar drag area -->
+                    <Border x:Name="DragArea"
+                    Loaded="DragArea_Loaded"
+                    Background="Transparent"
+                    Canvas.ZIndex="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Grid.RowSpan="2" />
 
-                    <!--  refresh and home buttons  -->
-                    <StackPanel
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Margin="5,0,0,0"
+                    <!-- refresh and home buttons -->
+            <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Center"
-                        Canvas.ZIndex="1"
-                        Orientation="Horizontal">
-                        <winui:DropDownButton
-                            x:Name="tabactions_button"
-                            Margin="5,2,0,0"
-                            Padding="7.2"
-                            Background="Transparent"
-                            BorderThickness="0">
+                        Margin="5,0,0,0"
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Canvas.ZIndex="1">
+                        <winui:DropDownButton x:Name="tabactions_button" Margin="5,2,0,0" 
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="7.2">
                             <ToolTipService.ToolTip>
                                 <StackPanel>
-                                    <TextBlock FontWeight="SemiBold" Style="{ThemeResource CaptionTextBlockStyle}">Radon quick options</TextBlock>
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold">Radon quick options</TextBlock>
                                     <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">Access top-level actions such as navigation, view mode, tools and more.</TextBlock>
                                 </StackPanel>
                             </ToolTipService.ToolTip>
-                            <Image Margin="2" Source="ms-appx:///Assets/StoreLogo.png" />
+                            <Image Source="ms-appx:///Assets/StoreLogo.png" Margin="2"/>
                             <winui:DropDownButton.Flyout>
-                                <MenuFlyout Placement="BottomEdgeAlignedLeft" ShouldConstrainToRootBounds="False">
-
-                                    <MenuFlyoutItem
-                                        x:Name="tabaction_inline"
-                                        Width="250"
-                                        Click="tabaction_inline_Click"
-                                        IsEnabled="False"
-                                        Text="Inline mode (wip)">
+                                <MenuFlyout ShouldConstrainToRootBounds="False" Placement="BottomEdgeAlignedLeft">
+                                   
+                                    <MenuFlyoutItem IsEnabled="False" Text="Inline mode (wip)" Width="250" x:Name="tabaction_inline" Click="tabaction_inline_Click">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xf26b;" />
+                                            <FontIcon Glyph="&#xf26b;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem
-                                        x:Name="tabaction_titlebar"
-                                        Width="250"
-                                        Click="tabaction_titlebar_Click"
-                                        Text="System titlebar">
+                                    <MenuFlyoutItem Text="System titlebar" Width="250" x:Name="tabaction_titlebar" Click="tabaction_titlebar_Click">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xe967;" />
+                                            <FontIcon Glyph="&#xe967;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem
-                                        Width="250"
-                                        IsEnabled="False"
-                                        Text="Snip tab (in development)">
+                                    <MenuFlyoutItem Text="Snip tab (in development)" Width="250" IsEnabled="False">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xe931;" />
+                                            <FontIcon Glyph="&#xe931;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem
-                                        Width="250"
-                                        IsEnabled="False"
-                                        Text="Web grabber (in development)">
+                                    <MenuFlyoutItem Text="Web grabber (in development)" Width="250" IsEnabled="False">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xe8ac;" />
+                                            <FontIcon Glyph="&#xe8ac;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem
-                                        Width="250"
-                                        IsEnabled="False"
-                                        Text="Generate QR code">
+                                    <MenuFlyoutItem Text="Generate QR code" Width="250" IsEnabled="False">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xed14;" />
+                                            <FontIcon Glyph="&#xed14;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem
-                                        x:Name="tabactions_devtools"
-                                        Width="250"
-                                        Click="tabactions_devtools_Click"
-                                        Text="Developer Tools">
+                                    <MenuFlyoutItem Text="Developer Tools" Width="250" x:Name="tabactions_devtools" Click="tabactions_devtools_Click">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xec7a;" />
+                                            <FontIcon Glyph="&#xec7a;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem
-                                        x:Name="ChangeThemeButtonAction"
-                                        Width="250"
-                                        Click="ChangeThemeButton_Click"
-                                        Text="Change theme">
+                                    <MenuFlyoutItem x:Name="ChangeThemeButtonAction" Text="Change theme" Click="ChangeThemeButton_Click" Width="250">
                                         <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xe771;" />
+                                            <FontIcon Glyph="&#xe771;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
 
@@ -241,169 +158,110 @@
                                 </MenuFlyout>
                             </winui:DropDownButton.Flyout>
                         </winui:DropDownButton>
-                        <Grid Width="8" />
-                        <Button
-                            x:Name="BackButton"
-                            Margin="0,2,5,0"
-                            Padding="3,6"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="BackButton_Click"
-                            ClickMode="Press">
+                        <Grid Width="8"/>
+                        <Button x:Name="BackButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="0,2,5,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Click="BackButton_Click" ClickMode="Press"
+                        Padding="3,6">
                             <ToolTipService.ToolTip>
                                 <StackPanel>
-                                    <TextBlock FontWeight="SemiBold" Style="{ThemeResource CaptionTextBlockStyle}">Go back (Alt + Left arrow)</TextBlock>
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold">Go back (Alt + Left arrow)</TextBlock>
                                     <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">Navigate to the most recently opened web page.</TextBlock>
                                 </StackPanel>
                             </ToolTipService.ToolTip>
-                            <FontIcon
-                                x:Name="backbutton_icon"
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="20"
-                                Glyph="&#xe973;"
-                                Translation="0,0,0">
+                            <FontIcon x:Name="backbutton_icon" Glyph="&#xe973;" FontSize="20" Translation="0,0,0" FontFamily="Segoe Fluent Icons">
                                 <FontIcon.TranslationTransition>
-                                    <Vector3Transition />
+                                    <Vector3Transition/>
                                 </FontIcon.TranslationTransition>
                             </FontIcon>
                         </Button>
-                        <Button
-                            x:Name="ForwardButton"
-                            Margin="0,2,5,0"
-                            Padding="3,6"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="ForwardButton_Click"
-                            ClickMode="Press">
+                <Button x:Name="ForwardButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="0,2,5,0" ClickMode="Press"
+                        Click="ForwardButton_Click"
+                        Padding="3,6">
                             <ToolTipService.ToolTip>
                                 <StackPanel>
-                                    <TextBlock FontWeight="SemiBold" Style="{ThemeResource CaptionTextBlockStyle}">Go forward (Alt + Right arrow)</TextBlock>
+                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold">Go forward (Alt + Right arrow)</TextBlock>
                                     <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">Navigate to the page you've recently navigate back from.</TextBlock>
                                 </StackPanel>
                             </ToolTipService.ToolTip>
-                            <FontIcon
-                                x:Name="forwardbutton_icon"
-                                FontFamily="segoe fluent icons"
-                                FontSize="20"
-                                Glyph="&#xe974;"
-                                Translation="0,0,0">
+                            <FontIcon Glyph="&#xe974;" Translation="0,0,0" x:Name="forwardbutton_icon"
+                              FontSize="20" FontFamily="segoe fluent icons">
                                 <FontIcon.TranslationTransition>
-                                    <Vector3Transition />
+                                    <Vector3Transition/>
                                 </FontIcon.TranslationTransition>
                             </FontIcon>
                         </Button>
-
-
-                        <Button
-                            x:Name="HomeButton"
-                            Margin="0,0,5,0"
-                            Padding="8.5"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="HomeButton_Click"
-                            ToolTipService.ToolTip="Start page"
-                            Visibility="Collapsed">
-                            <FontIcon
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="16"
-                                Glyph="&#xe80f;" />
-                        </Button>
-                        <Button
-                            x:Name="NavOverflowButton"
-                            Padding="8.5"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="HomeButton_Click"
-                            ToolTipService.ToolTip="Navigation options"
-                            Visibility="Collapsed">
-                            <FontIcon
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="16"
-                                Glyph="&#xe70d;" />
-                            <Button.Flyout>
-                                <MenuFlyout>
-                                    <MenuFlyoutItem
-                                        Width="150"
-                                        Click="ForwardButton_Click"
-                                        Icon="Forward"
-                                        Text="Forward" />
-                                    <MenuFlyoutItem
-                                        Width="150"
-                                        Click="RefreshButton_Click"
-                                        Icon="Refresh"
-                                        Text="Refresh" />
-                                    <MenuFlyoutItem
-                                        Width="150"
-                                        Icon="Document"
-                                        Text="Stop loading" />
-                                    <MenuFlyoutItem
-                                        Width="150"
-                                        Click="HomeButton_Click"
-                                        Icon="Home"
-                                        Text="Start page" />
-                                </MenuFlyout>
-                            </Button.Flyout>
-                        </Button>
-
-                    </StackPanel>
-
-                    <!--  SSL certification icon  -->
-                    <Button
-                        x:Name="SSLButton"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="44,2,0,0"
-                        Padding="6.9"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
+                
+                
+                <Button x:Name="HomeButton"
+                        Background="Transparent" Visibility="Collapsed"
                         BorderThickness="0"
-                        Canvas.ZIndex="1"
-                        CornerRadius="40"
-                        Style="{ThemeResource ToolbarButton}">
+                        Click="HomeButton_Click" Margin="0,0,5,0"
+                        Padding="8.5" ToolTipService.ToolTip="Start page">
+                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe80f;"
+                              FontSize="16" />
+                </Button>
+                <Button x:Name="NavOverflowButton"
+                        Background="Transparent" Visibility="Collapsed"
+                        BorderThickness="0"
+                        Click="HomeButton_Click"
+                        Padding="8.5" ToolTipService.ToolTip="Navigation options">
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe70d;"
+                              FontSize="16" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Width="150" Text="Forward" Icon="Forward" Click="ForwardButton_Click"/>
+                            <MenuFlyoutItem Width="150" Text="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
+                            <MenuFlyoutItem Width="150" Text="Stop loading" Icon="Document"/>
+                            <MenuFlyoutItem Width="150" Text="Start page" Icon="Home" Click="HomeButton_Click"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+                
+            </StackPanel>
+
+            <!-- SSL certification icon-->
+            <Button x:Name="SSLButton" Style="{ThemeResource ToolbarButton}"
+                    VerticalAlignment="Center"
+                    Grid.Column="1" CornerRadius="40"
+                    Margin="44,2,0,0"
+                    BorderThickness="0"
+                    Canvas.ZIndex="1"
+                    Padding="6.9"
+                    Grid.Row="0" Background="Transparent">
                         <ToolTipService.ToolTip>
                             <StackPanel>
-                                <TextBlock FontWeight="SemiBold" Style="{ThemeResource CaptionTextBlockStyle}">Connection information</TextBlock>
+                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold">Connection information</TextBlock>
                                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">Inspect your connection to the web provider and it's security status.</TextBlock>
                             </StackPanel>
                         </ToolTipService.ToolTip>
-                        <FontIcon
-                            x:Name="SSLIcon"
-                            FontSize="15"
-                            Glyph="&#xE72E;" />
-                        <Button.Flyout>
-                            <Flyout x:Name="SSLFlyout" ShouldConstrainToRootBounds="False">
-                                <StackPanel Width="340">
-                                    <StackPanel Orientation="Horizontal">
-                                        <FontIcon
-                                            x:Name="SSLFlyoutIcon"
-                                            FontSize="18"
-                                            Glyph="&#xE72E;" />
-                                        <TextBlock
-                                            x:Name="SSLFlyoutHeader"
-                                            Margin="10,0"
-                                            Style="{ThemeResource BaseTextBlockStyle}"
-                                            Text="Connection informations" />
+                        <FontIcon  x:Name="SSLIcon"
+                           Glyph="&#xE72E;"
+                           FontSize="15" />
+                <Button.Flyout>
+                    <Flyout x:Name="SSLFlyout" ShouldConstrainToRootBounds="False">
+                        <StackPanel Width="340">
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon  x:Name="SSLFlyoutIcon"
+                                    Glyph="&#xE72E;"
+                                    FontSize="18" />
+                                <TextBlock x:Name="SSLFlyoutHeader" Style="{ThemeResource BaseTextBlockStyle}" Margin="10,0" Text="Connection informations"/>
 
-                                    </StackPanel>
-                                    <TextBlock
-                                        x:Name="SSLFlyoutStatus"
-                                        Margin="0,20,0,0"
-                                        Text="Website's SSL status goes here."
-                                        TextWrapping="WrapWholeWords" />
-                                    <TextBlock
-                                        x:Name="SSLFlyoutStatus2"
-                                        Margin="0,15,0,10"
-                                        Text="Website's SSL status goes here."
-                                        TextWrapping="WrapWholeWords" />
-                                </StackPanel>
-                            </Flyout>
-                        </Button.Flyout>
+                            </StackPanel>
+                            <TextBlock x:Name="SSLFlyoutStatus" TextWrapping="WrapWholeWords" Margin="0,20,0,0" Text="Website's SSL status goes here."/>
+                            <TextBlock x:Name="SSLFlyoutStatus2" TextWrapping="WrapWholeWords" Margin="0,15,0,10" Text="Website's SSL status goes here."/>
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
 
-                    </Button>
+            </Button>
 
-                    <!--  search bar  -->
+            <!-- search bar -->
 
                     <TextBox x:Name="SearchBar"
                     KeyDown="SearchBar_KeyDown"
@@ -425,62 +283,36 @@
                         Background="{x:Null}" Grid.Column="1" HorizontalAlignment="Right"
                         BorderThickness="0" PointerEntered="RefreshButton_PointerEntered"
                         Margin="0,4,48,0"
-                        Padding="6.5"
-                        HorizontalAlignment="Right"
-                        Background="{x:Null}"
-                        BorderThickness="0"
                         Click="RefreshButton_Click"
-                        CornerRadius="40"
-                        PointerEntered="RefreshButton_PointerEntered">
-                        <FontIcon
-                            FontFamily="segoe fluent icons"
-                            FontSize="13"
-                            Glyph="&#xe72c;" />
+                        CornerRadius="40" Padding="6.5">
+                        <FontIcon Glyph="&#xe72c;"
+                              FontSize="13" FontFamily="segoe fluent icons"/>
                         <ToolTipService.ToolTip>
                             <StackPanel>
-                                <TextBlock FontWeight="SemiBold" Style="{ThemeResource CaptionTextBlockStyle}">Refresh</TextBlock>
+                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold">Refresh</TextBlock>
                                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">Reload this page again.</TextBlock>
                             </StackPanel>
                         </ToolTipService.ToolTip>
                     </Button>
-                    <Button
-                        x:Name="StopRefreshButton"
-                        Grid.Column="1"
+                    <Button x:Name="StopRefreshButton"
+                        Background="Transparent" Grid.Column="1"
+                        BorderThickness="0" HorizontalAlignment="Right"
                         Margin="0,4,48,0"
-                        Padding="6"
-                        HorizontalAlignment="Right"
-                        Background="Transparent"
-                        BorderThickness="0"
+                        Visibility="Collapsed"
                         Click="StopRefreshButton_Click"
-                        CornerRadius="40"
-                        Visibility="Collapsed">
-                        <FontIcon
-                            FontFamily="Segoe fluent icons"
-                            FontSize="15"
-                            Glyph="&#xe711;" />
+                        Padding="6" CornerRadius="40">
+                        <FontIcon Glyph="&#xe711;" FontSize="15"
+                                  FontFamily="Segoe fluent icons"/>
                         <ToolTipService.ToolTip>
                             <StackPanel>
-                                <TextBlock FontWeight="SemiBold" Style="{ThemeResource CaptionTextBlockStyle}">Stop navigation</TextBlock>
+                                <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold">Stop navigation</TextBlock>
                                 <TextBlock Style="{ThemeResource CaptionTextBlockStyle}">Stop the current web page from loading.</TextBlock>
                             </StackPanel>
                         </ToolTipService.ToolTip>
                     </Button>
 
-                    <ToggleButton
-                        x:Name="controlCenterToggleButton"
-                        Grid.Column="1"
-                        Margin="0,4,5,0"
-                        Padding="7"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderBrush="{x:Null}"
-                        Click="controlCenterToggleButton_Click"
-                        Visibility="Collapsed">
-                        <FontIcon
-                            FontFamily="Segoe Fluent Icons"
-                            FontSize="15"
-                            Glyph="&#xE011;" />
+                    <ToggleButton Visibility="Collapsed" x:Name="controlCenterToggleButton" Click="controlCenterToggleButton_Click" VerticalAlignment="Center" Grid.Column="1" Padding="7" Margin="0,4,5,0" BorderBrush="{x:Null}" Background="Transparent" HorizontalAlignment="Right">
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE011;" FontSize="15"/>
 
                         <!--<Flyout ShouldConstrainToRootBounds="False">
 													<StackPanel Width="180">
@@ -572,19 +404,12 @@
 												</Flyout>-->
 
 
-                    </ToggleButton>
+                        </ToggleButton>
 
-                    <BitmapIcon
-                        x:Name="faviconicon"
-                        Grid.Column="1"
-                        Width="18"
-                        Height="18"
-                        Margin="50,0,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center" />
+                        <BitmapIcon x:Name="faviconicon" Width="18" Height="18" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Margin="50,0,0,0"/>
 
-                    <!--  settings flyout  -->
-                    <!--<Button x:Name="MenuButton" BorderBrush="Transparent"
+            <!-- settings flyout -->
+            <!--<Button x:Name="MenuButton" BorderBrush="Transparent"
                     Grid.Column="1" HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="Transparent" CornerRadius="12"
@@ -684,175 +509,111 @@
                     </Flyout>
                 </Button.Flyout>
 
-
+                
 
             </Button>-->
-
+                    
                     <winui:TabView
-                        x:Name="BrowserTabs"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="4"
-                        Margin="0,-3,0,0"
-                        VerticalAlignment="Stretch"
-                        HorizontalContentAlignment="Center"
-                        AddTabButtonClick="BrowserTabs_AddTabButtonClick"
-                        IsAddTabButtonVisible="True"
-                        SelectionChanged="BrowserTabs_SelectionChanged"
-                        TabCloseRequested="BrowserTabs_TabCloseRequested"
-                        TabItemsSource="{x:Bind CurrentTabs}"
-                        TabWidthMode="Equal">
+                TabItemsSource="{x:Bind CurrentTabs}"
+                Grid.Row="1"
+                Grid.ColumnSpan="4"
+                TabWidthMode="Equal"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Stretch"
+                x:Name="BrowserTabs" 
+                Margin="0,-3,0,0"
+               IsAddTabButtonVisible="True"
+                TabCloseRequested="BrowserTabs_TabCloseRequested"
+                SelectionChanged="BrowserTabs_SelectionChanged"
+                AddTabButtonClick="BrowserTabs_AddTabButtonClick"
+                >
                         <winui:TabView.TabStripHeader>
                             <Grid>
                                 <Grid.ChildrenTransitions>
                                     <TransitionCollection>
-                                        <EntranceThemeTransition IsStaggeringEnabled="True" />
-                                        <RepositionThemeTransition />
+                                        <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                                        <RepositionThemeTransition/>
                                     </TransitionCollection>
                                 </Grid.ChildrenTransitions>
+                                
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="8,0,0,0">
+                                    <!--TODO: The button should add a new tab -->
 
-                                <StackPanel
-                                    Margin="8,0,0,0"
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal">
-                                    <!--  TODO: The button should add a new tab  -->
-
-                                    <Grid
-                                        x:Name="compacttitlebar_rightpadding"
-                                        Width="40"
-                                        Visibility="Collapsed" />
+                                    <Grid x:Name="compacttitlebar_rightpadding" Width="40" Visibility="Collapsed"/>
                                 </StackPanel>
-                                <Grid x:Name="tabaction" />
-                                <Grid
-                                    x:Name="compactuibar"
-                                    Margin="45,0"
-                                    Visibility="Collapsed">
+                                <Grid x:Name="tabaction">
+
+                                </Grid>
+                                <Grid x:Name="compactuibar" Visibility="Collapsed" Margin="45,0">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition
-                                            x:Name="compactnavbar"
-                                            Width="*"
-                                            MinWidth="100" />
-                                        <ColumnDefinition
-                                            x:Name="compactsearchbar"
-                                            Width="999*"
-                                            MaxWidth="400" />
+                                        <ColumnDefinition x:Name="compactnavbar" MinWidth="100" Width="*"/>
+                                        <ColumnDefinition x:Name="compactsearchbar" Width="999*" MaxWidth="400"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button
-                                            x:Name="CompactBackButton"
-                                            Margin="12,5,10,5"
-                                            Padding="6"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Click="BackButton_Click"
-                                            ToolTipService.ToolTip="Back">
-                                            <FontIcon
-                                                FontFamily="Segoe Fluent Icons"
-                                                FontSize="20"
-                                                Glyph="&#xe760;" />
+                                        <Button x:Name="CompactBackButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="12,5,10,5"
+                        Click="BackButton_Click"
+                        Padding="6" ToolTipService.ToolTip="Back">
+                                            <FontIcon Glyph="&#xe760;" FontSize="20" FontFamily="Segoe Fluent Icons"/>
                                         </Button>
-                                        <Button
-                                            x:Name="CompactNavOverflowButton"
-                                            Padding="8.5"
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Click="HomeButton_Click"
-                                            ToolTipService.ToolTip="Navigation options">
-                                            <FontIcon
-                                                FontFamily="Segoe Fluent Icons"
-                                                FontSize="18"
-                                                Glyph="&#xe712;" />
+                                        <Button x:Name="CompactNavOverflowButton"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="HomeButton_Click"
+                        Padding="8.5" ToolTipService.ToolTip="Navigation options">
+                                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe712;"
+                              FontSize="18" />
                                             <Button.Flyout>
                                                 <MenuFlyout>
-                                                    <MenuFlyoutItem
-                                                        Width="150"
-                                                        Click="ForwardButton_Click"
-                                                        Icon="Forward"
-                                                        Text="Forward" />
-                                                    <MenuFlyoutItem
-                                                        Width="150"
-                                                        Click="RefreshButton_Click"
-                                                        Icon="Refresh"
-                                                        Text="Refresh" />
-                                                    <MenuFlyoutItem
-                                                        Width="150"
-                                                        Icon="Document"
-                                                        Text="Stop loading" />
-                                                    <MenuFlyoutItem
-                                                        Width="150"
-                                                        Click="HomeButton_Click"
-                                                        Icon="Home"
-                                                        Text="Start page" />
+                                                    <MenuFlyoutItem Width="150" Text="Forward" Icon="Forward" Click="ForwardButton_Click"/>
+                                                    <MenuFlyoutItem Width="150" Text="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
+                                                    <MenuFlyoutItem Width="150" Text="Stop loading" Icon="Document"/>
+                                                    <MenuFlyoutItem Width="150" Text="Start page" Icon="Home" Click="HomeButton_Click"/>
                                                 </MenuFlyout>
                                             </Button.Flyout>
                                         </Button>
 
-                                        <!--  TODO: The button should add a new tab  -->
-                                        <Button
-                                            Width="48"
-                                            VerticalAlignment="Center"
-                                            Style="{ThemeResource PaneToggleButtonStyle}"
-                                            Visibility="Collapsed">
+                                        <!--TODO: The button should add a new tab -->
+                                        <Button Style="{ThemeResource PaneToggleButtonStyle}"  VerticalAlignment="Center" Width="48" Visibility="Collapsed">
                                             <Button.Flyout>
-                                                <Flyout />
+                                                <Flyout/>
                                             </Button.Flyout>
                                         </Button>
                                     </StackPanel>
-                                    <AutoSuggestBox
-                                        x:Name="CompactSearchBar"
-                                        Grid.Column="1"
-                                        Height="25"
-                                        Margin="13,0,15,0"
-                                        Padding="36,6,6,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        BorderThickness="0"
-                                        CornerRadius="8"
-                                        FontWeight="SemiBold"
-                                        GotFocus="SearchBar_GotFocus"
-                                        KeyDown="CompactSearchBar_KeyDown"
-                                        PlaceholderText="Search the web or enter a URL" />
-                                    <winui:ProgressBar
-                                        x:Name="compactloadingbar"
-                                        Margin="21,0,23,5"
-                                        VerticalAlignment="Bottom"
-                                        IsIndeterminate="True" />
+                                    <AutoSuggestBox x:Name="CompactSearchBar"
+                         KeyDown="CompactSearchBar_KeyDown"
+                         VerticalAlignment="Center"
+                         Margin="13,0,15,0"
+                         BorderThickness="0"
+                         Padding="36,6,6,0"
+                        HorizontalAlignment="Stretch"
+                        FontWeight="SemiBold"
+                         Grid.Column="1"
+                         PlaceholderText="Search the web or enter a URL"
+                         Height="25"
+                         VerticalContentAlignment="Center" 
+                         GotFocus="SearchBar_GotFocus"
+                         CornerRadius="8" />
+                                    <winui:ProgressBar x:Name="compactloadingbar" VerticalAlignment="Bottom" Margin="21,0,23,5" IsIndeterminate="True"/>
                                 </Grid>
                             </Grid>
                         </winui:TabView.TabStripHeader>
                         <winui:TabView.TabStripFooter>
-                            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <StackPanel.ChildrenTransitions>
                                     <TransitionCollection>
-                                        <EntranceThemeTransition IsStaggeringEnabled="True" />
+                                        <EntranceThemeTransition IsStaggeringEnabled="True"/>
                                     </TransitionCollection>
                                 </StackPanel.ChildrenTransitions>
+                                
 
-
-                                <Button
-                                    x:Name="controlCenterButton"
-                                    Grid.Column="1"
-                                    Margin="0,4,5,0"
-                                    Padding="10,6.8"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    Background="Transparent"
-                                    BorderBrush="{x:Null}"
-                                    Click="controlCenterToggleButton_Click">
-                                    <FontIcon
-                                        FontFamily="Segoe Fluent Icons"
-                                        FontSize="17"
-                                        Glyph="&#xE712;" />
+                                <Button x:Name="controlCenterButton" Click="controlCenterToggleButton_Click" VerticalAlignment="Center" Grid.Column="1" Padding="10,6.8" Margin="0,4,5,0" BorderBrush="{x:Null}" Background="Transparent" HorizontalAlignment="Right">
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" FontSize="17"/>
                                     <Button.Flyout>
-                                        <Flyout
-                                            x:Name="RadonOverflowMenu"
-                                            Placement="LeftEdgeAlignedTop"
-                                            ShouldConstrainToRootBounds="False">
-                                            <ScrollViewer
-                                                Margin="-8"
-                                                Padding="0"
-                                                CornerRadius="8"
-                                                VerticalScrollBarVisibility="Auto">
+                                        <Flyout x:Name="RadonOverflowMenu" ShouldConstrainToRootBounds="False" Placement="LeftEdgeAlignedTop" >
+                                            <ScrollViewer Padding="0" VerticalScrollBarVisibility="Auto" CornerRadius="8" Margin="-8">
                                                 <Grid Margin="0,2">
 
                                                     <StackPanel>
@@ -860,362 +621,107 @@
                                                         <Grid Margin="0,0,0,8">
                                                             <Grid.ChildrenTransitions>
                                                                 <TransitionCollection>
-                                                                    <EntranceThemeTransition IsStaggeringEnabled="True" />
+                                                                    <EntranceThemeTransition IsStaggeringEnabled="True"/>
                                                                 </TransitionCollection>
                                                             </Grid.ChildrenTransitions>
-                                                            <Button
-                                                                Margin="4,0"
-                                                                Padding="7"
-                                                                HorizontalAlignment="Left"
-                                                                Background="{x:Null}"
-                                                                BorderThickness="0"
-                                                                ToolTipService.ToolTip="Go to home">
-                                                                <FontIcon
-                                                                    FontFamily="Segoe Fluent Icons"
-                                                                    FontSize="17"
-                                                                    Glyph="&#xEA8A;" />
+                                                            <Button Background="{x:Null}" BorderThickness="0" Padding="7" HorizontalAlignment="Left" Margin="4,0"
+                                                                    ToolTipService.ToolTip="Go to home">
+                                                                <FontIcon FontFamily="Segoe Fluent Icons" FontSize="17" Glyph="&#xEA8A;" />
                                                             </Button>
-                                                            <Button
-                                                                Margin="37,0"
-                                                                HorizontalAlignment="Right"
-                                                                Content="Log out"
-                                                                Style="{ThemeResource TextBlockButtonStyle}" />
-                                                            <Button
-                                                                Margin="4,0"
-                                                                Padding="4"
-                                                                HorizontalAlignment="Right"
-                                                                Background="{x:Null}"
-                                                                BorderThickness="0"
-                                                                Click="editprofile_Click"
-                                                                ToolTipService.ToolTip="Radon user">
-                                                                <winui:PersonPicture Width="30" HorizontalAlignment="Right" />
+                                                            <Button Style="{ThemeResource TextBlockButtonStyle}" Content="Log out" HorizontalAlignment="Right" Margin="37,0"/>
+                                                            <Button Background="{x:Null}" BorderThickness="0" Padding="4" HorizontalAlignment="Right" Margin="4,0"
+                                                                    ToolTipService.ToolTip="Radon user" Click="editprofile_Click">
+                                                                <winui:PersonPicture HorizontalAlignment="Right" Width="30"/>
                                                             </Button>
                                                         </Grid>
                                                         <Grid>
                                                             <StackPanel Orientation="Horizontal">
 
-                                                                <Button
-                                                                    Width="98"
-                                                                    Padding="0,10,0,10"
-                                                                    HorizontalAlignment="Stretch"
-                                                                    Background="Transparent"
-                                                                    BorderThickness="0"
-                                                                    Click="addtab_button_Click">
+                                                                <Button Click="addtab_button_Click" Background="Transparent" HorizontalAlignment="Stretch" Padding="0,10,0,10" Width="98" BorderThickness="0">
                                                                     <StackPanel>
-                                                                        <FontIcon
-                                                                            FontFamily="Segoe Fluent Icons"
-                                                                            FontSize="18"
-                                                                            Glyph="&#xEC6C;" />
-                                                                        <TextBlock
-                                                                            Margin="0,8"
-                                                                            Text="New tab"
-                                                                            TextAlignment="Center" />
+                                                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xEC6C;" FontSize="18"/>
+                                                                        <TextBlock Margin="0,8" Text="New tab" TextAlignment="Center"/>
                                                                     </StackPanel>
                                                                 </Button>
-                                                                <Border
-                                                                    Margin="0,8"
-                                                                    BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
-                                                                    BorderThickness="1"
-                                                                    Opacity="0.3" />
-                                                                <Button
-                                                                    x:Name="newWindow"
-                                                                    Width="98"
-                                                                    Padding="0,10,0,10"
-                                                                    HorizontalAlignment="Stretch"
-                                                                    Background="Transparent"
-                                                                    BorderThickness="0"
-                                                                    Click="newWindow_Click">
+                                                                <Border BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" Margin="0,8" Opacity="0.3"  BorderThickness="1"/>
+                                                                <Button x:Name="newWindow" Click="newWindow_Click" Background="Transparent" HorizontalAlignment="Stretch" Padding="0,10,0,10" Width="98" BorderThickness="0">
                                                                     <StackPanel>
-                                                                        <FontIcon
-                                                                            FontFamily="Segoe Fluent Icons"
-                                                                            FontSize="18"
-                                                                            Glyph="&#xE737;" />
-                                                                        <TextBlock
-                                                                            Margin="0,8"
-                                                                            Text="New window"
-                                                                            TextAlignment="Center" />
+                                                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;" FontSize="18"/>
+                                                                        <TextBlock Margin="0,8" Text="New window" TextAlignment="Center"/>
                                                                     </StackPanel>
                                                                 </Button>
-                                                                <Border
-                                                                    Margin="0,8"
-                                                                    BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
-                                                                    BorderThickness="1"
-                                                                    Opacity="0.3" />
+                                                                <Border BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" Margin="0,8" Opacity="0.3" BorderThickness="1"/>
 
 
-                                                                <Button
-                                                                    Width="98"
-                                                                    Padding="0,10,0,10"
-                                                                    HorizontalAlignment="Stretch"
-                                                                    Background="Transparent"
-                                                                    BorderThickness="0">
+                                                                <Button Background="Transparent" HorizontalAlignment="Stretch" Padding="0,10,0,10" Width="98" BorderThickness="0">
                                                                     <StackPanel>
-                                                                        <FontIcon
-                                                                            FontFamily="Segoe Fluent Icons"
-                                                                            FontSize="18"
-                                                                            Glyph="&#xE621;" />
-                                                                        <TextBlock
-                                                                            Margin="0,8"
-                                                                            Text="New InPrivate"
-                                                                            TextAlignment="Center"
-                                                                            TextWrapping="WrapWholeWords" />
+                                                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE621;" FontSize="18"/>
+                                                                        <TextBlock Margin="0,8" Text="New InPrivate" TextWrapping="WrapWholeWords" TextAlignment="Center"/>
                                                                     </StackPanel>
                                                                 </Button>
                                                             </StackPanel>
                                                         </Grid>
-                                                        <Border
-                                                            Margin="8,4"
-                                                            BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
-                                                            BorderThickness="1"
-                                                            Opacity="0.3" />
+                                                        <Border Margin="8,4" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
 
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent"
-                                                            Click="downloadbutton_Click">
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left" Click="downloadbutton_Click">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xE118;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Downloads" />
+                                                                <FontIcon Glyph="&#xE118;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Downloads"/>
                                                             </StackPanel>
                                                         </Button>
 
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
-                                                            <Button.Flyout>
-                                                                <Flyout
-                                                                    AllowFocusOnInteraction="True"
-                                                                    FlyoutPresenterStyle="{StaticResource MicaFlyoutStyle}"
-                                                                    Placement="LeftEdgeAlignedTop"
-                                                                    ShowMode="TransientWithDismissOnPointerMoveAway">
-                                                                    <Flyout.Content>
-                                                                        <ListView
-                                                                            x:Name="HistoryBack"
-                                                                            Width="400"
-                                                                            MaxHeight="600"
-                                                                            Margin="2"
-                                                                            Background="{ThemeResource MicaDarkBrush}"
-                                                                            BorderBrush="{ThemeResource ListBoxBorderThemeBrush}"
-                                                                            BorderThickness="1"
-                                                                            CornerRadius="5"
-                                                                            ItemsSource="{x:Bind ViewModel.MyHistory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                                                            <ListView.Transitions>
-                                                                                <TransitionCollection>
-                                                                                    <EntranceThemeTransition FromVerticalOffset="100" />
-                                                                                </TransitionCollection>
-                                                                            </ListView.Transitions>
-                                                                            <ListView.Header>
-                                                                                <Grid>
-                                                                                    <Grid.RowDefinitions>
-                                                                                        <RowDefinition Height="Auto" />
-                                                                                        <RowDefinition Height="*" />
-                                                                                    </Grid.RowDefinitions>
-                                                                                    <StackPanel
-                                                                                        Grid.Row="0"
-                                                                                        Margin="1"
-                                                                                        Padding="2"
-                                                                                        HorizontalAlignment="Stretch"
-                                                                                        VerticalAlignment="Center"
-                                                                                        Orientation="Horizontal"
-                                                                                        Spacing="5">
-                                                                                        <Image
-                                                                                            Width="32"
-                                                                                            Height="32"
-                                                                                            Margin="2"
-                                                                                            HorizontalAlignment="Left"
-                                                                                            Source="/Assets/StoreLogo.png"
-                                                                                            Stretch="Fill" />
-
-                                                                                        <TextBlock
-                                                                                            HorizontalAlignment="Center"
-                                                                                            FontSize="18"
-                                                                                            FontWeight="Bold"
-                                                                                            Foreground="WhiteSmoke"
-                                                                                            Text="My History" />
-                                                                                    </StackPanel>
-
-                                                                                    <Button
-                                                                                        Grid.Row="1"
-                                                                                        Margin="2"
-                                                                                        HorizontalAlignment="Right"
-                                                                                        Command="{x:Bind ViewModel.ClearAllHistoryCommand}"
-                                                                                        ToolTipService.Placement="Bottom"
-                                                                                        ToolTipService.ToolTip="Delete All History">
-                                                                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                                                                            <TextBlock Text="Delete All History" />
-                                                                                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
-                                                                                        </StackPanel>
-                                                                                    </Button>
-                                                                                </Grid>
-
-                                                                            </ListView.Header>
-                                                                            <ListView.ItemTemplate>
-                                                                                <DataTemplate x:DataType="models:HistoryModel">
-                                                                                    <Grid
-                                                                                        Margin="0,1.5,3,2"
-                                                                                        CornerRadius="5"
-                                                                                        Tapped="HistoryPanel_Tapped">
-                                                                                        <Grid.RowDefinitions>
-                                                                                            <RowDefinition />
-                                                                                            <RowDefinition />
-                                                                                        </Grid.RowDefinitions>
-                                                                                        <StackPanel
-                                                                                            x:Name="HistoryPanel"
-                                                                                            Grid.Row="0"
-                                                                                            MinWidth="320"
-                                                                                            Padding="2"
-                                                                                            Orientation="Horizontal"
-                                                                                            ToolTipService.ToolTip="{Binding TheDocumentTitle, Mode=OneWay}">
-                                                                                            <Image
-                                                                                                Width="24"
-                                                                                                Height="24"
-                                                                                                Margin="2"
-                                                                                                HorizontalAlignment="Left"
-                                                                                                VerticalAlignment="Center"
-                                                                                                Source="{Binding FavIconUrl, Mode=OneWay}" />
-                                                                                            <TextBlock
-                                                                                                MinWidth="90"
-                                                                                                MaxWidth="240"
-                                                                                                Margin="4,0,0,4"
-                                                                                                Padding="2"
-                                                                                                HorizontalAlignment="Right"
-                                                                                                TextWrapping="WrapWholeWords">
-                                                                                                <Run Text="{Binding TheDocumentTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                                                                <Run Text="-" />
-                                                                                                <Run Text="{Binding TheUrl.Host, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                                                                            </TextBlock>
-                                                                                            <StackPanel.ContextFlyout>
-                                                                                                <MenuFlyout>
-                                                                                                    <MenuFlyoutItem
-                                                                                                        Command="{Binding RemoveItem}"
-                                                                                                        CommandParameter="{Binding}"
-                                                                                                        Text="Remove Item">
-                                                                                                        <MenuFlyoutItem.Icon>
-                                                                                                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE74D;" />
-                                                                                                        </MenuFlyoutItem.Icon>
-                                                                                                    </MenuFlyoutItem>
-                                                                                                </MenuFlyout>
-                                                                                            </StackPanel.ContextFlyout>
-                                                                                        </StackPanel>
-                                                                                        <TextBlock
-                                                                                            Grid.Row="1"
-                                                                                            Padding="2"
-                                                                                            HorizontalAlignment="Right"
-                                                                                            FontSize="10"
-                                                                                            Foreground="LimeGreen"
-                                                                                            Text="{Binding DateTime}" />
-                                                                                    </Grid>
-
-
-                                                                                </DataTemplate>
-                                                                            </ListView.ItemTemplate>
-
-                                                                        </ListView>
-                                                                    </Flyout.Content>
-                                                                </Flyout>
-                                                            </Button.Flyout>
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xF738;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="History" />
+                                                                <FontIcon Glyph="&#xF738;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="History"/>
                                                             </StackPanel>
                                                         </Button>
 
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="17" Glyph="&#xE006;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Favorites" />
+                                                                <FontIcon Glyph="&#xE006;" FontSize="17"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Favorites"/>
                                                             </StackPanel>
                                                         </Button>
-                                                        <Border
-                                                            Margin="8,0"
-                                                            BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
-                                                            BorderThickness="1"
-                                                            Opacity="0.3" />
+                                                        <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
                                                         <Grid>
-                                                            <StackPanel
-                                                                Margin="12,0"
-                                                                HorizontalAlignment="Stretch"
-                                                                Orientation="Horizontal">
-                                                                <FontIcon
-                                                                    FontFamily="Segoe Fluent Icons"
-                                                                    FontSize="17"
-                                                                    Glyph="&#xE8A3;" />
-                                                                <TextBlock
-                                                                    Margin="8,0"
-                                                                    VerticalAlignment="Center"
-                                                                    Text="Zoom" />
+                                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="12,0">
+                                                                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8A3;" FontSize="17" />
+                                                                <TextBlock Margin="8,0" Text="Zoom" VerticalAlignment="Center"/>
                                                             </StackPanel>
-                                                            <Button
-                                                                Margin="110,0"
-                                                                Padding="7"
-                                                                HorizontalAlignment="Right"
-                                                                Background="{x:Null}"
-                                                                BorderThickness="0"
-                                                                Click="fullscreenbutton_Click">
-                                                                <FontIcon
-                                                                    x:Name="fullscreenbutton_icon"
-                                                                    FontFamily="Segoe Fluent Icons"
-                                                                    FontSize="15"
-                                                                    Glyph="&#xE740;" />
+                                                            <Button Background="{x:Null}" BorderThickness="0" Padding="7" HorizontalAlignment="Right" Margin="110,0" Click="fullscreenbutton_Click">
+                                                                <FontIcon x:Name="fullscreenbutton_icon" FontFamily="Segoe Fluent Icons" FontSize="15" Glyph="&#xE740;" />
                                                             </Button>
-                                                            <winui:DropDownButton
-                                                                Width="95"
-                                                                Margin="4,4"
-                                                                HorizontalAlignment="Right"
-                                                                HorizontalContentAlignment="Left"
-                                                                Content="100%">
+                                                            <winui:DropDownButton Content="100%" Width="95" Margin="4,4" HorizontalContentAlignment="Left" HorizontalAlignment="Right">
                                                                 <winui:DropDownButton.Flyout>
                                                                     <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                                                        <MenuFlyoutItem Text="25%" />
-                                                                        <MenuFlyoutItem Text="50%" />
-                                                                        <MenuFlyoutItem Text="75%" />
-                                                                        <MenuFlyoutItem Text="100%" />
-                                                                        <MenuFlyoutItem Text="125%" />
-                                                                        <MenuFlyoutItem Text="150%" />
-                                                                        <MenuFlyoutItem Text="200%" />
-                                                                        <MenuFlyoutItem Text="300%" />
-                                                                        <MenuFlyoutItem Text="500%" />
+                                                                        <MenuFlyoutItem Text="25%"/>
+                                                                        <MenuFlyoutItem Text="50%"/>
+                                                                        <MenuFlyoutItem Text="75%"/>
+                                                                        <MenuFlyoutItem Text="100%"/>
+                                                                        <MenuFlyoutItem Text="125%"/>
+                                                                        <MenuFlyoutItem Text="150%"/>
+                                                                        <MenuFlyoutItem Text="200%"/>
+                                                                        <MenuFlyoutItem Text="300%"/>
+                                                                        <MenuFlyoutItem Text="500%"/>
                                                                     </MenuFlyout>
                                                                 </winui:DropDownButton.Flyout>
                                                             </winui:DropDownButton>
                                                         </Grid>
-                                                        <Border
-                                                            Margin="8,0"
-                                                            BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
-                                                            BorderThickness="1"
-                                                            Opacity="0.3" />
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
+                                                        <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xE118;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Share" />
-                                                                <FontIcon
-                                                                    Margin="201,0,0,0"
-                                                                    FontFamily="Segoe Fluent Icons"
-                                                                    FontSize="14"
-                                                                    Glyph="&#xE097;" />
+                                                                <FontIcon Glyph="&#xE118;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Share"/>
+                                                                <FontIcon FontSize="14" FontFamily="Segoe Fluent Icons" Glyph="&#xE097;" Margin="201,0,0,0"/>
                                                             </StackPanel>
                                                             <Button.Flyout>
                                                                 <MenuFlyout Placement="RightEdgeAlignedTop" ShouldConstrainToRootBounds="False">
-                                                                    <MenuFlyoutItem
-                                                                        x:Name="copyurltoclipboardBtn"
-                                                                        Click="copyurltoclipboardBtn_Click"
-                                                                        Text="Copy URL to clipboard">
+                                                                    <MenuFlyoutItem x:Name="copyurltoclipboardBtn" Click="copyurltoclipboardBtn_Click" Text="Copy URL to clipboard">
                                                                         <MenuFlyoutItem.Icon>
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
                                                                         </MenuFlyoutItem.Icon>
@@ -1225,15 +731,12 @@
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE119;" />
                                                                         </MenuFlyoutItem.Icon>
                                                                     </MenuFlyoutItem>
-                                                                    <MenuFlyoutItem
-                                                                        x:Name="continueonmobileBtn"
-                                                                        Click="continueonmobileBtn_Click"
-                                                                        Text="Continue on mobile">
+                                                                    <MenuFlyoutItem x:Name="continueonmobileBtn" Click="continueonmobileBtn_Click" Text="Continue on mobile">
                                                                         <MenuFlyoutItem.Icon>
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe8ea;" />
                                                                         </MenuFlyoutItem.Icon>
                                                                     </MenuFlyoutItem>
-                                                                    <MenuFlyoutSeparator />
+                                                                    <MenuFlyoutSeparator/>
                                                                     <MenuFlyoutItem Text="More sharing options">
                                                                         <MenuFlyoutItem.Icon>
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" />
@@ -1244,56 +747,36 @@
 
                                                         </Button>
 
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xE792;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Save page as" />
+                                                                <FontIcon Glyph="&#xE792;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Save page as"/>
                                                             </StackPanel>
                                                         </Button>
 
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="17" Glyph="&#xE74F;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Toggle mute tab" />
+                                                                <FontIcon Glyph="&#xE74F;" FontSize="17"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Toggle mute tab"/>
                                                             </StackPanel>
                                                         </Button>
 
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xE749;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Print" />
+                                                                <FontIcon Glyph="&#xE749;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Print"/>
                                                             </StackPanel>
                                                         </Button>
 
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xE722;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Snipping tool" />
-                                                                <FontIcon
-                                                                    Margin="154,0,0,0"
-                                                                    FontFamily="Segoe Fluent Icons"
-                                                                    FontSize="14"
-                                                                    Glyph="&#xE097;" />
+                                                                <FontIcon Glyph="&#xE722;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Snipping tool"/>
+                                                                <FontIcon FontSize="14" FontFamily="Segoe Fluent Icons" Glyph="&#xE097;" Margin="154,0,0,0"/>
                                                             </StackPanel>
                                                             <Button.Flyout>
                                                                 <MenuFlyout Placement="RightEdgeAlignedTop" ShouldConstrainToRootBounds="False">
@@ -1312,7 +795,7 @@
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE792;" />
                                                                         </MenuFlyoutItem.Icon>
                                                                     </MenuFlyoutItem>
-                                                                    <MenuFlyoutSeparator />
+                                                                    <MenuFlyoutSeparator/>
                                                                     <MenuFlyoutItem Text="More sharing options">
                                                                         <MenuFlyoutItem.Icon>
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" />
@@ -1321,38 +804,24 @@
                                                                 </MenuFlyout>
                                                             </Button.Flyout>
                                                         </Button>
-                                                        <Border
-                                                            Margin="8,0"
-                                                            BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
-                                                            BorderThickness="1"
-                                                            Opacity="0.3" />
+                                                        <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
 
-                                                        <Button
-                                                            x:Name="experiments"
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent"
-                                                            Click="experiments_Click">
+                                                        <Button x:Name="experiments" Click="experiments_Click" Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                            HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xf1ad;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Experiments" />
+                                                                <FontIcon Glyph="&#xf1ad;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Experiments"/>
                                                             </StackPanel>
                                                         </Button>
-                                                        <Button
-                                                            Margin="1,2"
-                                                            HorizontalAlignment="Stretch"
-                                                            HorizontalContentAlignment="Left"
-                                                            Background="Transparent"
-                                                            BorderBrush="Transparent">
+                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                                HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
-                                                                <FontIcon FontSize="15" Glyph="&#xE9E9;" />
-                                                                <TextBlock Margin="9,0,0,0" Text="Settings" />
+                                                                <FontIcon Glyph="&#xE9E9;" FontSize="15"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="Settings"/>
                                                             </StackPanel>
                                                         </Button>
 
-
+                                                        
 
                                                     </StackPanel>
                                                 </Grid>
@@ -1370,131 +839,74 @@
 
 
                     </winui:TabView>
-                    <winui:ProgressBar
-                        x:Name="loadingbar"
-                        Grid.RowSpan="2"
-                        Grid.ColumnSpan="4"
-                        VerticalAlignment="Top"
-                        IsIndeterminate="True"
-                        Visibility="Visible" />
-                    <Grid
-                        Grid.Row="1"
-                        Grid.ColumnSpan="4"
-                        Width="335"
-                        Margin="12,44,8,8"
-                        HorizontalAlignment="Right"
-                        CornerRadius="8">
+                    <winui:ProgressBar x:Name="loadingbar" Grid.ColumnSpan="4" VerticalAlignment="Top" Grid.RowSpan="2" Visibility="Visible" IsIndeterminate="True"/>
+                    <Grid  Grid.Row="1" Grid.ColumnSpan="4" CornerRadius="8"
+                                    Margin="12,44,8,8" Width="335" HorizontalAlignment="Right">
                         <!--<winui:WebView2 Source="https://adamw.uk/bingai"/>-->
                     </Grid>
-                    <Button
-                        x:Name="fullscreentopbar"
-                        Grid.Row="1"
-                        Grid.ColumnSpan="4"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Background="Transparent"
-                        BorderBrush="{x:Null}"
-                        Canvas.ZIndex="3"
-                        Click="fullscreentopbar_Click"
-                        ClickMode="Hover"
-                        Visibility="Collapsed" />
+                    <Button x:Name="fullscreentopbar" Visibility="Collapsed" Click="fullscreentopbar_Click" Canvas.ZIndex="3" HorizontalAlignment="Stretch" BorderBrush="{x:Null}" Background="Transparent" ClickMode="Hover" Grid.Row="1"  Grid.ColumnSpan="4" VerticalAlignment="Top"/>
 
                 </Grid>
-
+        
             </Grid>
 
-            <winui:TeachingTip x:Name="actionMsg"  PreferredPlacement="Top" PlacementMargin="0,64,0,0" Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" Padding="8" d:IsHidden="True">               <Grid Margin="-12">
-                    <StackPanel
-                        Margin="12"
-                        Orientation="Horizontal"
-                        Spacing="8">
-                        <FontIcon x:Name="actionMsg_Icon" Glyph="&#xe790;" />
-                        <TextBlock
-                            x:Name="actionMsg_Text"
-                            Margin="0,0,24,0"
-                            Style="{ThemeResource BaseTextBlockStyle}"
-                            Text="Link copied to clipboard!" />
+            <winui:TeachingTip x:Name="actionMsg"  PreferredPlacement="Top" PlacementMargin="0,64,0,0" Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" Padding="8" d:IsHidden="True">
+                <Grid Margin="-12">
+                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="12">
+                        <FontIcon x:Name="actionMsg_Icon" Glyph="&#xe790;"/>
+                        <TextBlock x:Name="actionMsg_Text" Style="{ThemeResource BaseTextBlockStyle}" Text="Link copied to clipboard!" Margin="0,0,24,0"/>
                     </StackPanel>
-                    <winui:ProgressBar
-                        x:Name="actionMsg_Timeout"
-                        Margin="0"
-                        VerticalAlignment="Bottom"
-                        Background="Transparent"
-                        Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
-                        Maximum="300"
-                        Value="100" />
+                    <winui:ProgressBar x:Name="actionMsg_Timeout" VerticalAlignment="Bottom" Margin="0" Value="100" Foreground="{ThemeResource DefaultTextForegroundThemeBrush}"
+                                       Maximum="300" Background="Transparent"/>
                 </Grid>
             </winui:TeachingTip>
-
+            
         </Grid>
-        <Popup
-            x:Name="ThemePopup"
-            HorizontalAlignment="Center"
-            IsOpen="False">
+        <Popup x:Name="ThemePopup" IsOpen="False" HorizontalAlignment="Center">
             <Popup.ChildTransitions>
                 <TransitionCollection>
                     <PopupThemeTransition />
                 </TransitionCollection>
             </Popup.ChildTransitions>
 
-            <StackPanel
-                Padding="10"
-                HorizontalAlignment="Center"
-                Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
-                CornerRadius="8">
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    Style="{ThemeResource SubtitleTextBlockStyle}"
-                    Text="Pick a theme:"
-                    TextAlignment="Center" />
-                <ComboBox
-                    x:Name="ThemePickerComboBox"
-                    Width="300"
-                    Margin="0,10,0,0"
-                    SelectionChanged="ThemePickerComboBox_SelectionChanged">
-                    <ComboBoxItem Content="None" />
-                    <ComboBoxItem Content="Unknown" />
-                    <ComboBoxItem Content="Forest" />
-                    <ComboBoxItem Content="Candy" />
-                    <ComboBoxItem Content="Midnight" />
-                    <ComboBoxItem Content="Azure" />
-                    <ComboBoxItem Content="Maple" />
-                    <ComboBoxItem Content="Unknown1" />
-                    <ComboBoxItem Content="Rainbow" />
-                    <ComboBoxItem Content="Deep Blue" />
-                    <ComboBoxItem Content="Sweet" />
-                    <ComboBoxItem Content="Dreamy" />
-                    <ComboBoxItem Content="Abstractic [Experimental]" />
-                    <ComboBoxItem Content="Garden of Peace [Experimental]" />
-                    <ComboBoxItem Content="Neon [Experimental]" />
-                    <ComboBoxItem Content="Purple Sky [Experimental]" />
-                    <ComboBoxItem Content="Tokyo Night [Experimental]" />
+            <StackPanel Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" Padding="10" HorizontalAlignment="Center" CornerRadius="8">
+                <TextBlock HorizontalAlignment="Center" Text="Pick a theme:" Style="{ThemeResource SubtitleTextBlockStyle}" TextAlignment="Center"/>
+                <ComboBox x:Name="ThemePickerComboBox" Width="300" Margin="0,10,0,0" SelectionChanged="ThemePickerComboBox_SelectionChanged">
+                    <ComboBoxItem Content="None"/>
+                    <ComboBoxItem Content="Unknown"/>
+                    <ComboBoxItem Content="Forest"/>
+                    <ComboBoxItem Content="Candy"/>
+                    <ComboBoxItem Content="Midnight"/>
+                    <ComboBoxItem Content="Azure"/>
+                    <ComboBoxItem Content="Maple"/>
+                    <ComboBoxItem Content="Unknown1"/>
+                    <ComboBoxItem Content="Rainbow"/>
+                    <ComboBoxItem Content="Deep Blue"/>
+                    <ComboBoxItem Content="Sweet"/>
+                    <ComboBoxItem Content="Dreamy"/>
+                    <ComboBoxItem Content="Abstractic [Experimental]"/>
+                    <ComboBoxItem Content="Garden of Peace [Experimental]"/>
+                    <ComboBoxItem Content="Neon [Experimental]"/>
+                    <ComboBoxItem Content="Purple Sky [Experimental]"/>
+                    <ComboBoxItem Content="Tokyo Night [Experimental]"/>
                 </ComboBox>
-                <Button
-                    x:Name="ThemePopupDoneButton"
-                    Margin="0,20,0,0"
-                    HorizontalAlignment="Stretch"
-                    Click="ThemePopupDoneButton_Click"
-                    Content="Done"
-                    Style="{ThemeResource AccentButtonStyle}" />
+                <Button Style="{ThemeResource AccentButtonStyle}" Margin="0,20,0,0" Content="Done" HorizontalAlignment="Stretch" x:Name="ThemePopupDoneButton" Click="ThemePopupDoneButton_Click"/>
             </StackPanel>
         </Popup>
 
-        <!--#region ControlCenter-->
-        <Popup
-            x:Name="controlCenter"
-            Margin="0,76,308,90"
-            HorizontalAlignment="Right"
-            Closed="controlCenter_Closed"
-            IsLightDismissEnabled="True">
+        <!--#region ControlCenter -->
+        <Popup x:Name="controlCenter" IsLightDismissEnabled="True" HorizontalAlignment="Right" Margin="0,76,308,90" Closed="controlCenter_Closed"
+               >
             <Popup.ChildTransitions>
                 <TransitionCollection>
-                    <PaneThemeTransition Edge="Top" />
+                    <PaneThemeTransition Edge="Top"/>
                 </TransitionCollection>
             </Popup.ChildTransitions>
 
 
-            <Grid Height="Auto" />
+            <Grid Height="Auto">
+                
+            </Grid>
         </Popup>
         <!--#endregion-->
         <!--#endregion-->
@@ -1507,300 +919,141 @@
                 </TransitionCollection>
             </Popup.ChildTransitions>
             <Popup.Child>
-                <Grid
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Stretch"
-                    Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource SystemBaseLowColor}"
-                    BorderThickness="1"
-                    CornerRadius="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" />
-                    <winui:WebView2
-                        Grid.Row="1"
-                        Margin="10"
-                        BorderBrush="{ThemeResource SystemBaseLowColor}"
-                        BorderThickness="1"
-                        Source="https://google.com" />
-                </Grid>
+            <Grid  HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource SystemBaseLowColor}" BorderThickness="1" CornerRadius="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+
+                </StackPanel>
+                <winui:WebView2 Source="https://google.com" Margin="10" Grid.Row="1"
+                                BorderBrush="{ThemeResource SystemBaseLowColor}" BorderThickness="1"/>
+            </Grid>
             </Popup.Child>
         </Popup>
-
-
+        
+        
         <!--#region profileCenterPopup-->
 
-        <Popup
-            x:Name="profileCenter"
-            Margin="-908,83"
-            HorizontalAlignment="Right"
-            Closed="profileCenter_Closed"
-            IsOpen="True"
-            Opened="profileCenter_Opened">
+        <Popup IsOpen="True" Opened="profileCenter_Opened" x:Name="profileCenter" HorizontalAlignment="Right" Margin="-908,83" Closed="profileCenter_Closed">
             <Popup.ChildTransitions>
                 <TransitionCollection>
-                    <PopupThemeTransition />
+                    <PopupThemeTransition/>
                 </TransitionCollection>
             </Popup.ChildTransitions>
 
-            <Grid
-                Width="600"
-                Padding="10"
-                Background="{ThemeResource SystemControlAcrylicWindowBrush}"
-                BorderBrush="{ThemeResource SystemBaseLowColor}"
-                BorderThickness="1"
-                CornerRadius="8">
+            <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}" BorderBrush="{ThemeResource SystemBaseLowColor}" BorderThickness="1" 
+                  Padding="10" CornerRadius="8" Width="600">
                 <Grid.ChildrenTransitions>
                     <TransitionCollection>
-                        <EntranceThemeTransition IsStaggeringEnabled="True" />
+                        <EntranceThemeTransition IsStaggeringEnabled="True"/>
                     </TransitionCollection>
                 </Grid.ChildrenTransitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Margin="8,0">
-                    <TextBlock
-                        Margin="0,10,0,20"
-                        FontWeight="Semibold"
-                        Text="Profile"
-                        TextAlignment="Center" />
+                    <TextBlock TextAlignment="Center" Text="Profile" FontWeight="Semibold" Margin="0,10,0,20"/>
 
-                    <StackPanel Margin="8,0,0,20" Orientation="Horizontal">
-                        <PersonPicture Width="48" />
+                    <StackPanel Orientation="Horizontal" Margin="8,0,0,20">
+                        <PersonPicture Width="48"/>
                         <StackPanel Margin="8,0,0,0" VerticalAlignment="Center">
-                            <TextBlock
-                                x:Name="profileCenter_UsernameHeader"
-                                FontSize="18"
-                                FontWeight="Semibold" />
-                            <Button
-                                Margin="0,4,0,0"
-                                Padding="0"
-                                Click="editprofile_Click"
-                                Content="Edit profile"
-                                Style="{ThemeResource TextBlockButtonStyle}" />
+                            <TextBlock x:Name="profileCenter_UsernameHeader" FontWeight="Semibold" FontSize="18"/>
+                            <Button Content="Edit profile" Click="editprofile_Click" Padding="0" Margin="0,4,0,0" Style="{ThemeResource TextBlockButtonStyle}"/>
                         </StackPanel>
                     </StackPanel>
-                    <Border
-                        Margin="25,30"
-                        BorderBrush="White"
-                        BorderThickness="1"
-                        Opacity="0.5" />
-                    <TextBlock
-                        Margin="0,0,0,20"
-                        FontWeight="Semibold"
-                        Text="Recent"
-                        TextAlignment="Center" />
+                    <Border BorderBrush="White" BorderThickness="1" Margin="25,30" Opacity="0.5"/>
+                    <TextBlock TextAlignment="Center" Text="Recent" FontWeight="Semibold" Margin="0,0,0,20"/>
                     <StackPanel Margin="0,0,10,0">
                         <StackPanel.ChildrenTransitions>
                             <TransitionCollection>
-                                <EntranceThemeTransition IsStaggeringEnabled="True" />
+                                <EntranceThemeTransition IsStaggeringEnabled="True"/>
                             </TransitionCollection>
                         </StackPanel.ChildrenTransitions>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="(9+) f h k r l  on Twitter • 89 Tweets"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="(9+) f h k r l  on Twitter • 89 Tweets" Margin="8,0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="GitHub - itzbluebxrry/Project-Radon"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="GitHub - itzbluebxrry/Project-Radon" Margin="8,0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="Modestep - WIP • Spotify"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="Modestep - WIP • Spotify" Margin="8,0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="503 Forbidden - nginx"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="503 Forbidden - nginx" Margin="8,0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="how to code brainf*ck - Google Search"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="how to code brainf*ck - Google Search" Margin="8,0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            Margin="0,7"
-                            HorizontalAlignment="Center"
-                            Content="Show full history"
-                            Style="{ThemeResource TextBlockButtonStyle}" />
+                        <Button Content="Show full history" HorizontalAlignment="Center" Margin="0,7" Style="{ThemeResource TextBlockButtonStyle}"/>
 
 
                     </StackPanel>
                 </StackPanel>
-                <Border
-                    Margin="0,20"
-                    HorizontalAlignment="Right"
-                    BorderBrush="White"
-                    BorderThickness="1"
-                    Opacity="0.5" />
+                <Border HorizontalAlignment="Right" Margin="0,20" BorderBrush="White" BorderThickness="1" Opacity="0.5"/>
 
 
                 <StackPanel Grid.Column="1" Margin="20,10">
                     <StackPanel.ChildrenTransitions>
-                        <TransitionCollection>
-                            <EntranceThemeTransition IsStaggeringEnabled="True" />
-                        </TransitionCollection>
-                    </StackPanel.ChildrenTransitions>
-                    <TextBlock
-                        Margin="0,0,0,20"
-                        FontWeight="Semibold"
-                        Text="Activity"
-                        TextAlignment="Center" />
-                    <TextBlock
-                        Margin="0,0,0,0"
-                        FontSize="32"
-                        FontWeight="Semibold"
-                        Text="1h 32min" />
-                    <TextBlock
-                        FontSize="18"
-                        FontWeight="light"
-                        Text="spent on the Internet today" />
+                            <TransitionCollection>
+                                <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                            </TransitionCollection>
+                        </StackPanel.ChildrenTransitions>
+                    <TextBlock TextAlignment="Center" Text="Activity" FontWeight="Semibold" Margin="0,0,0,20"/>
+                    <TextBlock Margin="0,0,0,0" Text="1h 32min" FontSize="32" FontWeight="Semibold"/>
+                    <TextBlock Text="spent on the Internet today" FontWeight="light" FontSize="18"/>
 
-                    <TextBlock
-                        Margin="0,20,0,0"
-                        FontWeight="Semibold"
-                        Text="Top sites"
-                        TextAlignment="Center" />
+                    <TextBlock TextAlignment="Center" Text="Top sites" FontWeight="Semibold" Margin="0,20,0,0"/>
                     <StackPanel Margin="0,8,10,0">
                         <StackPanel.ChildrenTransitions>
                             <TransitionCollection>
-                                <EntranceThemeTransition IsStaggeringEnabled="True" />
+                                <EntranceThemeTransition IsStaggeringEnabled="True"/>
                             </TransitionCollection>
                         </StackPanel.ChildrenTransitions>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="open.spotify.com"
-                                    TextTrimming="Clip" />
-                                <TextBlock
-                                    Margin="0"
-                                    Opacity="0.7"
-                                    Text="4h 53min"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="open.spotify.com" Margin="8,0"/>
+                                <TextBlock TextTrimming="Clip" Text="4h 53min" Opacity="0.7" Margin="0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="youtube.com"
-                                    TextTrimming="Clip" />
-                                <TextBlock
-                                    Margin="0"
-                                    Opacity="0.7"
-                                    Text="2h 12min"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="youtube.com" Margin="8,0"/>
+                                <TextBlock TextTrimming="Clip" Text="2h 12min" Opacity="0.7" Margin="0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="discord.com"
-                                    TextTrimming="Clip" />
-                                <TextBlock
-                                    Margin="0"
-                                    Opacity="0.7"
-                                    Text="1h 59min"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="discord.com" Margin="8,0"/>
+                                <TextBlock TextTrimming="Clip" Text="1h 59min" Opacity="0.7" Margin="0"/>
                             </StackPanel>
                         </Button>
-                        <Button
-                            HorizontalAlignment="Stretch"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                                <FontIcon
-                                    FontFamily="FluentSystemIcons-Regular"
-                                    FontSize="18"
-                                    Glyph="&#xF379;" />
-                                <TextBlock
-                                    Margin="8,0"
-                                    Text="chat.openai.com"
-                                    TextTrimming="Clip" />
-                                <TextBlock
-                                    Margin="0"
-                                    Opacity="0.7"
-                                    Text="47 min"
-                                    TextTrimming="Clip" />
+                        <Button HorizontalAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                <FontIcon FontFamily="FluentSystemIcons-Regular" Glyph="&#xF379;" FontSize="18"/>
+                                <TextBlock TextTrimming="Clip" Text="chat.openai.com" Margin="8,0"/>
+                                <TextBlock TextTrimming="Clip" Text="47 min" Opacity="0.7" Margin="0"/>
                             </StackPanel>
                         </Button>
 
@@ -1809,142 +1062,89 @@
                 </StackPanel>
             </Grid>
         </Popup>
-        <Popup
-            x:Name="fullscreentopbar_flyout"
-            Margin="0,-8,636,0"
-            HorizontalAlignment="Center"
-            Canvas.ZIndex="3"
-            IsLightDismissEnabled="True"
-            IsOpen="False">
+        <Popup x:Name="fullscreentopbar_flyout" IsLightDismissEnabled="True" HorizontalAlignment="Center" IsOpen="False" Canvas.ZIndex="3" Margin="0, -8, 636, 0">
             <Popup.ChildTransitions>
                 <TransitionCollection>
-                    <EdgeUIThemeTransition Edge="Top" />
+                    <EdgeUIThemeTransition Edge="Top"/>
                 </TransitionCollection>
             </Popup.ChildTransitions>
 
-            <Grid
-                Height="48"
-                HorizontalAlignment="Stretch"
-                CornerRadius="12">
+            <Grid Height="48" CornerRadius="12" HorizontalAlignment="Stretch">
                 <Grid.Background>
-                    <ImageBrush
-                        x:Name="fullscreentopbarbackground"
-                        ImageSource="ms-appx:///wallpapers/10.png"
-                        Opacity="0.7" />
+                    <ImageBrush x:Name="fullscreentopbarbackground" ImageSource="ms-appx:///wallpapers/10.png" Opacity="0.7"/>
                 </Grid.Background>
                 <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}">
-                    <StackPanel Margin="8,8,8,0" Orientation="Horizontal">
-                        <Button
-                            Margin="0,2,5,0"
-                            Padding="3,6"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="BackButton_Click"
-                            ClickMode="Press"
-                            ToolTipService.ToolTip="Back">
+                <StackPanel Margin="8, 8, 8, 0" Orientation="Horizontal" >
+                    <Button 
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="0,2,5,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Click="BackButton_Click" ClickMode="Press"
+                        Padding="3,6" ToolTipService.ToolTip="Back">
 
 
-                            <FontIcon
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="20"
-                                Glyph="&#xe973;"
-                                Translation="0,0,0">
-                                <FontIcon.TranslationTransition>
-                                    <Vector3Transition />
-                                </FontIcon.TranslationTransition>
-                            </FontIcon>
-                        </Button>
-                        <Button
-                            Margin="0,2,5,0"
-                            Padding="3,6"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="ForwardButton_Click"
-                            ClickMode="Press"
-                            ToolTipService.ToolTip="Forward">
-                            <FontIcon
-                                FontFamily="segoe fluent icons"
-                                FontSize="20"
-                                Glyph="&#xe974;"
-                                Translation="0,0,0">
-                                <FontIcon.TranslationTransition>
-                                    <Vector3Transition />
-                                </FontIcon.TranslationTransition>
-                            </FontIcon>
-                        </Button>
-                        <TextBox
-                            Grid.Column="1"
-                            Width="400"
-                            Height="21"
-                            Margin="43,0,45,0"
-                            Padding="30,6,30,2"
-                            VerticalAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            BorderThickness="0"
-                            CharacterSpacing="1"
-                            CornerRadius="8"
-                            FontSize="13"
-                            FontWeight="Medium"
-                            GotFocus="SearchBar_GotFocus"
-                            IsSpellCheckEnabled="False"
-                            KeyDown="SearchBar_KeyDown"
-                            LostFocus="SearchBar_LostFocus"
-                            PlaceholderForeground="{ThemeResource ContentDialogDimmingThemeBrush}"
-                            PlaceholderText="Search the web or enter a URL"
-                            TextAlignment="Center" />
-                        <Button
-                            Grid.Column="1"
-                            Margin="0,0,8,0"
-                            Padding="6.5"
-                            HorizontalAlignment="Right"
-                            Background="{x:Null}"
-                            BorderThickness="0"
-                            Click="RefreshButton_Click"
-                            CornerRadius="40"
-                            PointerEntered="RefreshButton_PointerEntered"
-                            ToolTipService.ToolTip="Reload">
-                            <FontIcon
-                                FontFamily="segoe fluent icons"
-                                FontSize="13"
-                                Glyph="&#xe72c;" />
-                        </Button>
-                        <Button
-                            Grid.Column="1"
-                            Margin="0,0,8,0"
-                            Padding="6"
-                            HorizontalAlignment="Right"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Click="StopRefreshButton_Click"
-                            CornerRadius="40"
-                            ToolTipService.ToolTip="Stop navigation"
-                            Visibility="Collapsed">
-                            <FontIcon
-                                FontFamily="Segoe fluent icons"
-                                FontSize="15"
-                                Glyph="&#xe711;" />
-                        </Button>
-                        <Button
-                            Margin="4,0,8,0"
-                            Padding="7"
-                            HorizontalAlignment="Right"
-                            Background="{x:Null}"
-                            BorderThickness="0"
-                            Click="fullscreenbutton_Click"
-                            ToolTipService.ToolTip="Exit fullscreen view">
-                            <FontIcon
-                                FontFamily="Segoe Fluent Icons"
-                                FontSize="15"
-                                Glyph="&#xE73F;" />
-                        </Button>
-                    </StackPanel>
+                        <FontIcon  Glyph="&#xe973;" FontSize="20" Translation="0,0,0" FontFamily="Segoe Fluent Icons">
+                            <FontIcon.TranslationTransition>
+                                <Vector3Transition/>
+                            </FontIcon.TranslationTransition>
+                        </FontIcon>
+                    </Button>
+                    <Button
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="0,2,5,0" ClickMode="Press"
+                        Click="ForwardButton_Click"
+                        Padding="3,6" ToolTipService.ToolTip="Forward">
+                        <FontIcon Glyph="&#xe974;" Translation="0,0,0"
+                              FontSize="20" FontFamily="segoe fluent icons">
+                            <FontIcon.TranslationTransition>
+                                <Vector3Transition/>
+                            </FontIcon.TranslationTransition>
+                        </FontIcon>
+                    </Button>
+                    <TextBox
+                    KeyDown="SearchBar_KeyDown"
+                    VerticalAlignment="Center"
+                    Margin="43,0,45,0"
+                    BorderThickness="0"
+                    Padding="30,6,30,2" Width="400"
+                    FontSize="13" Height="21" 
+                    IsSpellCheckEnabled="False"
+                    Grid.Column="1"
+                    PlaceholderText="Search the web or enter a URL"
+                    VerticalContentAlignment="Center" 
+                    GotFocus="SearchBar_GotFocus" PlaceholderForeground="{ThemeResource ContentDialogDimmingThemeBrush}"
+                    LostFocus="SearchBar_LostFocus" CharacterSpacing="1"
+                    TextAlignment="Center" FontWeight="Medium" CornerRadius="8">
+                    </TextBox>
+                    <Button
+                        Background="{x:Null}" Grid.Column="1" HorizontalAlignment="Right"
+                        BorderThickness="0" PointerEntered="RefreshButton_PointerEntered"
+                        Margin="0,0,8,0"
+                        Click="RefreshButton_Click"
+                        CornerRadius="40" Padding="6.5" ToolTipService.ToolTip="Reload">
+                        <FontIcon Glyph="&#xe72c;"
+                              FontSize="13" FontFamily="segoe fluent icons"/>
+                    </Button>
+                    <Button
+                        Background="Transparent" Grid.Column="1"
+                        BorderThickness="0" HorizontalAlignment="Right"
+                        Margin="0,0,8,0"
+                        Visibility="Collapsed"
+                        Click="StopRefreshButton_Click"
+                        Padding="6" CornerRadius="40" ToolTipService.ToolTip="Stop navigation">
+                        <FontIcon Glyph="&#xe711;" FontSize="15"
+                                  FontFamily="Segoe fluent icons"/>
+                    </Button>
+                    <Button ToolTipService.ToolTip="Exit fullscreen view" Background="{x:Null}" BorderThickness="0" Padding="7" HorizontalAlignment="Right" Margin="4,0,8,0" Click="fullscreenbutton_Click">
+                        <FontIcon FontFamily="Segoe Fluent Icons" FontSize="15" Glyph="&#xE73F;" />
+                    </Button>
+                </StackPanel>
                 </Grid>
             </Grid>
-
+            
         </Popup>
-
+         
         <!--#endregion-->
 
         <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="250" HorizontalAlignment="Left" VerticalAlignment="Stretch">
@@ -1952,7 +1152,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="x:String">
                         <StackPanel Orientation="Horizontal">
-
+                            
                         </StackPanel>
 
                     </DataTemplate>
@@ -1961,10 +1161,10 @@
                 <ListViewItem HorizontalContentAlignment="Center" Content="leotrix - Google Search"/>
                 <ListViewItem HorizontalContentAlignment="Center" Content="YouTube"/>
             </ListView>
-
+            
 
         </Grid>-->
 
     </Grid>
-
+    
 </Page>

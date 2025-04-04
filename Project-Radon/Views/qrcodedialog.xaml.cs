@@ -17,9 +17,6 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
 using static System.Net.Mime.MediaTypeNames;
 using Windows.Storage;
-using Project_Radon.Contracts.Services;
-using Yttrium_browser;
-using Microsoft.Extensions.DependencyInjection;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,11 +24,8 @@ namespace Project_Radon.Views
 {
     public sealed partial class qrcodedialog : ContentDialog
     {
-        private readonly ISettingsService _settingsService;
         public qrcodedialog()
         {
-
-            _settingsService = App.Current.Services.GetService<ISettingsService>(); 
             this.InitializeComponent();
             qrGenHandler();
         }
@@ -46,11 +40,13 @@ namespace Project_Radon.Views
         private async void qrGenHandler()
         {
 
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            String text = localSettings.Values["qrUrl"] as string;
 
             // Step 1: Generate QR code bitmap using QRCoder
             using (var qrGenerator = new QRCodeGenerator())
             {
-                var qrData = qrGenerator.CreateQrCode(_settingsService.AppSettings.QRCodeUrl, QRCodeGenerator.ECCLevel.Q);
+                var qrData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
                 using (var qrCode = new PngByteQRCode(qrData))
                 {
                     // Generate PNG byte array of the QR code

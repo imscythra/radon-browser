@@ -71,16 +71,6 @@
                                         Background="{ThemeResource PivotNextButtonBackground}"
                                         BorderBrush="{ThemeResource PivotNextButtonBorderBrush}"
                                         BorderThickness="{ThemeResource PivotNavButtonBorderThemeThickness}">
-                                        <FontIcon
-                                            x:Name="Arrow"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                            FontSize="12"
-                                            Foreground="{ThemeResource PivotNextButtonForeground}"
-                                            Glyph="&#xE0E3;"
-                                            MirroredWhenRightToLeft="True"
-                                            UseLayoutRounding="False" />
                                         <VisualStateManager.VisualStateGroups>
                                             <VisualStateGroup x:Name="CommonStates">
                                                 <VisualState x:Name="Normal" />
@@ -112,6 +102,16 @@
                                                 </VisualState>
                                             </VisualStateGroup>
                                         </VisualStateManager.VisualStateGroups>
+                                        <FontIcon
+                                            x:Name="Arrow"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                            FontSize="12"
+                                            Foreground="{ThemeResource PivotNextButtonForeground}"
+                                            Glyph="&#xE0E3;"
+                                            MirroredWhenRightToLeft="True"
+                                            UseLayoutRounding="False" />
                                     </Border>
                                 </ControlTemplate>
                                 <ControlTemplate x:Key="PreviousTemplate" TargetType="Button">
@@ -120,16 +120,6 @@
                                         Background="{ThemeResource PivotPreviousButtonBackground}"
                                         BorderBrush="{ThemeResource PivotPreviousButtonBorderBrush}"
                                         BorderThickness="{ThemeResource PivotNavButtonBorderThemeThickness}">
-                                        <FontIcon
-                                            x:Name="Arrow"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                            FontSize="12"
-                                            Foreground="{ThemeResource PivotPreviousButtonForeground}"
-                                            Glyph="&#xE0E2;"
-                                            MirroredWhenRightToLeft="True"
-                                            UseLayoutRounding="False" />
                                         <VisualStateManager.VisualStateGroups>
                                             <VisualStateGroup x:Name="CommonStates">
                                                 <VisualState x:Name="Normal" />
@@ -161,6 +151,16 @@
                                                 </VisualState>
                                             </VisualStateGroup>
                                         </VisualStateManager.VisualStateGroups>
+                                        <FontIcon
+                                            x:Name="Arrow"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                            FontSize="12"
+                                            Foreground="{ThemeResource PivotPreviousButtonForeground}"
+                                            Glyph="&#xE0E2;"
+                                            MirroredWhenRightToLeft="True"
+                                            UseLayoutRounding="False" />
                                     </Border>
                                 </ControlTemplate>
                             </Grid.Resources>

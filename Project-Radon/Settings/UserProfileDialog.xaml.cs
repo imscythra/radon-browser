@@ -1,9 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Project_Radon.Contracts.Services;
-using System;
-using System.Collections.ObjectModel;
-using System.IO;
-using Windows.ApplicationModel;
+﻿using System;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,32 +10,12 @@ namespace Yttrium
 {
     public sealed partial class UserProfileDialog : ContentDialog
     {
-        private readonly ISettingsService settingsService;
-        public ObservableCollection<string> ProfilePictures { get; private set; }
         public UserProfileDialog()
         {
-            settingsService = Yttrium_browser.App.Current.Services.GetService<ISettingsService>();
             InitializeComponent();
-            LoadProfilePictures();
-            pfppreview.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", settingsService.AppSettings.ProfilePicture ?? "default", ".png" })));
         }
 
-
-        private void LoadProfilePictures()
-        {
-            ProfilePictures = new ObservableCollection<string>();
-            var folder = Path.Combine(Package.Current.InstalledLocation.Path, "accountpictures");
-            var files = Directory.GetFiles(folder, "*.png");
-
-            foreach (var file in files)
-            {
-                ProfilePictures.Add(Path.GetFileNameWithoutExtension(file));
-            }
-        }
-
-
-
-    private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
         }
 
@@ -50,38 +25,39 @@ namespace Yttrium
 
         private void ContentDialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args)
         {
-            
-            Username_Display.Text = settingsService.AppSettings.Username;
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            String username = localSettings.Values["username"] as string;
+            Username_Display.Text = username;
         }
 
         private void pfpchanged_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            pfppreview.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpchanged.SelectedItem?.ToString() ?? "default", ".png" })));
-            settingsService.AppSettings.ProfilePicture = pfpchanged.SelectedItem?.ToString() ?? "default"; 
+            pfppreview.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", (pfpchanged.SelectedItem as ComboBoxItem).Content.ToString(), ".png" })));
+
 
         }
 
         private void updateprofile_Click(object sender, RoutedEventArgs e)
         {
-
-            Username_Display.Text = settingsService.AppSettings.Username;  
-        }
-
-        private void debug_Click(object sender, RoutedEventArgs e)
-        {
-            
-            Username_Display.Text = settingsService.AppSettings.Username; 
-        }
-
-        private void KeyboardAccelerator_Invoked(Windows.UI.Xaml.Input.KeyboardAccelerator sender, Windows.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs args)
-        {
-            
-            Username_Display.Text = settingsService.AppSettings.Username;
+            ApplicationData.Current.LocalSettings.Values["username"] = username_box.Text;
+            Username_Display.Text = username_box.Text;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Hide(); 
+            Hide();
+        }
+
+        private void debug_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationData.Current.LocalSettings.Values["username"] = null;
+            Username_Display.Text = username_box.Text;
+        }
+
+        private void KeyboardAccelerator_Invoked(Windows.UI.Xaml.Input.KeyboardAccelerator sender, Windows.UI.Xaml.Input.KeyboardAcceleratorInvokedEventArgs args)
+        {
+            ApplicationData.Current.LocalSettings.Values["username"] = null;
+            Username_Display.Text = username_box.Text;
         }
     }
 }

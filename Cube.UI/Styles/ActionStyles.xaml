@@ -9,7 +9,7 @@
                     <Grid>
                         <ToolkitControls:DropShadowPanel
                             x:Name="Shadow"
-                            Margin="12,8,12,8"
+                            Margin="12, 8, 12, 8"
                             BlurRadius="16"
                             CornerRadius="8"
                             IsMasked="False"

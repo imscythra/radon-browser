@@ -17,9 +17,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Project_Radon.Contracts.Services;
-using Yttrium_browser;
-using Microsoft.Extensions.DependencyInjection;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,12 +27,9 @@ namespace Project_Radon.Settings
     /// </summary>
     public sealed partial class oobe4 : Page
     {
-        readonly ISettingsService settingsService;
         public oobe4()
         {
-            settingsService = App.Current.Services.GetService<ISettingsService>();  
             this.InitializeComponent();
-
 
             // Title bar code-behind
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
@@ -61,8 +55,7 @@ namespace Project_Radon.Settings
         private void appthemecombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
-            settingsService.AppSettings.AppThemeSetting = appthemecombobox.SelectedIndex;   
-            
+            ApplicationData.Current.LocalSettings.Values["appThemeSetting"] = appthemecombobox.SelectedIndex;
         }
 
         private void appthemecombobox_Loaded(object sender, RoutedEventArgs e)

@@ -18,9 +18,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.DataTransfer;
 using static System.Net.Mime.MediaTypeNames;
-using Project_Radon.Contracts.Services;
-using Yttrium_browser;
-using Microsoft.Extensions.DependencyInjection;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,10 +29,8 @@ namespace Project_Radon.Controls
     /// </summary>
     public sealed partial class BrowserWindowed : Page
     {
-        private readonly ISettingsService settingsService;
         public BrowserWindowed()
         {
-            settingsService = App.Current.Services.GetService<ISettingsService>();
             this.InitializeComponent();
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
@@ -46,7 +41,9 @@ namespace Project_Radon.Controls
         private async void webLoader()
         {
             await BrowserView.EnsureCoreWebView2Async();
-            string openUrl = settingsService.AppSettings.OpenUrl ?? "about:blank";
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            string openUrl = localSettings.Values["openUrl"].ToString();
             BrowserView.Source = new Uri(openUrl);
         }
 

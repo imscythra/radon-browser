@@ -33,20 +33,6 @@ namespace Project_Radon.Settings
             // Title bar code-behind
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
-            hostFrame.Navigated += (s, e) => {
-
-                switch (e.Content.GetType())
-                {
-                    case Type t when t == typeof(MainPage):
-                        oobeTitleBar.Visibility = Visibility.Collapsed;
-                        break;
-                    default:
-                        oobeTitleBar.Visibility = Visibility.Visible; 
-                        // Handle other cases if needed
-                        break;
-                }
-                
-            };
         }
 
         private void hostFrame_Loaded(object sender, RoutedEventArgs e)

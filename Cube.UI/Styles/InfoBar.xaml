@@ -52,7 +52,7 @@
                             <Icons:FluentSymbolIcon
                                 x:Name="StandardIcon"
                                 Grid.Column="0"
-                                Margin="0,8,8,8"
+                                Margin="0, 8, 8, 8"
                                 VerticalAlignment="Center"
                                 AutomationProperties.AccessibilityView="Content"
                                 Foreground="{ThemeResource HvidSortBrush}"
@@ -64,7 +64,7 @@
                                 Grid.Column="0"
                                 Width="8"
                                 Height="8"
-                                Margin="8,20,0,0"
+                                Margin="8, 20, 0, 0"
                                 VerticalAlignment="Center"
                                 Visibility="Collapsed" />
 

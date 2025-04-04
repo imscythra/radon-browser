@@ -20,10 +20,6 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Project_Radon.Settings;
 using Windows.UI.Xaml.Media.Animation;
 using System.Linq;
-using Project_Radon.Contracts.Services;
-using Yttrium_browser;
-using Microsoft.Extensions.DependencyInjection;
-
 
 namespace Project_Radon.Controls
 {
@@ -55,30 +51,18 @@ namespace Project_Radon.Controls
         public string WVBaseUri => IsCoreInitialized ? (WebBrowser.Source.Host.ToString()) : null;
         public string SourceUri => IsCoreInitialized ? (WebBrowser.Source.AbsoluteUri.ToLower().Contains("edge://") ? "radon://" + WebBrowser.Source.AbsoluteUri.Remove(0, 7) : WebBrowser.Source.AbsoluteUri) : "";
         public string Favicon => IsCoreInitialized && !IsLoading ? ("http://www.google.com/s2/favicons?domain=" + WebBrowser.Source.AbsoluteUri) : "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Document/SVG/ic_fluent_document_48_regular.svg";
-        public string Title => IsCoreInitialized && !IsLoading ? (WebBrowser.CoreWebView2?.DocumentTitle ?? WebBrowser.Source.AbsoluteUri) : "Loading";
+        public string Title => IsCoreInitialized && !IsLoading ? (WebBrowser.CoreWebView2.DocumentTitle ?? WebBrowser.Source.AbsoluteUri) : "Loading";
         public bool IsCoreInitialized { get; private set; }
-
-        public Uri ProfilePicture { get; private set; }
-
-        private readonly IWebViewService viewService;
-        public ISettingsService settingService { get; } 
 
         public BrowserTab()
         {
-            
             InitializeComponent();
-
-            settingService = App.Current.Services.GetService<ISettingsService>();
-            ProfilePicture = new($"ms-appx:///accountpictures/{settingService.AppSettings.ProfilePicture}.png");
-            InvokePropertyChanged(nameof(ProfilePicture)); 
-            viewService = App.Current.Services.GetService<IWebViewService>(); // App.Current.Services.GetService<IWebViewService>();
-            viewService.Initialize(this.WebBrowser);
 
 
             var options = new CoreWebView2EnvironmentOptions();
             options.AdditionalBrowserArguments = "--edge-webview-optional-enable-uwp-regular-downloads";
 
-            
+
             WebBrowser.Source = new Uri("edge://radon-ntp");
 
             //Windows.System.Launcher.LaunchFolderAsync(ApplicationData.Current.LocalFolder);
@@ -91,13 +75,9 @@ namespace Project_Radon.Controls
                 WebBrowser.CoreWebView2.Settings.UserAgent = GoogleSignInUserAgent;
                 WebBrowser.CoreWebView2.DocumentTitleChanged += (_, e) => InvokePropertyChanged();
                 WebBrowser.CoreWebView2.SourceChanged += (_, e) => InvokePropertyChanged();
-                WebBrowser.CoreWebView2.NewWindowRequested += (s, e) =>
-                {
-                    NewTabRequested.Invoke(s, e.Uri);
-                    e.Handled = true;
-                };
-
                 WebBrowser.CoreWebView2.ContextMenuRequested += async (s, e) =>
+                
+                
                 {
                     IList<CoreWebView2ContextMenuItem> menuList = e.MenuItems;
                     if (e.ContextMenuTarget.HasLinkUri)
@@ -118,13 +98,14 @@ namespace Project_Radon.Controls
                     }
                 };
             };
-            
-            
-            if (settingService.AppSettings.Username is not null)
+
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            String username = localSettings.Values["username"] as string;
+            if (username != null)
             {
                 ToolTip toolTip = new ToolTip
                 {
-                    Content = settingService.AppSettings.Username
+                    Content = username
                 };
                 ToolTipService.SetToolTip(profileCenterToggle, toolTip);
             }
@@ -348,10 +329,6 @@ namespace Project_Radon.Controls
         private async void profileCenterToggle_Click(object sender, RoutedEventArgs e)
         {
             await new UserProfileDialog().ShowAsync();
-           
-            ProfilePicture = new($"ms-appx:///accountpictures/{settingService.AppSettings.ProfilePicture}.png");
-            InvokePropertyChanged(nameof(ProfilePicture));  
-           
         }
     }
 }

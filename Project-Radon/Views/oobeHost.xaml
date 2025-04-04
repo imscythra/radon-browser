@@ -2,46 +2,25 @@
     x:Class="Project_Radon.Settings.oobeHost"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Project_Radon.Settings"
-    xmlns:materials="using:Project_Radon.Materials"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:materials="using:Project_Radon.Materials"
     x:Name="dbgTarget"
-    Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}"
-    mc:Ignorable="d">
+    Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}">
 
 
     <Grid>
-        <materials:AuroraLite />
-        <Grid
-            x:Name="oobeTitleBar"
-            Margin="0,0,150,0"
-            Padding="0,8"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            Canvas.ZIndex="1"
-            Loaded="oobeTitleBar_Loaded">
-            <StackPanel
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Orientation="Horizontal"
-                Spacing="4">
-                <Image
-                    Width="20"
-                    Margin="0,0,4,0"
-                    Source="ms-appx:///Assets/StoreLogo.scale-100.png" />
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Style="{ThemeResource BaseTextBlockStyle}"
-                    Text="Radon Browser" />
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Opacity="0.7"
-                    Text="Preview" />
+        <Grid x:Name="oobeTitleBar" VerticalAlignment="Top" Padding="0,8" Loaded="oobeTitleBar_Loaded" Canvas.ZIndex="1" Background="Transparent">
+            <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <Image Source="ms-appx:///Assets/StoreLogo.scale-100.png" Width="20" Margin="0,0,4,0"/>
+                <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Radon Browser" VerticalAlignment="Center"/>
+                <TextBlock Text="Preview" VerticalAlignment="Center" Opacity="0.7"/>
             </StackPanel>
         </Grid>
+        <materials:AuroraLite/>
         <Frame x:Name="hostFrame" Loaded="hostFrame_Loaded">
             <Frame.ContentTransitions>
                 <TransitionCollection>
@@ -49,20 +28,8 @@
                 </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>
-        <Button
-            x:Name="debugSkip"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Click="debugSkip_Click"
-            Content="Skip (debug only)"
-            FontSize="12"
-            FontWeight="SemiBold"
-            Style="{ThemeResource TextBlockButtonStyle}" />
-        <Button
-            x:Name="debugTheme"
-            VerticalAlignment="Bottom"
-            Background="Transparent"
-            Click="debugTheme_Click"
-            Content="Switch theme" />
+        <Button x:Name="debugSkip" Click="debugSkip_Click" Content="Skip (debug only)" HorizontalAlignment="Right"
+                VerticalAlignment="Bottom" Style="{ThemeResource TextBlockButtonStyle}" FontWeight="SemiBold" FontSize="12"/>
+        <Button x:Name="debugTheme" Click="debugTheme_Click" Content="Switch theme" VerticalAlignment="Bottom" Background="Transparent"/>
     </Grid>
 </Page>
