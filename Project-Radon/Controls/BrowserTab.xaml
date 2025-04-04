@@ -188,30 +188,11 @@
             </Grid.OpacityTransition>
             <ScrollViewer>
                 <StackPanel Margin="0,30">
-                    <TextBlock
-                        FontWeight="SemiLight"
-                        Style="{ThemeResource SubheaderTextBlockStyle}"
-                        TextAlignment="Center">
-                        No Internet
-                    </TextBlock>
-                    <TextBlock
-                        FontSize="16"
-                        FontWeight="SemiLight"
-                        Style="{ThemeResource SubheaderTextBlockStyle}"
-                        TextAlignment="Center">
-                        Radon is unable to load the page you're requesting for.
-                    </TextBlock>
-                    <StackPanel
-                        Margin="0,12"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <FontIcon FontSize="50" Glyph="&#xE7F8;" />
-                        <winui:ProgressBar
-                            x:Name="pcToNet"
-                            Width="100"
-                            Margin="10"
-                            Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}"
-                            Value="100" />
+                    <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center" FontWeight="SemiLight">No Internet</TextBlock>
+                    <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" FontSize="16" TextAlignment="Center" FontWeight="SemiLight">Radon is unable to load the page you're requesting for.</TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0,12" HorizontalAlignment="Center">
+                        <FontIcon Glyph="&#xE7F8;" FontSize="50"/>
+                        <winui:ProgressBar x:Name="pcToNet" Width="100" Margin="10" Value="100" Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}"/>
                         <Grid>
                             <FontIcon
                                 x:Name="netIcon"

@@ -95,7 +95,7 @@
                 <ScalarTransition />
             </Image.OpacityTransition>
         </Image>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.2" />
+        <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" Opacity="0.4"/>
 
 
         <Grid>
@@ -405,31 +405,25 @@
 
                     <!--  search bar  -->
 
-                    <TextBox
-                        x:Name="SearchBar"
-                        Grid.Column="1"
-                        Height="21"
-                        Margin="43,3,45,0"
-                        Padding="50,6,50,2"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        BorderBrush="Transparent"
-                        BorderThickness="1"
-                        CharacterSpacing="1"
-                        CornerRadius="8"
-                        FontSize="13"
-                        FontWeight="Medium"
-                        GotFocus="SearchBar_GotFocus"
-                        IsSpellCheckEnabled="False"
-                        KeyDown="SearchBar_KeyDown"
-                        LostFocus="SearchBar_LostFocus"
-                        PlaceholderForeground="{ThemeResource ContentDialogDimmingThemeBrush}"
-                        PlaceholderText="Search the web or enter a URL"
-                        TextAlignment="Center" />
+                    <TextBox x:Name="SearchBar"
+                    KeyDown="SearchBar_KeyDown"
+                    VerticalAlignment="Center"
+                    Margin="43,3,45,0"
+                    BorderThickness="1" BorderBrush="Transparent"
+                    Padding="50,6,50,2"
+                    FontSize="13" Height="21" 
+                    IsSpellCheckEnabled="False"
+                    Grid.Column="1"
+                    PlaceholderText="Search the web or enter a URL"
+                    VerticalContentAlignment="Center" 
+                    GotFocus="SearchBar_GotFocus"
+                    LostFocus="SearchBar_LostFocus" CharacterSpacing="1"
+                    TextAlignment="Center" FontWeight="Medium" CornerRadius="8">
+                    </TextBox>
 
-                    <Button
-                        x:Name="RefreshButton"
-                        Grid.Column="1"
+                    <Button x:Name="RefreshButton"
+                        Background="{x:Null}" Grid.Column="1" HorizontalAlignment="Right"
+                        BorderThickness="0" PointerEntered="RefreshButton_PointerEntered"
                         Margin="0,4,48,0"
                         Padding="6.5"
                         HorizontalAlignment="Right"
@@ -1409,13 +1403,7 @@
 
             </Grid>
 
-            <winui:TeachingTip
-                x:Name="actionMsg"
-                Padding="8"
-                Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}"
-                PlacementMargin="0,64,0,0"
-                PreferredPlacement="Top">
-                <Grid Margin="-12">
+            <winui:TeachingTip x:Name="actionMsg"  PreferredPlacement="Top" PlacementMargin="0,64,0,0" Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" Padding="8" d:IsHidden="True">               <Grid Margin="-12">
                     <StackPanel
                         Margin="12"
                         Orientation="Horizontal"

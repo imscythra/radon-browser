@@ -24,6 +24,7 @@ using Project_Radon.Contracts.Services;
 using Yttrium_browser;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace Project_Radon.Controls
 {
     public sealed partial class BrowserTab : Page, INotifyPropertyChanged
@@ -311,7 +312,7 @@ namespace Project_Radon.Controls
             }
         }
 
-        public async void Task1()
+        public void Task1()
         {
 
         }
