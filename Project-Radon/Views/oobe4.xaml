@@ -22,11 +22,13 @@
                 <TextBlock Text="Configure Radon to work the way you want. You can configure more settings later in the Settings page."
                    TextWrapping="Wrap" Opacity="0.8" />
             </StackPanel>
-            <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="0,84,0,0" Padding="16,0">
+            <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="0,88,0,0" Padding="16,0">
                 <StackPanel Spacing="2">
+                    <muxc:InfoBar Title="Work in progress" IsOpen="True" Severity="Warning"
+                                  Message="Expect to see more options coming soon!" />
                     <controls:SettingsCard Header="Search provider" Description="Pick a default search provider for Radon."
                                            HeaderIcon="{ui:FontIcon Glyph=&#xF6FA;}">
-                        <ComboBox HorizontalAlignment="Right">
+                        <ComboBox HorizontalAlignment="Right" Style="{ThemeResource GlowComboBox}">
                             <ComboBoxItem Content="Google"/>
                             <ComboBoxItem Content="Bing"/>
                             <ComboBoxItem Content="DuckDuckGo"/>

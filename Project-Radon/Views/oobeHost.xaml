@@ -11,6 +11,7 @@
     x:Name="dbgTarget"
     Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}">
 
+
     <Grid>
         <Grid x:Name="oobeTitleBar" VerticalAlignment="Top" Padding="0,8" Loaded="oobeTitleBar_Loaded" Canvas.ZIndex="1" Background="Transparent">
             <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Top" HorizontalAlignment="Center">
@@ -23,7 +24,7 @@
         <Frame x:Name="hostFrame" Loaded="hostFrame_Loaded">
             <Frame.ContentTransitions>
                 <TransitionCollection>
-                    <NavigationThemeTransition  />
+                    <ReorderThemeTransition/>
                 </TransitionCollection>
             </Frame.ContentTransitions>
         </Frame>

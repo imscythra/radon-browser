@@ -41,7 +41,7 @@ namespace Project_Radon.Views
             this.Frame.GoBack();
         }
 
-        private async void themePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void themePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (themePicker.SelectedIndex != 0) { themeDisplayText.Text = (string)(themePicker.SelectedItem as Image).Tag.ToString(); ; }
             else { themeDisplayText.Text = "None"; }

@@ -94,7 +94,7 @@
             </Grid.OpacityTransition>
             <ScrollViewer>
                 <StackPanel Margin="0,30">
-                    <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center" FontWeight="SemiLight">No Internet </TextBlock>
+                    <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" TextAlignment="Center" FontWeight="SemiLight">No Internet</TextBlock>
                     <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" FontSize="16" TextAlignment="Center" FontWeight="SemiLight">Radon is unable to load the page you're requesting for.</TextBlock>
                     <StackPanel Orientation="Horizontal" Margin="0,12" HorizontalAlignment="Center">
                         <FontIcon Glyph="&#xE7F8;" FontSize="50"/>

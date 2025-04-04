@@ -50,7 +50,8 @@
                 <ScalarTransition/>
             </Image.OpacityTransition>
         </Image>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.2"/>
+        <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" Opacity="0.4"/>
+
 
 
         <Grid>
@@ -273,7 +274,7 @@
                     Grid.Column="1"
                     PlaceholderText="Search the web or enter a URL"
                     VerticalContentAlignment="Center" 
-                    GotFocus="SearchBar_GotFocus" PlaceholderForeground="{ThemeResource ContentDialogDimmingThemeBrush}"
+                    GotFocus="SearchBar_GotFocus"
                     LostFocus="SearchBar_LostFocus" CharacterSpacing="1"
                     TextAlignment="Center" FontWeight="Medium" CornerRadius="8">
                     </TextBox>
@@ -849,7 +850,7 @@
         
             </Grid>
 
-            <winui:TeachingTip x:Name="actionMsg"  PreferredPlacement="Top" PlacementMargin="0,64,0,0" Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" Padding="8">
+            <winui:TeachingTip x:Name="actionMsg"  PreferredPlacement="Top" PlacementMargin="0,64,0,0" Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" Padding="8" d:IsHidden="True">
                 <Grid Margin="-12">
                     <StackPanel Orientation="Horizontal" Spacing="8" Margin="12">
                         <FontIcon x:Name="actionMsg_Icon" Glyph="&#xe790;"/>

@@ -20,7 +20,6 @@ using Microsoft.Toolkit.Uwp.Notifications;
 using Project_Radon.Settings;
 using Windows.UI.Xaml.Media.Animation;
 using System.Linq;
-using Microsoft.Web.WebView2.Core;
 
 namespace Project_Radon.Controls
 {
@@ -294,7 +293,7 @@ namespace Project_Radon.Controls
             }
         }
 
-        public async void Task1()
+        public void Task1()
         {
 
         }
