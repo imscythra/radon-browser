@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -72,6 +73,25 @@ namespace Project_Radon.Views
         private void nextBtn_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(oobe4), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+        }
+
+        private void AppThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RestartTip.IsOpen = true;
+            if (AppThemePicker.SelectedIndex == 0) { ApplicationData.Current.LocalSettings.Values["appDisplayTheme"] = null; }
+            else if (AppThemePicker.SelectedIndex == 1) { ApplicationData.Current.LocalSettings.Values["appDisplayTheme"] = (int)0; }
+            else if (AppThemePicker.SelectedIndex == 2) { ApplicationData.Current.LocalSettings.Values["appDisplayTheme"] = (int)1; }
+
+        }
+
+        private async void RestartTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
+        {
+            await CoreApplication.RequestRestartAsync("-fastInit -level 1 -foo"); ;
+        }
+
+        private void AppThemePicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            AppThemePicker.SelectedIndex = 0;
         }
     }
 }

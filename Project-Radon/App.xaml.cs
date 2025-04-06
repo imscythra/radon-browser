@@ -37,7 +37,7 @@ namespace Yttrium_browser
             InitializeComponent();
             Suspending += OnSuspending;
 
-            object value = ApplicationData.Current.LocalSettings.Values["themeSetting"];
+            object value = ApplicationData.Current.LocalSettings.Values["appDisplayTheme"];
 
             if (value != null)
             {

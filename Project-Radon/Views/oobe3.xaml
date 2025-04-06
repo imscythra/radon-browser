@@ -28,7 +28,7 @@
         BorderThickness="0" Background="Transparent" CornerRadius="68" Width="136" Height="136" Style="{ThemeResource ToolbarButton}">
                         <Button.Content>
                             <Grid>
-                                <Ellipse Width="120" Height="120" Opacity="1">
+                                <Ellipse Width="100" Height="100" Opacity="1">
                                     <Ellipse.Fill>
                                         <ImageBrush x:Name="profilePicture" ImageSource="ms-appx:///accountpictures/clippy.png" Stretch="UniformToFill"/>
                                     </Ellipse.Fill>
@@ -39,7 +39,7 @@
                             </Grid>
                         </Button.Content>
                     </Button>
-                    <StackPanel Spacing="8" HorizontalAlignment="Center" Margin="0,16">
+                    <StackPanel Spacing="8" HorizontalAlignment="Center" Margin="0,8">
                         <TextBox x:Name="profileName" TextChanged="profileName_TextChanged" FontSize="20" FontWeight="SemiBold" Text="Radon user" Width="250"
                                  Background="Transparent" TextAlignment="Center" PlaceholderText="Radon user" BorderThickness="0,0,0,1" Style="{ThemeResource GlowTextBox}"/>
 
@@ -52,6 +52,7 @@
                             <!--TODO: Replace hardcoded items with dynamic list-->
                             <controls:SettingsCard>
                                 <StackPanel Spacing="8">
+                                    
                                     <TextBlock x:Name="themeDisplayText" Style="{ThemeResource BaseTextBlockStyle}" Text="None"/>
                                     <GridView x:Name="themePicker" SelectionChanged="themePicker_SelectionChanged" SelectedIndex="0">
                                         <GridView.Items>
@@ -76,6 +77,21 @@
                                             <Image Source="ms-appx:///Wallpapers/Tokyo Night [experimental].png" Tag="Tokyo Night [experimental]" Stretch="UniformToFill" Width="100"/>
                                         </GridView.Items>
                                     </GridView>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Display mode"/>
+                                    <controls:Segmented x:Name="AppThemePicker" SelectionChanged="AppThemePicker_SelectionChanged" Loaded="AppThemePicker_Loaded" HorizontalAlignment="Stretch">
+                                        <controls:SegmentedItem Content="System" Icon="{ui:FontIcon Glyph=&#xE7F7;}" />
+                                        <controls:SegmentedItem Content="Day" Icon="{ui:FontIcon Glyph=&#xE706;}" />
+                                        <controls:SegmentedItem Content="Night" Icon="{ui:FontIcon Glyph=&#xE708;}" />
+                                    </controls:Segmented>
+                                    <muxc:TeachingTip x:Name="RestartTip" Target="{x:Bind AppThemePicker}"
+                                                      Title="Restart required"
+                                                      Subtitle="A restart is necessary to apply theme changes."
+                                                      ActionButtonContent="Restart now"
+                                                      CloseButtonContent="No thanks"
+                                                      IsOpen="False"
+                                                      ActionButtonClick="RestartTip_ActionButtonClick"/>
+                                    <muxc:InfoBar Title="Day theme is experimental" IsOpen="True"
+                                                  Message="Use it at your own risk. I meant it." IsClosable="False" Severity="Warning"/>
                                 </StackPanel>
                             </controls:SettingsCard>
                         </controls:SettingsExpander.Items>
