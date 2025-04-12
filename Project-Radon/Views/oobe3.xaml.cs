@@ -54,11 +54,7 @@ namespace Project_Radon.Views
 
         private void profileName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (profileName.Text != string.Empty)
-            {
-                ApplicationData.Current.LocalSettings.Values["username"] = profileName.Text;
-            }
-            else { ApplicationData.Current.LocalSettings.Values["username"] = "Radon user"; }
+            profileSaveHelper();
         }
 
         private async void profilepictureButton_Click(object sender, RoutedEventArgs e)
@@ -72,16 +68,15 @@ namespace Project_Radon.Views
 
         private void nextBtn_Click(object sender, RoutedEventArgs e)
         {
+            profileSaveHelper();
             Frame.Navigate(typeof(oobe4), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
         private void AppThemePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RestartTip.IsOpen = true;
             if (AppThemePicker.SelectedIndex == 0) { ApplicationData.Current.LocalSettings.Values["appDisplayTheme"] = null; }
             else if (AppThemePicker.SelectedIndex == 1) { ApplicationData.Current.LocalSettings.Values["appDisplayTheme"] = (int)0; }
             else if (AppThemePicker.SelectedIndex == 2) { ApplicationData.Current.LocalSettings.Values["appDisplayTheme"] = (int)1; }
-
         }
 
         private async void RestartTip_ActionButtonClick(Microsoft.UI.Xaml.Controls.TeachingTip sender, object args)
@@ -92,6 +87,14 @@ namespace Project_Radon.Views
         private void AppThemePicker_Loaded(object sender, RoutedEventArgs e)
         {
             AppThemePicker.SelectedIndex = 0;
+        }
+        private void profileSaveHelper()
+        {
+            if (profileName.Text != string.Empty)
+            {
+                ApplicationData.Current.LocalSettings.Values["username"] = profileName.Text;
+            }
+            else { ApplicationData.Current.LocalSettings.Values["username"] = "Radon user"; }
         }
     }
 }

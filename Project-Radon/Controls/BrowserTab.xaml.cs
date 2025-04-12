@@ -263,7 +263,34 @@ namespace Project_Radon.Controls
             }
             else
             {
-                WebBrowser.Source = new Uri("https://www.google.com/search?q=" + HttpUtility.UrlEncode(SearchBarText));
+                ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                int searchEngine = (int)localSettings.Values["searchEngine"];
+                string engineUrl = "https://google.com/search?q=";
+                switch (searchEngine)
+                {
+                    case 0:
+                        engineUrl = "https://google.com/search?q=";
+                        break;
+                    case 1:
+                        engineUrl = "https://www.bing.com/search?q=";
+                        break;
+                    case 2:
+                        engineUrl = "https://duckduckgo.com/?q=";
+                        break;
+                    case 3:
+                        engineUrl = "https://www.ecosia.org/search?q=";
+                        break;
+                    case 4:
+                        engineUrl = "https://search.brave.com/search?q=";
+                        break;
+                    case 5:
+                        engineUrl = "https://www.perplexity.ai/?q=";
+                        break;
+                    default:
+                        engineUrl = "https://google.com/search?q=";
+                        break;
+                }
+                WebBrowser.Source = new Uri(engineUrl + HttpUtility.UrlEncode(SearchBarText));
             }
         }
 

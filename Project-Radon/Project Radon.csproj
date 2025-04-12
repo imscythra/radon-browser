@@ -115,6 +115,9 @@
     <Compile Include="Controls\BrowserWindowed.xaml.cs">
       <DependentUpon>BrowserWindowed.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\RadonContentDialog.xaml.cs">
+      <DependentUpon>RadonContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\BrowserBackend.cs" />
     <Compile Include="Helpers\ConfirmExitDialog.xaml.cs">
       <DependentUpon>ConfirmExitDialog.xaml</DependentUpon>
@@ -368,6 +371,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\BrowserWindowed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RadonContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -109,16 +109,12 @@
                             <winui:DropDownButton.Flyout>
                                 <MenuFlyout ShouldConstrainToRootBounds="False" Placement="BottomEdgeAlignedLeft">
                                    
-                                    <MenuFlyoutItem IsEnabled="False" Text="Inline mode (wip)" Width="250" x:Name="tabaction_inline" Click="tabaction_inline_Click">
+                                    <MenuFlyoutItem Visibility="Collapsed" Text="Inline mode (wip)" Width="250" x:Name="tabaction_inline" Click="tabaction_inline_Click">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xf26b;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem Text="System titlebar" Width="250" x:Name="tabaction_titlebar" Click="tabaction_titlebar_Click">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xe967;"/>
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
+                                    
                                     <MenuFlyoutItem Text="Snip tab (in development)" Width="250" IsEnabled="False">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xe931;"/>
@@ -129,7 +125,7 @@
                                             <FontIcon Glyph="&#xe8ac;"/>
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem Text="Generate QR code" Width="250" IsEnabled="False">
+                                    <MenuFlyoutItem Text="Generate QR code" Width="250" IsEnabled="True" Click="continueonmobileBtn_Click">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xed14;"/>
                                         </MenuFlyoutItem.Icon>
@@ -264,19 +260,24 @@
             <!-- search bar -->
 
                     <TextBox x:Name="SearchBar"
-                    KeyDown="SearchBar_KeyDown"
-                    VerticalAlignment="Center"
-                    Margin="43,3,45,0"
-                    BorderThickness="1" BorderBrush="Transparent"
-                    Padding="50,6,50,2"
-                    FontSize="13" Height="21" 
-                    IsSpellCheckEnabled="False"
-                    Grid.Column="1"
-                    PlaceholderText="Search the web or enter a URL"
-                    VerticalContentAlignment="Center" 
-                    GotFocus="SearchBar_GotFocus"
-                    LostFocus="SearchBar_LostFocus" CharacterSpacing="1"
-                    TextAlignment="Center" FontWeight="Medium" CornerRadius="8">
+                        KeyDown="SearchBar_KeyDown"
+                        VerticalAlignment="Center"
+                        Margin="43,3,45,0"
+                        BorderThickness="1"
+                        BorderBrush="Transparent"
+                        Padding="50,6,50,2"
+                        FontSize="13"
+                        Height="21" 
+                        IsSpellCheckEnabled="False"
+                        Grid.Column="1"
+                        PlaceholderText="Search the web or enter a URL"
+                        VerticalContentAlignment="Center" 
+                        GotFocus="SearchBar_GotFocus"
+                        LostFocus="SearchBar_LostFocus"
+                        CharacterSpacing="1"
+                        TextAlignment="Center"
+                        FontWeight="Medium"
+                        CornerRadius="8">
                     </TextBox>
 
                     <Button x:Name="RefreshButton"

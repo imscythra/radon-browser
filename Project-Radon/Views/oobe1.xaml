@@ -14,7 +14,7 @@
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}" FontSize="24" FontWeight="SemiBold" TextAlignment="Center"
             Text="Welcome to the new"/>
             <TextBlock FontSize="48" FontWeight="SemiBold" TextAlignment="Center"
-Text="Radon." Foreground="DeepPink"/>
+Text="Radon." Foreground="#FF00FF"/>
             <TextBlock FontSize="20" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontStyle="Italic" TextAlignment="Center"
 Text="Where elegance meets beauty." FontWeight="SemiLight"/>
             <CheckBox x:Name="eulaCheckBox" Click="eulaCheckBox_Click" HorizontalAlignment="Center" Margin="32">

@@ -116,7 +116,7 @@ namespace Yttrium_browser
             // ShowUpdateAnnouncement();
 
             // TODO: Download prompt debug, remove after done debugging
-            new DownloadPrompt().ShowAsync();
+            // new DownloadPrompt().ShowAsync();
         }
 
         private async void ShowUpdateAnnouncement()
@@ -489,10 +489,10 @@ namespace Yttrium_browser
         {
             //MenuButton.Flyout.Hide();
             controlCenterButton.Flyout.Hide();
-            await new Downloads_Dialog().ShowAsync();
+            //await new Downloads_Dialog().ShowAsync();
 
-            //if (BrowserTabs.SelectedIndex >= 0)
-            //    _ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDownloadsDialog();
+            if (BrowserTabs.SelectedIndex >= 0)
+                _ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDownloadsDialog();
 
         }
 
@@ -525,7 +525,6 @@ namespace Yttrium_browser
                 BrowserTabs.Margin = new Windows.UI.Xaml.Thickness(0, -40, 0, 0);
                 DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(0);
                 fullscreentopbar.Visibility = Visibility.Visible;
-
             }
         }
 

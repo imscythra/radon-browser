@@ -25,7 +25,7 @@
                 <ImageBrush x:Name="ntpbackgroundbrush" Stretch="UniformToFill" ImageSource="https://bing.biturl.top/?resolution=1366&amp;format=image&amp;index=random&amp;mkt=en-US"/>
             </Grid.Background>
 
-            <Grid Background="Black" Opacity="0"/>
+            <Grid Background="Black" Opacity="0.3"/>
             
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="100,90" MinWidth="500">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">

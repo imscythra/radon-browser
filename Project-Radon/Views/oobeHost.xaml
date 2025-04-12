@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:materials="using:Project_Radon.Materials"
+    xmlns:materials="using:Cube.UI.Materials"
     x:Name="dbgTarget"
     Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}">
 
@@ -21,12 +21,9 @@
             </StackPanel>
         </Grid>
         <materials:AuroraLite/>
+        <materials:BloomView/>
         <Frame x:Name="hostFrame" Loaded="hostFrame_Loaded">
-            <Frame.ContentTransitions>
-                <TransitionCollection>
-                    <ReorderThemeTransition/>
-                </TransitionCollection>
-            </Frame.ContentTransitions>
+            <!-->Nothing here</!-->
         </Frame>
         <Button x:Name="debugSkip" Click="debugSkip_Click" Content="Skip (debug only)" HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" Style="{ThemeResource TextBlockButtonStyle}" FontWeight="SemiBold" FontSize="12"/>

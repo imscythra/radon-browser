@@ -40,8 +40,8 @@
                         </Button.Content>
                     </Button>
                     <StackPanel Spacing="8" HorizontalAlignment="Center" Margin="0,8">
-                        <TextBox x:Name="profileName" TextChanged="profileName_TextChanged" FontSize="20" FontWeight="SemiBold" Text="Radon user" Width="250"
-                                 Background="Transparent" TextAlignment="Center" PlaceholderText="Radon user" BorderThickness="0,0,0,1" Style="{ThemeResource GlowTextBox}"/>
+                        <TextBox x:Name="profileName" TextChanged="profileName_TextChanged" FontSize="20" FontWeight="SemiBold" Width="250"
+                                 TextAlignment="Center" PlaceholderText="Radon user" Style="{ThemeResource GlowTextBox}"/>
 
                     </StackPanel>
                     <controls:SettingsExpander
@@ -77,7 +77,7 @@
                                             <Image Source="ms-appx:///Wallpapers/Tokyo Night [experimental].png" Tag="Tokyo Night [experimental]" Stretch="UniformToFill" Width="100"/>
                                         </GridView.Items>
                                     </GridView>
-                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Display mode"/>
+                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Color mode"/>
                                     <controls:Segmented x:Name="AppThemePicker" SelectionChanged="AppThemePicker_SelectionChanged" Loaded="AppThemePicker_Loaded" HorizontalAlignment="Stretch">
                                         <controls:SegmentedItem Content="System" Icon="{ui:FontIcon Glyph=&#xE7F7;}" />
                                         <controls:SegmentedItem Content="Day" Icon="{ui:FontIcon Glyph=&#xE706;}" />
@@ -90,8 +90,8 @@
                                                       CloseButtonContent="No thanks"
                                                       IsOpen="False"
                                                       ActionButtonClick="RestartTip_ActionButtonClick"/>
-                                    <muxc:InfoBar Title="Day theme is experimental" IsOpen="True"
-                                                  Message="Use it at your own risk. I meant it." IsClosable="False" Severity="Warning"/>
+                                    <muxc:InfoBar Title="Color mode will apply after restart" IsOpen="True" Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}"
+                                                  Message="Changes will take effect the next time you open the app." IsClosable="False" Severity="Informational"/>
                                 </StackPanel>
                             </controls:SettingsCard>
                         </controls:SettingsExpander.Items>
