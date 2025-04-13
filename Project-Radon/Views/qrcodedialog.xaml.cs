@@ -30,7 +30,15 @@ namespace Project_Radon.Views
             qrGenHandler();
         }
 
-        
+        public string TitleText
+        {
+            get => PageTitle.Text; set => PageTitle.Text = value;
+        }
+        public string UrlText
+        {
+            get => PageUrl.Text; set => PageUrl.Text = value;
+        }
+        public Uri ImageUriSrc { get; set; }
 
         private void doneBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -66,6 +74,7 @@ namespace Project_Radon.Views
                     qrImage.Source = bitmapImage;
                 }
             }
+            favicon.Source = new BitmapImage(ImageUriSrc);
         }
     }
 }

@@ -15,8 +15,18 @@
     </Page.Background>
     <Grid>
         <materials:AuroraLite/>
-        <Grid MaxWidth="500" MaxHeight="500" Background="{ThemeResource AccentLinearGradientBrush}">
-            
+        <Grid MaxWidth="500" MaxHeight="400" CornerRadius="8" Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" Margin="40,40,40,12" BorderBrush="{ThemeResource AccentFillColorDefaultBrush}" BorderThickness="1">
+            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Top" HorizontalAlignment="Center" Height="40">
+                <Image Source="/Assets/StoreLogo.png" Width="20"/>
+                <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Radon Browser" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Spacing="8" Margin="12,64,12,12">
+                <PersonPicture ProfilePicture="/accountpictures/default.png" Width="120" Height="120"/>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" TextAlignment="Center" Text="Welcome back, Scythra!" Margin="0,12,0,0"/>
+                <TextBlock TextAlignment="Center" Text="To continue, please verify your identity."/>
+                <Button x:Name="AuthButton" Click="AuthButton_Click" Loaded="AuthButton_Click" Style="{ThemeResource AccentButtonStyle}" Content="Authenticate" FontWeight="SemiBold" Margin="0,24,0,0" HorizontalAlignment="Center"/>
+                <HyperlinkButton x:Name="HelpLink" Click="HelpLink_Click" Content="Having trouble with Windows Hello?" HorizontalAlignment="Center"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

@@ -25,10 +25,10 @@
             <Grid Margin="0,12" CornerRadius="4">
                 <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"/>
                 <StackPanel Orientation="Horizontal" Spacing="8" Padding="12">
-                    <Image Source="ms-appx:///Assets/StoreLogo.png" Height="36"/>
+                    <Image x:Name="favicon" Source="ms-appx:///Assets/StoreLogo.png" Height="36"/>
                     <StackPanel>
-                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Page title"/>
-                        <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="https://example.com"/>
+                        <TextBlock x:Name="PageTitle" Style="{ThemeResource BaseTextBlockStyle}" Text="Page title"/>
+                        <TextBlock x:Name="PageUrl" Style="{ThemeResource CaptionTextBlockStyle}" Text="https://example.com"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

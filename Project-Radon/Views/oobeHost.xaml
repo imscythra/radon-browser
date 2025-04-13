@@ -21,7 +21,6 @@
             </StackPanel>
         </Grid>
         <materials:AuroraLite/>
-        <materials:BloomView/>
         <Frame x:Name="hostFrame" Loaded="hostFrame_Loaded">
             <!-->Nothing here</!-->
         </Frame>
