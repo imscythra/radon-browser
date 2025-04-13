@@ -179,6 +179,9 @@
     <Compile Include="Views\oobe4.xaml.cs">
       <DependentUpon>oobe4.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\oobe5.xaml.cs">
+      <DependentUpon>oobe5.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\oobeHost.xaml.cs">
       <DependentUpon>oobeHost.xaml</DependentUpon>
     </Compile>
@@ -211,6 +214,9 @@
     </Compile>
     <Compile Include="Views\UpdatedDialog.xaml.cs">
       <DependentUpon>UpdatedDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\windowshelloauth.xaml.cs">
+      <DependentUpon>windowshelloauth.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -454,6 +460,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\oobe5.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\oobeHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -495,6 +505,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UpdatedDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\windowshelloauth.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

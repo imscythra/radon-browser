@@ -48,7 +48,7 @@ namespace Project_Radon.Settings
         private void oobeTitleBar_Loaded(object sender, RoutedEventArgs e)
         {
             Window.Current.SetTitleBar(oobeTitleBar);
-            new Controls.RadonContentDialog().ShowAsync();
+            
         }
 
         private void debugTheme_Click(object sender, RoutedEventArgs e)

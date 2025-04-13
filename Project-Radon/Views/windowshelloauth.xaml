@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="Project_Radon.Views.windowshelloauth"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Project_Radon.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:tenmica="using:TenMica"
+    xmlns:materials="using:Cube.UI.Materials"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+    <Page.Background>
+        <tenmica:TenMicaBrush EnabledInActivatedNotForeground="True"/>
+    </Page.Background>
+    <Grid>
+        <materials:AuroraLite/>
+        <Grid MaxWidth="500" MaxHeight="500" Background="{ThemeResource AccentLinearGradientBrush}">
+            
+        </Grid>
+    </Grid>
+</Page>

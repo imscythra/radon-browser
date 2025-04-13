@@ -7,8 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}"
-    CornerRadius="8" CloseButtonText="OK">
+    CornerRadius="8"
+    CloseButtonStyle="{ThemeResource AccentButtonStyle}">
 
     <Grid>
+        <StackPanel Spacing="12" Orientation="Horizontal" MaxWidth="375">
+            <FontIcon x:Name="DialogIcon" Glyph="&#xE946;" Margin="0,6" FontSize="18" VerticalAlignment="Top"/>
+            <StackPanel Spacing="4" MaxWidth="350">
+                <TextBlock x:Name="Title" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Title"/>
+                <TextBlock x:Name="Subtitle" Text="Subtitle" TextWrapping="Wrap"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </ContentDialog>

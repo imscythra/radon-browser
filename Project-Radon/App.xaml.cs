@@ -81,19 +81,24 @@ namespace Yttrium_browser
                 {
                     ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
-                    rootFrame.Navigate(typeof(oobeHost), null);
+                    //rootFrame.Navigate(typeof(oobeHost), null);
 
                     // profile check mechanisms
-                    //string username = localSettings.Values["username"] as string;
+                    string username = localSettings.Values["username"] as string;
                     //string campaignRan = localSettings.Values["campaignRan"] as string;
-                    //if (username == null)
-                    //{
-                    //    rootFrame.Navigate(typeof(oobe1), null);
-                    //}
-                    //else { rootFrame.Navigate(typeof(oobe1), e.Arguments); }
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
+                    if (username == null)
+                    {
+                        rootFrame.Navigate(typeof(oobeHost), null);
+                    }
+                    else 
+                    {
+                        if ((bool)(localSettings.Values["WindowsHelloAuth"] = true))
+                        {
+                            rootFrame.Navigate(typeof(windowshelloauth), e.Arguments);
+                        }
+                        else { rootFrame.Navigate(typeof(oobe1), e.Arguments); }
+                    }
+                    
 
 
                 }

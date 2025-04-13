@@ -24,6 +24,20 @@ namespace Project_Radon.Controls
             this.InitializeComponent();
         }
 
+        // 👇 Add these properties
+        public string TitleText
+        {
+            get => Title.Text; set => Title.Text = value;
+        }
+
+        public string SubtitleText
+        {
+            get => Subtitle.Text; set => Subtitle.Text = value;
+        }
+        public string DialogIconGlyph
+        {
+            get => DialogIcon.Glyph; set => DialogIcon.Glyph = value;
+        }
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
         }

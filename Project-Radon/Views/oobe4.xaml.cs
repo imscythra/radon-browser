@@ -63,28 +63,55 @@ namespace Project_Radon.Views
 
         private async void WindowsHelloSwitch_Toggled(object sender, RoutedEventArgs e)
         {
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             if (WindowsHelloSwitch.IsOn == true)
             {
                 var result = await UserConsentVerifier.RequestVerificationAsync("Please verify your identity");
 
                 if (result == UserConsentVerificationResult.Verified)
                 {
-                    ContentDialog dg = new ContentDialog();
-                    dg.Title = "Success!";
-                    dg.Content = "You can now use Windows Hello to sign into Radon.";
-                    dg.CloseButtonText = "Dismiss";
+                    Controls.RadonContentDialog dg = new Controls.RadonContentDialog();
+                    dg.TitleText = "Success!";
+                    dg.SubtitleText = "You can now use Windows Hello to log into Radon.";
+                    dg.DialogIconGlyph = "\uE930";
+                    dg.CloseButtonText = "OK";
+                    localSettings.Values["WindowsHelloAuth"] = true;
                     await dg.ShowAsync();
                 }
                 else
                 {
-                    ContentDialog dg = new ContentDialog();
-                    dg.Title = "Something went wrong";
-                    dg.Content = $"Radon is unable to set up Windows Hello. Please try again later. Error: {result}";
-                    dg.CloseButtonText = "Dismiss";
+                    Controls.RadonContentDialog dg = new Controls.RadonContentDialog();
+                    dg.TitleText = "Something happened.";
+                    dg.SubtitleText = "We ran into some problems setting up Windows Hello, maybe give it another try?";
+                    dg.DialogIconGlyph = "\uEA39";
+                    dg.CloseButtonText = "OK";
+                    localSettings.Values["WindowsHelloAuth"] = false;
                     await dg.ShowAsync();
                     WindowsHelloSwitch.IsOn = false;
                 }
             }
+            else { localSettings.Values["WindowsHelloAuth"] = false; }
+        }
+
+        private void DialogClose_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as FrameworkElement;
+            var dialog = FindParent<ContentDialog>(button);
+
+            dialog?.Hide();
+        }
+
+        // 👇 Add the helper method here inside the class
+        private T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(child);
+
+            while (parent != null && !(parent is T))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return parent as T;
         }
     }
 }

@@ -22,7 +22,7 @@
                 <TextBlock Text="Configure Radon to work the way you want. You can configure more settings later in the Settings page."
                    TextWrapping="Wrap" Opacity="0.8" />
             </StackPanel>
-            <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="0,88,0,0" Padding="16,0">
+            <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="0,88,0,48" Padding="16,0">
                 <StackPanel Spacing="2">
                     <muxc:InfoBar Title="Work in progress" IsOpen="True" Severity="Warning"
                                   Message="Expect to see more options coming soon!" />
@@ -42,10 +42,11 @@
                        HeaderIcon="{ui:FontIcon Glyph=&#xF246;}"></controls:SettingsExpander>
                     <controls:SettingsCard x:Name="WindowsHelloCard" Header="Windows Hello (experimental)" Description="Require Windows Hello authentication to use Radon."
                        HeaderIcon="{ui:FontIcon Glyph=&#xEB68;}">
-                        <ToggleSwitch x:Name="WindowsHelloSwitch" Toggled="WindowsHelloSwitch_Toggled" Loaded="WindowsHelloSwitch_Loaded" Style="{ThemeResource GlowSwitch}" Width="44" HorizontalAlignment="Right"/>
+                        <ToggleSwitch x:Name="WindowsHelloSwitch" Toggled="WindowsHelloSwitch_Toggled" Loaded="WindowsHelloSwitch_Loaded" OnContent="" OffContent="" Style="{ThemeResource GlowSwitch}" Width="48" HorizontalAlignment="Right"/>
                     </controls:SettingsCard>
                 </StackPanel>
             </ScrollViewer>
+            <Button x:Name="nextBtn" FontWeight="SemiBold" Width="100" Content="Next" Style="{ThemeResource AccentButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="16,0"/>
         </Grid>
     </Grid>
 </Page>
