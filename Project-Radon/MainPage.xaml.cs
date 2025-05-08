@@ -2,40 +2,32 @@ using Microsoft.UI.Xaml.Controls;
 using Project_Radon.Controls;
 using Project_Radon.Helpers;
 using Project_Radon.Settings;
+using Project_Radon.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
+using Windows.Storage;
 using Windows.System;
+using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.Core.Preview;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Yttrium;
-using Windows.ApplicationModel.Core;
-using SymbolIconSource = Microsoft.UI.Xaml.Controls.SymbolIconSource;
-using Windows.UI.Core;
-using Windows.UI;
-using Microsoft.Web.WebView2.Core;
 using Windows.UI.Xaml.Media.Imaging;
-using System.Numerics;
-using Windows.UI.Core.Preview;
-using Windows.Devices.Enumeration;
-using Windows.UI.Xaml.Navigation;
-using Windows.Storage;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.WindowManagement;
-using System.ServiceModel.Channels;
-using Windows.UI.Popups;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.WindowManagement;
-using System.Reflection;
-using Windows.ApplicationModel.Contacts;
-using Project_Radon.Views;
-using Windows.ApplicationModel.DataTransfer;
-using System.Data.SqlClient;
+using Yttrium;
+using SymbolIconSource = Microsoft.UI.Xaml.Controls.SymbolIconSource;
+
+
 
 namespace Yttrium_browser
 {
@@ -45,6 +37,11 @@ namespace Yttrium_browser
         string GoogleSignInUserAgent;
         public static string SearchValue;
         private readonly ObservableCollection<BrowserTabViewItem> CurrentTabs = new ObservableCollection<BrowserTabViewItem>();
+        private readonly Debouncer _debouncer = new Debouncer();
+
+        //these two are essentials for url share (Windows Share)
+        private DataTransferManager dataTransferManager;
+        private string urlToShare;
         public MainPage()
         {
             InitializeComponent();
@@ -65,26 +62,6 @@ namespace Yttrium_browser
             String colorthemevalue = localSettings.Values["appcolortheme"] as string;
             appthemebackground.Source = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/" + colorthemevalue + ".png" })));
             fullscreentopbarbackground.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///wallpapers/" + colorthemevalue + ".png" })));
-
-            //load Inline Mode settings
-            String inlineMode = localSettings.Values["inlineMode"] as string;
-            if (inlineMode == "True")
-            {
-                compactuibar.Visibility = Visibility.Visible;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(0);
-
-                BrowserTabs.TabWidthMode = TabViewWidthMode.Compact;
-                compacttitlebar_rightpadding.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                compactuibar.Visibility = Visibility.Collapsed;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(40);
-
-                BrowserTabs.TabWidthMode = TabViewWidthMode.Equal;
-
-                compacttitlebar_rightpadding.Visibility = Visibility.Collapsed;
-            }
 
             //load titlebar settings
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
@@ -111,12 +88,14 @@ namespace Yttrium_browser
 
                 localSettings.Values["systemTitleBar"] = "False";
             }
-
+            dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += DataTransferManager_DataRequested;
             // TODO: Add logics to initiate update announcements
             // ShowUpdateAnnouncement();
 
             // TODO: Download prompt debug, remove after done debugging
             // new DownloadPrompt().ShowAsync();
+
         }
 
         private async void ShowUpdateAnnouncement()
@@ -242,8 +221,6 @@ namespace Yttrium_browser
                 faviconicon.UriSource = icoURI;
                 faviconicon.ShowAsMonochrome = false;
 
-                RefreshButton.Visibility = Visibility.Visible;
-                StopRefreshButton.Visibility = Visibility.Collapsed;
 
             }
             catch (Exception ExLoader)
@@ -251,6 +228,8 @@ namespace Yttrium_browser
                 ErrorDialog dialog = new ErrorDialog(ExLoader.ToString());
                 await dialog.ShowAsync();
             }
+            RefreshButton.Visibility = Visibility.Visible;
+            StopRefreshButton.Visibility = Visibility.Collapsed;
 
 
 
@@ -266,8 +245,8 @@ namespace Yttrium_browser
                 }
                 else
                 {
-                    await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(SearchBar.Text);
                     SearchBar.RemoveFocusEngagement();
+                    await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(searchSuggestionList.SelectedItem.ToString());
                 }
             }
 
@@ -277,7 +256,31 @@ namespace Yttrium_browser
                 SearchBar.Text = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri;
 
                 //TODO: WebView2 will steal the focus for keyboard and pointer
-                BrowserTabs.Focus(FocusState.Keyboard);
+                SearchBar.RemoveFocusEngagement();
+            }
+
+            if (e.Key == VirtualKey.Up && searchSuggestionList.SelectedIndex != 0) { searchSuggestionList.SelectedIndex -= 1; }
+            if (e.Key == VirtualKey.Down && searchSuggestionList.SelectedIndex != searchSuggestionList.Items.Count - 1) { searchSuggestionList.SelectedIndex += 1; }
+
+            if (e.Key != VirtualKey.Up && e.Key != VirtualKey.Down)
+            {
+                if (searchSuggestionsFlyout.Visibility == Visibility.Collapsed)
+                {
+                    searchSuggestionsFlyout.Visibility = Visibility.Visible;
+                    searchSuggestionList.ItemsSource = null;
+                }
+                searchSuggestionLoadIndicator.Visibility = Visibility.Visible;
+                _debouncer.Debounce(async () =>
+                {
+                    var query = SearchBar.Text;
+                    var suggestions = await SuggestionService.GetSuggestionsAsync(query);
+                    if (SearchBar.Text != string.Empty) { suggestions.Insert(0, SearchBar.Text); }
+
+                    suggestions = suggestions.Distinct().ToList();
+                    searchSuggestionList.ItemsSource = suggestions;
+                    searchSuggestionList.SelectedIndex = 0;
+                    searchSuggestionLoadIndicator.Visibility = Visibility.Collapsed;
+                });
             }
 
             // ======This line is used to quickly renavigate to MainPage========
@@ -289,13 +292,18 @@ namespace Yttrium_browser
 
         private void SearchBar_GotFocus(object sender, RoutedEventArgs e)
         {
-            SearchBar.SelectAll();
+            //TODO: Experiment with autosuggestvox select all experience
+            //SearchBar.SelectAll();
             RefreshButton.Visibility = Visibility.Collapsed;
+            SearchBar.Text = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri;
         }
 
         private void SearchBar_LostFocus(object sender, RoutedEventArgs e)
         {
             RefreshButton.Visibility = Visibility.Visible;
+            if (searchSuggestionList.FocusState != FocusState.Unfocused) { searchSuggestionsFlyout.Visibility = Visibility.Visible; }
+            else { searchSuggestionsFlyout.Visibility = Visibility.Collapsed;   }
+
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
@@ -491,8 +499,16 @@ namespace Yttrium_browser
             controlCenterButton.Flyout.Hide();
             //await new Downloads_Dialog().ShowAsync();
 
-            if (BrowserTabs.SelectedIndex >= 0)
-                _ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDownloadsDialog();
+            //if (BrowserTabs.SelectedIndex >= 0)
+            //    _ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDownloadsDialog();
+            string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "30868ItzBluebxrry.RadonBrowserDev_qc4twqjhevfwm!App");
+
+            StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
+            Debug.WriteLine(folder);
+            await Launcher.LaunchFolderAsync(folder);
+            if (Directory.Exists(downloadsPath))
+            {
+            }
 
         }
 
@@ -552,28 +568,11 @@ namespace Yttrium_browser
 
         private void BaseGrid_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
+            int width = (int)SearchBar.ActualWidth;
+            searchSuggestionList.Width = width;
 
 
         }
-
-        private async void CompactSearchBar_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-
-            if (e.Key == VirtualKey.Enter && !string.IsNullOrEmpty(SearchBar.Text))
-            {
-                SearchBar.Text = CompactSearchBar.Text;
-                await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(SearchBar.Text);
-            }
-            if (e.Key == VirtualKey.Escape)
-            {
-                //TODO: Pressing ESC will set the SearchBar.Text to WebView2 source (ESC will cancel URL changes)
-                CompactSearchBar.Text = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri;
-
-                //TODO: WebView2 will steal the focus for keyboard and pointer
-            }
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -594,42 +593,11 @@ namespace Yttrium_browser
         {
             if (!CurrentTabs[BrowserTabs.SelectedIndex].ShowCustomContent)
                 _ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDevTools();
-            ContentDialog dialog = new ContentDialog();
-            dialog.Title = "WebView2 DevTools";
-            dialog.Content = "The developer tools window has launched in the background— you may access it from the taskbar.";
-            dialog.CloseButtonText = "Got it!";
-            dialog.DefaultButton = ContentDialogButton.Close;
-            dialog.ShowAsync();
+            actionMsg_Icon.Glyph = "\uE930";
+            actionMsg_Text.Text = "DevTools launched in background!";
+            actionMsg.IsOpen = true;
+            actionMsgTimeoutHandler();
         }
-
-        private void tabaction_inline_Click(object sender, RoutedEventArgs e)
-        {
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
-            if (compactuibar.Visibility == Visibility.Collapsed)
-            {
-                compactuibar.Visibility = Visibility.Visible;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(0);
-
-                BrowserTabs.TabWidthMode = TabViewWidthMode.Compact;
-                compacttitlebar_rightpadding.Visibility = Visibility.Visible;
-
-                localSettings.Values["inlineMode"] = "True";
-            }
-
-            else
-            {
-                compactuibar.Visibility = Visibility.Collapsed;
-                DefaultBarUI.Height = new Windows.UI.Xaml.GridLength(40);
-
-                BrowserTabs.TabWidthMode = TabViewWidthMode.Equal;
-
-                compacttitlebar_rightpadding.Visibility = Visibility.Collapsed;
-
-                localSettings.Values["inlineMode"] = "False";
-            }
-        }
-
         private void HistoryButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -798,8 +766,10 @@ namespace Yttrium_browser
         {
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["qrUrl"] = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri.ToString();
-
+            localSettings.Values["qrFavicon"] = CurrentTabs[BrowserTabs.SelectedIndex].Tab.Favicon.ToString();
             qrcodedialog dialog = new qrcodedialog();
+            dialog.TitleText = CurrentTabs[BrowserTabs.SelectedIndex].Tab.Title.ToString();
+            dialog.UrlText = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri.ToString();
             controlCenterButton.Flyout.Hide();
             await dialog.ShowAsync();
         }
@@ -819,5 +789,31 @@ namespace Yttrium_browser
         {
 
         }
+
+        private void SearchBar_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            
+        }
+
+        private async void searchSuggestionList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            SearchBar.RemoveFocusEngagement();
+            await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(searchSuggestionList.SelectedItem.ToString());
+        }
+
+        private void moresharingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            urlToShare = CurrentTabs[BrowserTabs.SelectedIndex].Tab.SourceUri; ; // <- your URL string
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void DataTransferManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            DataRequest request = args.Request;
+            request.Data.SetWebLink(new Uri(urlToShare)); // <- Share the URL as a weblink
+            request.Data.Properties.Title = "Share this link"; // title of the share UI
+            request.Data.Properties.Description = "Sharing a link from my app!"; // optional
+        }
+
     }
 }

@@ -122,6 +122,7 @@
     <Compile Include="Helpers\ConfirmExitDialog.xaml.cs">
       <DependentUpon>ConfirmExitDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Debouncer.cs" />
     <Compile Include="Helpers\DownloadPrompt.xaml.cs">
       <DependentUpon>DownloadPrompt.xaml</DependentUpon>
     </Compile>
@@ -131,6 +132,7 @@
     <Compile Include="Helpers\loginpage.xaml.cs">
       <DependentUpon>loginpage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SuggestionService.cs" />
     <Compile Include="Materials\AuroraLite.xaml.cs">
       <DependentUpon>AuroraLite.xaml</DependentUpon>
     </Compile>

@@ -28,9 +28,16 @@
         <KeyboardAccelerator Key="RightButton" Modifiers="Control" Invoked="NavigateToNumberedTabKeyboardAccelerator_Invoked" />
     </Page.KeyboardAccelerators>
     <Page.Resources>
+        
         <ResourceDictionary>
             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="Transparent"  />
+            <Style x:Key="WideFlyoutPresenterStyle" TargetType="FlyoutPresenter">
+                <Setter Property="MaxWidth" Value="9999" />
+                <Setter Property="MaxHeight" Value="9999" />
+                <Setter Property="MinWidth" Value="50" />
+            </Style>
         </ResourceDictionary>
+        
         
     </Page.Resources>
     <Page.Background>
@@ -108,13 +115,7 @@
                             <Image Source="ms-appx:///Assets/StoreLogo.png" Margin="2"/>
                             <winui:DropDownButton.Flyout>
                                 <MenuFlyout ShouldConstrainToRootBounds="False" Placement="BottomEdgeAlignedLeft">
-                                   
-                                    <MenuFlyoutItem Visibility="Collapsed" Text="Inline mode (wip)" Width="250" x:Name="tabaction_inline" Click="tabaction_inline_Click">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xf26b;"/>
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                    
+
                                     <MenuFlyoutItem Text="Snip tab (in development)" Width="250" IsEnabled="False">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xe931;"/>
@@ -261,6 +262,7 @@
 
                     <TextBox x:Name="SearchBar"
                         KeyDown="SearchBar_KeyDown"
+                        KeyUp="SearchBar_KeyUp"
                         VerticalAlignment="Center"
                         Margin="43,3,45,0"
                         BorderThickness="1"
@@ -279,6 +281,8 @@
                         FontWeight="Medium"
                         CornerRadius="8">
                     </TextBox>
+                    
+
 
                     <Button x:Name="RefreshButton"
                         Background="{x:Null}" Grid.Column="1" HorizontalAlignment="Right"
@@ -530,75 +534,24 @@
                 >
                         <winui:TabView.TabStripHeader>
                             <Grid>
-                                <Grid.ChildrenTransitions>
-                                    <TransitionCollection>
-                                        <EntranceThemeTransition IsStaggeringEnabled="True"/>
-                                        <RepositionThemeTransition/>
-                                    </TransitionCollection>
-                                </Grid.ChildrenTransitions>
-                                
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="8,0,0,0">
-                                    <!--TODO: The button should add a new tab -->
-
-                                    <Grid x:Name="compacttitlebar_rightpadding" Width="40" Visibility="Collapsed"/>
-                                </StackPanel>
-                                <Grid x:Name="tabaction">
-
-                                </Grid>
-                                <Grid x:Name="compactuibar" Visibility="Collapsed" Margin="45,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition x:Name="compactnavbar" MinWidth="100" Width="*"/>
-                                        <ColumnDefinition x:Name="compactsearchbar" Width="999*" MaxWidth="400"/>
-                                    </Grid.ColumnDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="CompactBackButton"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Margin="12,5,10,5"
-                        Click="BackButton_Click"
-                        Padding="6" ToolTipService.ToolTip="Back">
-                                            <FontIcon Glyph="&#xe760;" FontSize="20" FontFamily="Segoe Fluent Icons"/>
-                                        </Button>
-                                        <Button x:Name="CompactNavOverflowButton"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Click="HomeButton_Click"
-                        Padding="8.5" ToolTipService.ToolTip="Navigation options">
-                                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe712;"
-                              FontSize="18" />
-                                            <Button.Flyout>
-                                                <MenuFlyout>
-                                                    <MenuFlyoutItem Width="150" Text="Forward" Icon="Forward" Click="ForwardButton_Click"/>
-                                                    <MenuFlyoutItem Width="150" Text="Refresh" Icon="Refresh" Click="RefreshButton_Click"/>
-                                                    <MenuFlyoutItem Width="150" Text="Stop loading" Icon="Document"/>
-                                                    <MenuFlyoutItem Width="150" Text="Start page" Icon="Home" Click="HomeButton_Click"/>
-                                                </MenuFlyout>
-                                            </Button.Flyout>
-                                        </Button>
-
-                                        <!--TODO: The button should add a new tab -->
-                                        <Button Style="{ThemeResource PaneToggleButtonStyle}"  VerticalAlignment="Center" Width="48" Visibility="Collapsed">
-                                            <Button.Flyout>
-                                                <Flyout/>
-                                            </Button.Flyout>
-                                        </Button>
-                                    </StackPanel>
-                                    <AutoSuggestBox x:Name="CompactSearchBar"
-                         KeyDown="CompactSearchBar_KeyDown"
-                         VerticalAlignment="Center"
-                         Margin="13,0,15,0"
-                         BorderThickness="0"
-                         Padding="36,6,6,0"
-                        HorizontalAlignment="Stretch"
-                        FontWeight="SemiBold"
-                         Grid.Column="1"
-                         PlaceholderText="Search the web or enter a URL"
-                         Height="25"
-                         VerticalContentAlignment="Center" 
-                         GotFocus="SearchBar_GotFocus"
-                         CornerRadius="8" />
-                                    <winui:ProgressBar x:Name="compactloadingbar" VerticalAlignment="Bottom" Margin="21,0,23,5" IsIndeterminate="True"/>
-                                </Grid>
+                                <Button Padding="6" Margin="10,0,0,0" Background="Transparent" Style="{ThemeResource ToolbarButton}">
+                                    <Border BorderBrush="{ThemeResource DefaultTextForegroundThemeBrush}" BorderThickness="2" Width="20" Height="20" CornerRadius="6" Opacity="0.8">
+                                        <TextBlock Text="{x:Bind CurrentTabs.Count, Mode=OneWay}" VerticalAlignment="Center" TextAlignment="Center" Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold"/>
+                                    </Border>
+                                    <Button.Flyout>
+                                        <Flyout Placement="BottomEdgeAlignedLeft">
+                                            <Grid Width="350">
+                                                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Top">
+                                                    <FontIcon Glyph="&#xE7C4;" FontSize="16"/>
+                                                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="Saved tabs"/>
+                                                </StackPanel>
+                                                <winui:InfoBar Title="Save and restore tabs is in development!"
+                                                               IsOpen="True"
+                                                               IsClosable="False" Margin="0,40,0,0"/>
+                                            </Grid>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
                             </Grid>
                         </winui:TabView.TabStripHeader>
                         <winui:TabView.TabStripFooter>
@@ -722,7 +675,7 @@
                                                             </StackPanel>
                                                             <Button.Flyout>
                                                                 <MenuFlyout Placement="RightEdgeAlignedTop" ShouldConstrainToRootBounds="False">
-                                                                    <MenuFlyoutItem x:Name="copyurltoclipboardBtn" Click="copyurltoclipboardBtn_Click" Text="Copy URL to clipboard">
+                                                                    <MenuFlyoutItem x:Name="copyurltoclipboardBtn" Click="copyurltoclipboardBtn_Click" Text="Copy link to clipboard">
                                                                         <MenuFlyoutItem.Icon>
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
                                                                         </MenuFlyoutItem.Icon>
@@ -738,7 +691,7 @@
                                                                         </MenuFlyoutItem.Icon>
                                                                     </MenuFlyoutItem>
                                                                     <MenuFlyoutSeparator/>
-                                                                    <MenuFlyoutItem Text="More sharing options">
+                                                                    <MenuFlyoutItem x:Name="moresharingBtn" Click="moresharingBtn_Click" Text="More sharing options">
                                                                         <MenuFlyoutItem.Icon>
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" />
                                                                         </MenuFlyoutItem.Icon>
@@ -848,10 +801,10 @@
                     <Button x:Name="fullscreentopbar" Visibility="Collapsed" Click="fullscreentopbar_Click" Canvas.ZIndex="3" HorizontalAlignment="Stretch" BorderBrush="{x:Null}" Background="Transparent" ClickMode="Hover" Grid.Row="1"  Grid.ColumnSpan="4" VerticalAlignment="Top"/>
 
                 </Grid>
-        
+                
             </Grid>
 
-            <winui:TeachingTip x:Name="actionMsg"  PreferredPlacement="Top" PlacementMargin="0,64,0,0" Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" Padding="8" d:IsHidden="True">
+            <winui:TeachingTip x:Name="actionMsg"  PreferredPlacement="Top" PlacementMargin="0,64,0,0" Background="{ThemeResource SystemControlAltLowAcrylicWindowBrush}" Padding="12" d:IsHidden="True">
                 <Grid Margin="-12">
                     <StackPanel Orientation="Horizontal" Spacing="8" Margin="12">
                         <FontIcon x:Name="actionMsg_Icon" Glyph="&#xe790;"/>
@@ -896,44 +849,6 @@
         </Popup>
 
         <!--#region ControlCenter -->
-        <Popup x:Name="controlCenter" IsLightDismissEnabled="True" HorizontalAlignment="Right" Margin="0,76,308,90" Closed="controlCenter_Closed"
-               >
-            <Popup.ChildTransitions>
-                <TransitionCollection>
-                    <PaneThemeTransition Edge="Top"/>
-                </TransitionCollection>
-            </Popup.ChildTransitions>
-
-
-            <Grid Height="Auto">
-                
-            </Grid>
-        </Popup>
-        <!--#endregion-->
-        <!--#endregion-->
-
-
-        <Popup x:Name="sidebarSearch">
-            <Popup.ChildTransitions>
-                <TransitionCollection>
-                    <EdgeUIThemeTransition Edge="Right" />
-                </TransitionCollection>
-            </Popup.ChildTransitions>
-            <Popup.Child>
-            <Grid  HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}"
-              BorderBrush="{ThemeResource SystemBaseLowColor}" BorderThickness="1" CornerRadius="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal">
-
-                </StackPanel>
-                <winui:WebView2 Source="https://google.com" Margin="10" Grid.Row="1"
-                                BorderBrush="{ThemeResource SystemBaseLowColor}" BorderThickness="1"/>
-            </Grid>
-            </Popup.Child>
-        </Popup>
         
         
         <!--#region profileCenterPopup-->
@@ -1145,7 +1060,19 @@
             </Grid>
             
         </Popup>
-         
+
+        <FlyoutPresenter x:Name="searchSuggestionsFlyout"  Style="{StaticResource WideFlyoutPresenterStyle}" HorizontalAlignment="Center" Padding="0"
+                    Margin="0,43,0,0" VerticalAlignment="Top" BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                    Grid.Column="1" CornerRadius="8" Visibility="Collapsed">
+            <Grid>
+                <TextBlock Margin="12,12,12,0" Style="{ThemeResource BaseTextBlockStyle}" Text="Recommended"/>
+                <winui:ProgressBar x:Name="searchSuggestionLoadIndicator" IsIndeterminate="True" Margin="0,36,0,0" VerticalAlignment="Top"/>
+                <ListView x:Name="searchSuggestionList" IsItemClickEnabled="True" ItemClick="searchSuggestionList_ItemClick" Margin="0,40,0,0" CornerRadius="6"/>
+            </Grid>
+        </FlyoutPresenter>
+
+
+
         <!--#endregion-->
 
         <!--<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="250" HorizontalAlignment="Left" VerticalAlignment="Stretch">
