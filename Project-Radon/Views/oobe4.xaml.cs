@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Security.Credentials.UI;
 using System.Diagnostics;
+using Windows.UI.Xaml.Media.Animation;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -112,6 +113,11 @@ namespace Project_Radon.Views
             }
 
             return parent as T;
+        }
+
+        private void nextBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Views.oobe5), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight});
         }
     }
 }

@@ -72,11 +72,6 @@ namespace Yttrium_browser
                 coreTitleBar.ExtendViewIntoTitleBar = false;
 
                 var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-
-                titleBar.ButtonBackgroundColor = Colors.Transparent;
-                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-                titleBar.BackgroundColor = Colors.Transparent;
-
                 localSettings.Values["systemTitleBar"] = "True";
             }
 
@@ -91,7 +86,7 @@ namespace Yttrium_browser
             dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += DataTransferManager_DataRequested;
             // TODO: Add logics to initiate update announcements
-            // ShowUpdateAnnouncement();
+            ShowUpdateAnnouncement();
 
             // TODO: Download prompt debug, remove after done debugging
             // new DownloadPrompt().ShowAsync();
@@ -100,7 +95,7 @@ namespace Yttrium_browser
 
         private async void ShowUpdateAnnouncement()
         {
-            UpdatedDialog dialog = new UpdatedDialog();
+            SponsorDialog dialog = new SponsorDialog();
             await dialog.ShowAsync();
         }
 
@@ -246,7 +241,11 @@ namespace Yttrium_browser
                 else
                 {
                     SearchBar.RemoveFocusEngagement();
-                    await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(searchSuggestionList.SelectedItem.ToString());
+                    if ((searchSuggestionList.Items.Count == 0) || (searchSuggestionList.SelectedIndex == 0))
+                    {
+                        await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(SearchBar.Text);
+                    }
+                    else { await CurrentTabs[BrowserTabs.SelectedIndex].Tab.SearchOrGoto(searchSuggestionList.SelectedItem.ToString()); }
                 }
             }
 
@@ -257,6 +256,7 @@ namespace Yttrium_browser
 
                 //TODO: WebView2 will steal the focus for keyboard and pointer
                 SearchBar.RemoveFocusEngagement();
+                BrowserTabs.Focus(FocusState.Keyboard);
             }
 
             if (e.Key == VirtualKey.Up && searchSuggestionList.SelectedIndex != 0) { searchSuggestionList.SelectedIndex -= 1; }
@@ -378,7 +378,25 @@ namespace Yttrium_browser
                 x.Tab.NewTabRequested += NewTabRequested;
             });
             SelectedTabPropertyChanged(null, null);
+            SearchBarStateHandler();
         }
+
+        private void SearchBarStateHandler()
+        {
+            if (CurrentTabs[BrowserTabs.SelectedIndex].Content.ToString() != "Project_Radon.Controls.BrowserTab")
+            {
+                SearchBar.IsEnabled = false;
+                RefreshButton.IsEnabled = false;
+                SSLButton.IsEnabled = false;
+            }
+            else
+            { 
+                SearchBar.IsEnabled = true;
+                RefreshButton.IsEnabled = true;
+                SSLButton.IsEnabled = true;
+            }
+        }
+
         private async void BrowserTabs_AddTabButtonClick(TabView sender, object args)
         {
             CurrentTabs.Add(new BrowserTabViewItem());
@@ -492,6 +510,8 @@ namespace Yttrium_browser
         private void printbutton_Click(object sender, RoutedEventArgs e)
         {
             //MenuButton.Flyout.Hide();
+            _ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.PrintTask();
+
         }
         private async void downloadbutton_Click(object sender, RoutedEventArgs e)
         {
@@ -500,7 +520,7 @@ namespace Yttrium_browser
             //await new Downloads_Dialog().ShowAsync();
 
             //if (BrowserTabs.SelectedIndex >= 0)
-            //    _ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDownloadsDialog();
+            //_ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDownloadsDialog();
             string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "30868ItzBluebxrry.RadonBrowserDev_qc4twqjhevfwm!App");
 
             StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
@@ -785,7 +805,7 @@ namespace Yttrium_browser
             actionMsg.IsOpen = false;
         }
 
-        private void experiments_Click(object sender, RoutedEventArgs e)
+        private void whatsnew_click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -815,5 +835,19 @@ namespace Yttrium_browser
             request.Data.Properties.Description = "Sharing a link from my app!"; // optional
         }
 
+        private void profileToolbarPicture_Loaded(object sender, RoutedEventArgs e)
+        {
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            string pfpsrc = localSettings.Values["profilePicture"] as string;
+            profileToolbarPicture.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpsrc.ToString(), ".png" })));
+        }
+
+        private void profileToolbarFlyoutPicture_Loaded(object sender, RoutedEventArgs e)
+        {
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            string pfpsrc = localSettings.Values["profilePicture"] as string;
+            profileToolbarFlyoutPicture.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpsrc.ToString(), ".png" })));
+            profileToolbarFlyoutUsername.Text = ApplicationData.Current.LocalSettings.Values["username"].ToString();
+        }
     }
 }

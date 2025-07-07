@@ -17,16 +17,29 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Project_Radon.Views
 {
-    public sealed partial class UpdatedDialog : ContentDialog
+    public sealed partial class SponsorDialog : ContentDialog
     {
-        public UpdatedDialog()
+        public SponsorDialog()
         {
             this.InitializeComponent();
         }
 
-        private void closeBtn_Click(object sender, RoutedEventArgs e)
+        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            Hide();
+        }
+
+        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+        }
+
+        private void donatebutton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void closebutton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

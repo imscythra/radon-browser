@@ -26,5 +26,10 @@ namespace Project_Radon.Views
         {
             this.InitializeComponent();
         }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.GoBack();
+        }
     }
 }

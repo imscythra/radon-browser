@@ -57,7 +57,7 @@
                 <ScalarTransition/>
             </Image.OpacityTransition>
         </Image>
-        <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" Opacity="0.4"/>
+        <Grid x:Name="BackgroundDimming" Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" Opacity="0.4"/>
 
 
 
@@ -116,16 +116,7 @@
                             <winui:DropDownButton.Flyout>
                                 <MenuFlyout ShouldConstrainToRootBounds="False" Placement="BottomEdgeAlignedLeft">
 
-                                    <MenuFlyoutItem Text="Snip tab (in development)" Width="250" IsEnabled="False">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xe931;"/>
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                    <MenuFlyoutItem Text="Web grabber (in development)" Width="250" IsEnabled="False">
-                                        <MenuFlyoutItem.Icon>
-                                            <FontIcon Glyph="&#xe8ac;"/>
-                                        </MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
+                                   
                                     <MenuFlyoutItem Text="Generate QR code" Width="250" IsEnabled="True" Click="continueonmobileBtn_Click">
                                         <MenuFlyoutItem.Icon>
                                             <FontIcon Glyph="&#xed14;"/>
@@ -250,8 +241,8 @@
                                 <TextBlock x:Name="SSLFlyoutHeader" Style="{ThemeResource BaseTextBlockStyle}" Margin="10,0" Text="Connection informations"/>
 
                             </StackPanel>
-                            <TextBlock x:Name="SSLFlyoutStatus" TextWrapping="WrapWholeWords" Margin="0,20,0,0" Text="Website's SSL status goes here."/>
-                            <TextBlock x:Name="SSLFlyoutStatus2" TextWrapping="WrapWholeWords" Margin="0,15,0,10" Text="Website's SSL status goes here."/>
+                            <TextBlock x:Name="SSLFlyoutStatus" TextWrapping="WrapWholeWords" Margin="0,12,0,0" Text="Website's SSL status goes here."/>
+                            <TextBlock x:Name="SSLFlyoutStatus2" TextWrapping="WrapWholeWords" Margin="0,8,0,10" Text="Website's SSL status goes here."/>
                         </StackPanel>
                     </Flyout>
                 </Button.Flyout>
@@ -555,39 +546,90 @@
                             </Grid>
                         </winui:TabView.TabStripHeader>
                         <winui:TabView.TabStripFooter>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="12,4,4,4" Spacing="2">
                                 <StackPanel.ChildrenTransitions>
                                     <TransitionCollection>
                                         <EntranceThemeTransition IsStaggeringEnabled="True"/>
                                     </TransitionCollection>
                                 </StackPanel.ChildrenTransitions>
-                                
-
-                                <Button x:Name="controlCenterButton" Click="controlCenterToggleButton_Click" VerticalAlignment="Center" Grid.Column="1" Padding="10,6.8" Margin="0,4,5,0" BorderBrush="{x:Null}" Background="Transparent" HorizontalAlignment="Right">
+                                <Border BorderThickness="1" BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="4,8"/>
+                                <Button x:Name="downloadsToolbarBtn"  Width="36" Height="36" Padding="2" CornerRadius="6" Style="{ThemeResource ToolbarButton}">
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" FontSize="16"/>
+                                </Button>
+                                <Button x:Name="shareToolbarBtn" Width="36" Height="36" Padding="2" CornerRadius="6" Style="{ThemeResource ToolbarButton}">
+                                    <Button.Flyout>
+                                        <MenuFlyout ShouldConstrainToRootBounds="True" Placement="BottomEdgeAlignedRight">
+                                            <MenuFlyoutItem Click="copyurltoclipboardBtn_Click" Text="Copy link to clipboard">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutItem Click="continueonmobileBtn_Click" Text="Continue on mobile">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe8ea;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                            <MenuFlyoutSeparator/>
+                                            <MenuFlyoutItem Click="moresharingBtn_Click" Text="More sharing options">
+                                                <MenuFlyoutItem.Icon>
+                                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72D;" FontSize="16"/>
+                                </Button>
+                                <Button x:Name="profileToolbarBtn"  Width="36" Height="36" Padding="6" CornerRadius="48" Style="{ThemeResource ToolbarButton}">
+                                    <Button.Flyout>
+                                        <Flyout Placement="BottomEdgeAlignedRight">
+                                            <Grid Width="250">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel HorizontalAlignment="Left" Spacing="8" Orientation="Horizontal" Margin="0,0,0,12" Grid.ColumnSpan="2">
+                                                    <Image Source="/Project Radon.png" Width="20"/>
+                                                    <TextBlock Text="Radon Browser" Style="{ThemeResource BaseTextBlockStyle}"/>
+                                                </StackPanel>
+                                                <Viewbox Grid.Row="1" Width="64" Height="64" HorizontalAlignment="Left">
+                                                    <winui:PersonPicture  Loaded="profileToolbarFlyoutPicture_Loaded" x:Name="profileToolbarFlyoutPicture"/>
+                                                </Viewbox>
+                                                <StackPanel Spacing="2" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0">
+                                                    <TextBlock x:Name="profileToolbarFlyoutUsername" Style="{ThemeResource SubtitleTextBlockStyle}" Text="Radon user" TextAlignment="Left"/>
+                                                    <TextBlock Text="Personal"/>
+                                                </StackPanel>
+                                                <Border Grid.Row="2" Grid.ColumnSpan="2" Margin="0,12,0,4" BorderThickness="0,1,0,0" BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                                <Button Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,20,0,0" Style="{ThemeResource CardButton}" IsEnabled="False">
+                                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                                        <FontIcon FontSize="16" Glyph="&#xE8FA;"/>
+                                                        <TextBlock Text="Add new profile"/>
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button Content="{ui:FontIcon FontSize=16,Glyph=&#xE70F;}" Padding="8" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Style="{ThemeResource ToolbarButton}" CornerRadius="8"/>
+                                            </Grid>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                    <Viewbox>
+                                        <winui:PersonPicture Loaded="profileToolbarPicture_Loaded" x:Name="profileToolbarPicture"/>
+                                    </Viewbox>
+                                </Button>
+                                <Button x:Name="controlCenterButton" Click="controlCenterToggleButton_Click" VerticalAlignment="Center" BorderBrush="{x:Null}" HorizontalAlignment="Right" Style="{ThemeResource ToolbarButton}" Height="36" Width="36" Padding="0" CornerRadius="6">
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE712;" FontSize="17"/>
                                     <Button.Flyout>
-                                        <Flyout x:Name="RadonOverflowMenu" ShouldConstrainToRootBounds="False" Placement="LeftEdgeAlignedTop" >
+                                        <Flyout x:Name="RadonOverflowMenu" ShouldConstrainToRootBounds="False" Placement="BottomEdgeAlignedRight" >
                                             <ScrollViewer Padding="0" VerticalScrollBarVisibility="Auto" CornerRadius="8" Margin="-8">
                                                 <Grid Margin="0,2">
-
+                                                    <Grid.ChildrenTransitions>
+                                                        <TransitionCollection>
+                                                            <EdgeUIThemeTransition Edge="Top"/>
+                                                        </TransitionCollection>
+                                                    </Grid.ChildrenTransitions>
                                                     <StackPanel>
-
-                                                        <Grid Margin="0,0,0,8">
-                                                            <Grid.ChildrenTransitions>
-                                                                <TransitionCollection>
-                                                                    <EntranceThemeTransition IsStaggeringEnabled="True"/>
-                                                                </TransitionCollection>
-                                                            </Grid.ChildrenTransitions>
-                                                            <Button Background="{x:Null}" BorderThickness="0" Padding="7" HorizontalAlignment="Left" Margin="4,0"
-                                                                    ToolTipService.ToolTip="Go to home">
-                                                                <FontIcon FontFamily="Segoe Fluent Icons" FontSize="17" Glyph="&#xEA8A;" />
-                                                            </Button>
-                                                            <Button Style="{ThemeResource TextBlockButtonStyle}" Content="Log out" HorizontalAlignment="Right" Margin="37,0"/>
-                                                            <Button Background="{x:Null}" BorderThickness="0" Padding="4" HorizontalAlignment="Right" Margin="4,0"
-                                                                    ToolTipService.ToolTip="Radon user" Click="editprofile_Click">
-                                                                <winui:PersonPicture HorizontalAlignment="Right" Width="30"/>
-                                                            </Button>
-                                                        </Grid>
                                                         <Grid>
                                                             <StackPanel Orientation="Horizontal">
 
@@ -680,11 +722,6 @@
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8C8;" />
                                                                         </MenuFlyoutItem.Icon>
                                                                     </MenuFlyoutItem>
-                                                                    <MenuFlyoutItem Text="Email link">
-                                                                        <MenuFlyoutItem.Icon>
-                                                                            <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE119;" />
-                                                                        </MenuFlyoutItem.Icon>
-                                                                    </MenuFlyoutItem>
                                                                     <MenuFlyoutItem x:Name="continueonmobileBtn" Click="continueonmobileBtn_Click" Text="Continue on mobile">
                                                                         <MenuFlyoutItem.Icon>
                                                                             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xe8ea;" />
@@ -701,23 +738,7 @@
 
                                                         </Button>
 
-                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
-                                                                HorizontalContentAlignment="Left">
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <FontIcon Glyph="&#xE792;" FontSize="15"/>
-                                                                <TextBlock Margin="9,0,0,0" Text="Save page as"/>
-                                                            </StackPanel>
-                                                        </Button>
-
-                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
-                                                                HorizontalContentAlignment="Left">
-                                                            <StackPanel Orientation="Horizontal">
-                                                                <FontIcon Glyph="&#xE74F;" FontSize="17"/>
-                                                                <TextBlock Margin="9,0,0,0" Text="Toggle mute tab"/>
-                                                            </StackPanel>
-                                                        </Button>
-
-                                                        <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                        <Button x:Name="printButton" Click="printbutton_Click" Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                                 HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
                                                                 <FontIcon Glyph="&#xE749;" FontSize="15"/>
@@ -760,11 +781,11 @@
                                                         </Button>
                                                         <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
 
-                                                        <Button x:Name="experiments" Click="experiments_Click" Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
+                                                        <Button x:Name="whatsnew" Click="whatsnew_click" Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                             HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
                                                                 <FontIcon Glyph="&#xf1ad;" FontSize="15"/>
-                                                                <TextBlock Margin="9,0,0,0" Text="Experiments"/>
+                                                                <TextBlock Margin="9,0,0,0" Text="What's new?"/>
                                                             </StackPanel>
                                                         </Button>
                                                         <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
@@ -827,7 +848,7 @@
                 <TextBlock HorizontalAlignment="Center" Text="Pick a theme:" Style="{ThemeResource SubtitleTextBlockStyle}" TextAlignment="Center"/>
                 <ComboBox x:Name="ThemePickerComboBox" Width="300" Margin="0,10,0,0" SelectionChanged="ThemePickerComboBox_SelectionChanged">
                     <ComboBoxItem Content="None"/>
-                    <ComboBoxItem Content="Unknown"/>
+                    <ComboBoxItem Content="Radon Vibes"/>
                     <ComboBoxItem Content="Forest"/>
                     <ComboBoxItem Content="Candy"/>
                     <ComboBoxItem Content="Midnight"/>

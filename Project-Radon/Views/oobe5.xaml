@@ -6,9 +6,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:ui="using:CommunityToolkit.WinUI"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Background="Transparent">
 
-    <Grid>
-
+    <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="600" Margin="16"
+      CornerRadius="6" BorderBrush="{ThemeResource AcrylicInAppFillColorDefaultBrush}" BorderThickness="1">
+        <Grid Margin="0,0,0,0" Padding="24">
+            <StackPanel Margin="48,16" Spacing="16">
+                <muxc:ProgressRing IsIndeterminate="True" Width="60" Height="60"/>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" Text="Finalizing settings" TextAlignment="Center"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

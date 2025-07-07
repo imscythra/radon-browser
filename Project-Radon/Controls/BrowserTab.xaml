@@ -27,14 +27,14 @@
 
             <Grid Background="Black" Opacity="0.3"/>
             
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="100,90" MinWidth="500">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="20,90" MinWidth="500">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <TextBlock x:Name="ntpHourDisplay" FontWeight="Medium" TextAlignment="Center" Text="12:00" FontSize="68" />
                     
                 </StackPanel>
                 <TextBlock x:Name="ntpDateDisplay" FontWeight="Medium" TextAlignment="Center" Text="Saturday, April 15th" Margin="0,0,0,60" FontSize="16" />
-                <Grid Background="{ThemeResource AcrylicInAppFillColorDefaultBrush}" BorderBrush="{StaticResource SystemControlAcrylicElementBrush}" BorderThickness="0" CornerRadius="4" 
-                         RequestedTheme="Dark">
+                <Grid BorderBrush="{StaticResource SystemControlAcrylicElementBrush}" BorderThickness="0" CornerRadius="4"
+                         RequestedTheme="Dark" Width="450">
                 <ui:Effects.Shadow>
                     <media:AttachedCardShadow BlurRadius="100"
                                     CornerRadius="0"
@@ -43,17 +43,17 @@
                                     Opacity="100"/>
                 </ui:Effects.Shadow>
                 
-                <TextBox x:Name="ntpSearchBar" PlaceholderText="Search the Internet" BorderThickness="0" TextAlignment="Center" FontWeight="SemiBold"
-                         KeyDown="ntpSearchBar_KeyDown" Padding="50,9" Background="{x:Null}" CornerRadius="4" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <TextBox x:Name="ntpSearchBar" PlaceholderText="Search the Internet" TextAlignment="Center" FontWeight="SemiBold"
+                         KeyDown="ntpSearchBar_KeyDown" Padding="50,9" CornerRadius="12" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Top" Style="{ThemeResource GlowTextBox}"/>
                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xF78B;" Margin="15,0" HorizontalAlignment="Left" FontSize="17"/>
             </Grid>
             </StackPanel>
 
-            <Button Padding="5" Margin="6" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent">
-            <StackPanel Orientation="Horizontal" >
-                <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE753;" Margin="0,0,8,0"/>
-                <TextBlock Text="24°C • Cloudy"/>
-            </StackPanel>
+            <Button Padding="8" Margin="6" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Style="{ThemeResource ToolbarButton}">
+                <StackPanel Orientation="Horizontal" >
+                    <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE707;" Margin="0,0,8,0" FontSize="16"/>
+                    <TextBlock Text="Add a location"/>
+                </StackPanel>
                 <ToolTipService.ToolTip>
                     <StackPanel>
                         <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" FontWeight="SemiBold">Weather informations</TextBlock>
@@ -62,23 +62,10 @@
                 </ToolTipService.ToolTip>
                 <Button.Flyout>
                     <Flyout Placement="BottomEdgeAlignedLeft">
-                        <TextBlock>In development 🚦</TextBlock></Flyout>
+                        <winui:InfoBar Title="Weather widget is in development!" IsOpen="True" IsClosable="False"/>
+                    </Flyout>
                 </Button.Flyout>
             </Button>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8">
-
-                <Button Style="{ThemeResource ButtonRevealStyle}" Click="profileCenterToggle_Click" x:Name="profileCenterToggle" Background="{x:Null}" BorderThickness="0" Margin="10,0,0,0" Padding="5" CornerRadius="40">
-                    <Ellipse Width="28" Height="28">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="ms-appx:///accountpictures/clippy.png" Stretch="UniformToFill"/>
-                        </Ellipse.Fill>
-                        <Ellipse.RenderTransform>
-                            <CompositeTransform/>
-                        </Ellipse.RenderTransform>
-                    </Ellipse>
-                </Button>
-            </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="8">
 
                 <Button x:Name="ntpEditButton" Background="{x:Null}" BorderThickness="0"  ToolTipService.ToolTip="New tab options" Margin="10,0,0,0" Padding="10">

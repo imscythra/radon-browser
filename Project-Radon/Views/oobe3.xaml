@@ -36,12 +36,13 @@
                                         <CompositeTransform/>
                                     </Ellipse.RenderTransform>
                                 </Ellipse>
+                                <muxc:InfoBadge HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="12" Width="12"/>
                             </Grid>
                         </Button.Content>
                     </Button>
-                    <StackPanel Spacing="8" HorizontalAlignment="Center" Margin="0,8">
-                        <TextBox x:Name="profileName" TextChanged="profileName_TextChanged" FontSize="20" FontWeight="SemiBold" Width="250"
-                                 TextAlignment="Center" PlaceholderText="Radon user" Style="{ThemeResource GlowTextBox}"/>
+                    <StackPanel Spacing="8" HorizontalAlignment="Center" Margin="0,0,0,16">
+                        <TextBox x:Name="profileName" TextChanged="profileName_TextChanged" FontWeight="SemiBold" Width="250"
+                                 TextAlignment="Center" PlaceholderText="What's your name?" Style="{ThemeResource GlowTextBox}"/>
 
                     </StackPanel>
                     <controls:SettingsExpander

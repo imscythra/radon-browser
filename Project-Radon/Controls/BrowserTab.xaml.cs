@@ -99,18 +99,6 @@ namespace Project_Radon.Controls
                 };
             };
 
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            String username = localSettings.Values["username"] as string;
-            if (username != null)
-            {
-                ToolTip toolTip = new ToolTip
-                {
-                    Content = username
-                };
-                ToolTipService.SetToolTip(profileCenterToggle, toolTip);
-            }
-
-
             ntpTimeDisplayService();
 
         }
@@ -120,7 +108,7 @@ namespace Project_Radon.Controls
             bool loop = true;
             while (loop == true)
             {
-                ntpHourDisplay.Text = DateTime.Now.ToString("H:mm");
+                ntpHourDisplay.Text = DateTime.Now.ToString("HH:mm");
                 ntpDateDisplay.Text = DateTime.Today.DayOfWeek.ToString()+", "+DateTime.Today.ToString("MMMM d"); ;
                 await Task.Delay(2000);
             }
@@ -299,6 +287,11 @@ namespace Project_Radon.Controls
             await WebBrowser.EnsureCoreWebView2Async();
             WebBrowser.CoreWebView2.DefaultDownloadDialogCornerAlignment = Microsoft.Web.WebView2.Core.CoreWebView2DefaultDownloadDialogCornerAlignment.TopRight;
             WebBrowser.CoreWebView2.OpenDefaultDownloadDialog();
+        }
+        public async Task PrintTask()
+        {
+            await WebBrowser.EnsureCoreWebView2Async();
+            await WebBrowser.CoreWebView2.PrintAsync(null);
         }
         public async Task OpenDevTools()
         {

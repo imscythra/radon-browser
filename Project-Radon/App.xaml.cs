@@ -85,7 +85,7 @@ namespace Yttrium_browser
 
                     // profile check mechanisms
                     string username = localSettings.Values["username"] as string;
-                    //string campaignRan = localSettings.Values["campaignRan"] as string;
+                    
                     if (username == null)
                     {
                         rootFrame.Navigate(typeof(oobeHost), null);
@@ -94,9 +94,9 @@ namespace Yttrium_browser
                     {
                         if ((bool)(localSettings.Values["WindowsHelloAuth"] = true))
                         {
-                            rootFrame.Navigate(typeof(MainPage), null);
+                            rootFrame.Navigate(typeof(windowshelloauth), null);
                         }
-                        else { rootFrame.Navigate(typeof(oobe1), null); }
+                        else { rootFrame.Navigate(typeof(MainPage), null); }
                     }
                     
 

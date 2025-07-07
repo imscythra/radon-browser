@@ -24,7 +24,7 @@
                 <PersonPicture ProfilePicture="/accountpictures/default.png" Width="120" Height="120"/>
                 <TextBlock Style="{ThemeResource TitleTextBlockStyle}" TextAlignment="Center" Text="Welcome back, Scythra!" Margin="0,12,0,0"/>
                 <TextBlock TextAlignment="Center" Text="To continue, please verify your identity."/>
-                <Button x:Name="AuthButton" Click="AuthButton_Click" Loaded="AuthButton_Click" Style="{ThemeResource AccentButtonStyle}" Content="Authenticate" FontWeight="SemiBold" Margin="0,24,0,0" HorizontalAlignment="Center"/>
+                <Button x:Name="AuthButton" Click="AuthButton_Click" Style="{ThemeResource AccentButtonStyle}" Content="Authenticate" FontWeight="SemiBold" Margin="0,24,0,0" HorizontalAlignment="Center"/>
                 <HyperlinkButton x:Name="HelpLink" Click="HelpLink_Click" Content="Having trouble with Windows Hello?" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>

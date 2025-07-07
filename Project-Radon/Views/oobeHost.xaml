@@ -20,12 +20,13 @@
                 <TextBlock Text="Preview" VerticalAlignment="Center" Opacity="0.7"/>
             </StackPanel>
         </Grid>
+
         <materials:AuroraLite/>
-        <Frame x:Name="hostFrame" Loaded="hostFrame_Loaded">
+        <Frame x:Name="hostFrame" Loaded="hostFrame_Loaded" Navigated="hostFrame_Navigated">
             <!-->Nothing here</!-->
         </Frame>
-        <Button x:Name="debugSkip" Click="debugSkip_Click" Content="Skip (debug only)" HorizontalAlignment="Right"
+        <!--<Button x:Name="debugSkip" Click="debugSkip_Click" Content="Skip (debug only)" HorizontalAlignment="Right"
                 VerticalAlignment="Bottom" Style="{ThemeResource TextBlockButtonStyle}" FontWeight="SemiBold" FontSize="12"/>
-        <Button x:Name="debugTheme" Click="debugTheme_Click" Content="Switch theme" VerticalAlignment="Bottom" Background="Transparent"/>
+        <Button x:Name="debugTheme" Click="debugTheme_Click" Content="Switch theme" VerticalAlignment="Bottom" Background="Transparent"/>-->
     </Grid>
 </Page>

@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Project_Radon.Views;
 using Windows.UI.Xaml.Media.Animation;
 using Yttrium_browser;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -54,6 +55,15 @@ namespace Project_Radon.Settings
         private void debugTheme_Click(object sender, RoutedEventArgs e)
         {
             dbgTarget.RequestedTheme = dbgTarget.RequestedTheme == ElementTheme.Light ? ElementTheme.Dark : ElementTheme.Light;
+        }
+
+        private async void hostFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if ( hostFrame.Content is Views.oobe5)
+            {
+                await Task.Delay(new Random().Next(1000, 2500));
+                this.Frame.Navigate(typeof(MainPage));
+            }
         }
     }
 }

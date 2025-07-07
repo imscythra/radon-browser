@@ -13,7 +13,7 @@
     <Grid Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="600" Margin="16"
           CornerRadius="6" BorderBrush="{ThemeResource AcrylicInAppFillColorDefaultBrush}" BorderThickness="1">
         <Button x:Name="backBtn" Click="backBtn_Click" CornerRadius="48" Padding="8" VerticalAlignment="Top" Margin="16,32" Background="Transparent"
-        BorderBrush="Transparent">
+            BorderBrush="Transparent">
             <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE72B;" />
         </Button>
         <Grid Margin="0,0,0,0" Padding="24">
@@ -25,7 +25,7 @@
             <ScrollViewer VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" Margin="0,88,0,48" Padding="16,0">
                 <StackPanel Spacing="2">
                     <muxc:InfoBar Title="Work in progress" IsOpen="True" Severity="Warning"
-                                  Message="Expect to see more options coming soon!" />
+                                  Message="Expect to see more options coming soon!" IsClosable="False"/>
                     <controls:SettingsCard Header="Search provider" Description="Pick a default search provider for Radon."
                                            HeaderIcon="{ui:FontIcon Glyph=&#xF6FA;}">
                         <ComboBox x:Name="SearchEngineBox" SelectionChanged="SearchEngineBox_SelectionChanged" Loaded="SearchEngineBox_Loaded" HorizontalAlignment="Right" Style="{ThemeResource GlowComboBox}" Width="200">
@@ -39,14 +39,18 @@
                         </ComboBox>
                     </controls:SettingsCard>
                     <controls:SettingsExpander Header="New tab" Description="Show and hide elements on your new tab page."
-                       HeaderIcon="{ui:FontIcon Glyph=&#xF246;}"></controls:SettingsExpander>
-                    <controls:SettingsCard x:Name="WindowsHelloCard" Header="Windows Hello (experimental)" Description="Require Windows Hello authentication to use Radon."
+                       HeaderIcon="{ui:FontIcon Glyph=&#xF246;}">
+                        <controls:SettingsExpander.Items>
+                            <controls:SettingsCard Header="Coming soon! 🚀"/>
+                        </controls:SettingsExpander.Items>
+                    </controls:SettingsExpander>
+                    <controls:SettingsCard x:Name="WindowsHelloCard" Header="Use Windows Hello" Description="Require Windows Hello authentication to use Radon."
                        HeaderIcon="{ui:FontIcon Glyph=&#xEB68;}">
-                        <ToggleSwitch x:Name="WindowsHelloSwitch" Toggled="WindowsHelloSwitch_Toggled" Loaded="WindowsHelloSwitch_Loaded" OnContent="" OffContent="" Style="{ThemeResource GlowSwitch}" Width="48" HorizontalAlignment="Right"/>
+                        <ToggleSwitch Name="WindowsHelloSwitch" Toggled="WindowsHelloSwitch_Toggled" Loaded="WindowsHelloSwitch_Loaded" OnContent="" OffContent="" Style="{ThemeResource GlowSwitch}" Width="48" HorizontalAlignment="Right"/>
                     </controls:SettingsCard>
                 </StackPanel>
             </ScrollViewer>
-            <Button x:Name="nextBtn" FontWeight="SemiBold" Width="100" Content="Next" Style="{ThemeResource AccentButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="16,0"/>
+            <Button x:Name="nextBtn" Click="nextBtn_Click" FontWeight="SemiBold" Width="100" Content="Next" Style="{ThemeResource AccentButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="16,0"/>
         </Grid>
     </Grid>
 </Page>

@@ -214,8 +214,8 @@
     <Compile Include="Views\qrcodedialog.xaml.cs">
       <DependentUpon>qrcodedialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UpdatedDialog.xaml.cs">
-      <DependentUpon>UpdatedDialog.xaml</DependentUpon>
+    <Compile Include="Views\SponsorDialog.xaml.cs">
+      <DependentUpon>SponsorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\windowshelloauth.xaml.cs">
       <DependentUpon>windowshelloauth.xaml</DependentUpon>
@@ -261,6 +261,7 @@
     <Content Include="Assets\LargeTile.scale-400.png" />
     <Content Include="Assets\oobe1img.jpg" />
     <Content Include="Assets\paintbrush_3d.png" />
+    <Content Include="Assets\mvpbanner.png" />
     <Content Include="Assets\rocket.png" />
     <Content Include="Assets\settings-about-icon.png" />
     <Content Include="Assets\settings-advanced-icon.png" />
@@ -363,7 +364,6 @@
     <Content Include="Wallpapers\radon vibes.png" />
     <Content Include="Wallpapers\tokyo night [experimental].png" />
     <Content Include="Wallpapers\Unknown1.png" />
-    <Content Include="Settings\UpdateNotes.txt" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -506,7 +506,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UpdatedDialog.xaml">
+    <Page Include="Views\SponsorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

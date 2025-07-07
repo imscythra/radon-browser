@@ -50,7 +50,7 @@ namespace Project_Radon.Settings
 
         private void nextBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Views.oobe2), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            this.Frame.Navigate(typeof(Views.oobe3), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
     }
 }

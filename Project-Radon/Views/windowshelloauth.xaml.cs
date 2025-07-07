@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Store.Preview;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -31,6 +32,10 @@ namespace Project_Radon.Views
         public windowshelloauth()
         {
             this.InitializeComponent();
+
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
         }
 
         private void AuthButton_Click(object sender, RoutedEventArgs e)
