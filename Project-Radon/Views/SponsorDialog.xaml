@@ -6,13 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    
     mc:Ignorable="d" CornerRadius="12" Background="{ThemeResource SolidBackgroundFillColorBaseAltBrush}">
 
 
     <Grid>
         <StackPanel>
             <Grid>
-                <Grid CornerRadius="12">
+                <Grid CornerRadius="12" BorderBrush="Pink" BorderThickness="1">
                     <Image Source="ms-appx:///Assets/mvpbanner.png"/>
                 </Grid>
                 <Button x:Name="closebutton" Click="closebutton_Click" Style="{ThemeResource AccentButtonStyle}" Height="32" Padding="8,0" Margin="6"
@@ -25,11 +26,11 @@
             </Grid>
 
             <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,18,0,12">
-                <PersonPicture ProfilePicture="https://github.com/imscythra.png"/>
+                <PersonPicture ProfilePicture="https://github.com/Jarno9981.png"/>
                 <StackPanel Spacing="4" VerticalAlignment="Center">
-                    <Button Style="{ThemeResource AccentButtonStyle}" FontSize="12" Padding="4,2" Content="July 2025 Top Supporter" FontWeight="SemiBold"/>
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="ImScythra"/>
-                    <TextBlock Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" Text="Donated $300.00 to Radon Browser" FontWeight="SemiBold"/>
+                    <Button Style="{ThemeResource AccentButtonStyle}" FontSize="12" Padding="4,2" Content="March 2025 Top Supporter" FontWeight="SemiBold"/>
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="TheDevil"/>
+                    <TextBlock Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" Text="Donated $100.00 to Radon Browser" FontWeight="SemiBold"/>
                 </StackPanel>
             </StackPanel>
             
@@ -40,7 +41,10 @@
                 <Image Source="/Assets/rocket.png" Width="60" Height="60"/>
                 <StackPanel Spacing="4" Width="420">
                     <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Support me!"/>
-                    <TextBlock TextWrapping="Wrap" Text="Help me with the development! I rely heavily on donations to get myself a new laptop as the current one is in a severely damaged condition and almost unusable."/>
+                    <TextBlock TextWrapping="Wrap">
+                         Help me with the development! I rely heavily on donations to get myself a new laptop as the current one is in a severely damaged condition and almost unusable.
+                        <Hyperlink NavigateUri="https://ko-fi.com/imscythra">Learn more</Hyperlink>.
+                    </TextBlock>
                 </StackPanel>
             </StackPanel>
 
