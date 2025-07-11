@@ -383,18 +383,19 @@ namespace Yttrium_browser
 
         private void SearchBarStateHandler()
         {
-            if (CurrentTabs[BrowserTabs.SelectedIndex].Content.ToString() != "Project_Radon.Controls.BrowserTab")
-            {
-                SearchBar.IsEnabled = false;
-                RefreshButton.IsEnabled = false;
-                SSLButton.IsEnabled = false;
-            }
-            else
-            { 
-                SearchBar.IsEnabled = true;
-                RefreshButton.IsEnabled = true;
-                SSLButton.IsEnabled = true;
-            }
+            // TODO: Inspect searchbar state handler
+            //if (CurrentTabs[BrowserTabs.SelectedIndex + 1].Content.ToString() != "Project_Radon.Controls.BrowserTab")
+            //{
+            //    SearchBar.IsEnabled = false;
+            //    RefreshButton.IsEnabled = false;
+            //    SSLButton.IsEnabled = false;
+            //}
+            //else
+            //{ 
+            //    SearchBar.IsEnabled = true;
+            //    RefreshButton.IsEnabled = true;
+            //    SSLButton.IsEnabled = true;
+            //}
         }
 
         private async void BrowserTabs_AddTabButtonClick(TabView sender, object args)

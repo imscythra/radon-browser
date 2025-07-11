@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:winui="using:Microsoft.UI.Xaml.Controls">
     <AcrylicBrush x:Key="BrightAcrylicBrush"
-            TintOpacity="0" TintLuminosityOpacity="0.25" TintColor="SkyBlue" FallbackColor="SkyBlue" />
+            TintOpacity="0" TintLuminosityOpacity="0.25" TintColor="SkyBlue" FallbackColor="#55555555" />
     <Style x:Key="TabViewCloseButtonStyle" TargetType="Button">
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />

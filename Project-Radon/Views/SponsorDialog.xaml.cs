@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,22 +26,14 @@ namespace Project_Radon.Views
             this.InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void donatebutton_Click(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
-        private void donatebutton_Click(object sender, RoutedEventArgs e)
-        {
-
+            await Launcher.LaunchUriAsync(new Uri("https://ko-fi.com/imscythra"));
         }
 
         private void closebutton_Click(object sender, RoutedEventArgs e)
         {
-
+            Hide();
         }
     }
 }

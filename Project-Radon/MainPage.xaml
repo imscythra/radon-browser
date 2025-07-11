@@ -639,14 +639,14 @@
                                                                         <TextBlock Margin="0,8" Text="New tab" TextAlignment="Center"/>
                                                                     </StackPanel>
                                                                 </Button>
-                                                                <Border BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" Margin="0,8" Opacity="0.3"  BorderThickness="1"/>
+                                                                <Border BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="0,12" BorderThickness="1"/>
                                                                 <Button x:Name="newWindow" Click="newWindow_Click" Background="Transparent" HorizontalAlignment="Stretch" Padding="0,10,0,10" Width="98" BorderThickness="0">
                                                                     <StackPanel>
                                                                         <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE737;" FontSize="18"/>
                                                                         <TextBlock Margin="0,8" Text="New window" TextAlignment="Center"/>
                                                                     </StackPanel>
                                                                 </Button>
-                                                                <Border BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" Margin="0,8" Opacity="0.3" BorderThickness="1"/>
+                                                                <Border BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="0,12" BorderThickness="1"/>
 
 
                                                                 <Button Background="Transparent" HorizontalAlignment="Stretch" Padding="0,10,0,10" Width="98" BorderThickness="0">
@@ -657,7 +657,7 @@
                                                                 </Button>
                                                             </StackPanel>
                                                         </Grid>
-                                                        <Border Margin="8,4" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
+                                                        <Border Margin="8,4" BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" BorderThickness="1"/>
 
                                                         <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                                 HorizontalContentAlignment="Left" Click="downloadbutton_Click">
@@ -682,7 +682,7 @@
                                                                 <TextBlock Margin="9,0,0,0" Text="Favorites"/>
                                                             </StackPanel>
                                                         </Button>
-                                                        <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
+                                                        <Border Margin="8,2" BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" BorderThickness="1"/>
                                                         <Grid>
                                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="12,0">
                                                                 <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE8A3;" FontSize="17" />
@@ -707,7 +707,7 @@
                                                                 </winui:DropDownButton.Flyout>
                                                             </winui:DropDownButton>
                                                         </Grid>
-                                                        <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
+                                                        <Border Margin="8,2" BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" BorderThickness="1"/>
                                                         <Button Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                                 HorizontalContentAlignment="Left">
                                                             <StackPanel Orientation="Horizontal">
@@ -779,7 +779,7 @@
                                                                 </MenuFlyout>
                                                             </Button.Flyout>
                                                         </Button>
-                                                        <Border Margin="8,0" Opacity="0.3" BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}" BorderThickness="1"/>
+                                                        <Border Margin="8,2" BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" BorderThickness="1"/>
 
                                                         <Button x:Name="whatsnew" Click="whatsnew_click" Background="Transparent" BorderBrush="Transparent" Margin="1,2" HorizontalAlignment="Stretch"
                                                             HorizontalContentAlignment="Left">
@@ -793,6 +793,17 @@
                                                             <StackPanel Orientation="Horizontal">
                                                                 <FontIcon Glyph="&#xE9E9;" FontSize="15"/>
                                                                 <TextBlock Margin="9,0,0,0" Text="Settings"/>
+                                                            </StackPanel>
+                                                        </Button>
+
+                                                        <Button Margin="1,4,1,2" HorizontalAlignment="Stretch" CornerRadius="8"
+                                                                HorizontalContentAlignment="Left">
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <FontIcon Glyph="&#xF133;" FontSize="15"/>
+                                                                <StackPanel Margin="9,0,0,0">
+                                                                    <TextBlock FontWeight="SemiBold" Text="Support the development!"/>
+                                                                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" Text="Sponsor me on Ko-fi.com"/>
+                                                                </StackPanel>
                                                             </StackPanel>
                                                         </Button>
 
