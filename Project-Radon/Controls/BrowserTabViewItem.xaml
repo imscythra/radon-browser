@@ -27,7 +27,8 @@
     <winui:TabViewItem.Header>
         <TextBlock Text="{x:Bind TabHeader,Mode=OneWay}" TextTrimming="Clip"/>
     </winui:TabViewItem.Header>
-    <!--<winui:TabViewItem.Transitions>
+    <winui:TabViewItem.Transitions>
+        <PopupThemeTransition/>
         <RepositionThemeTransition/>
-    </winui:TabViewItem.Transitions>-->
+    </winui:TabViewItem.Transitions>
 </winui:TabViewItem>

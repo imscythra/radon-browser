@@ -94,7 +94,7 @@ namespace Yttrium_browser
                     {
                         if ((bool)(localSettings.Values["WindowsHelloAuth"] = true))
                         {
-                            rootFrame.Navigate(typeof(oobeHost), null);
+                            rootFrame.Navigate(typeof(windowshelloauth), null);
                         }
                         else { rootFrame.Navigate(typeof(MainPage), null); }
                     }

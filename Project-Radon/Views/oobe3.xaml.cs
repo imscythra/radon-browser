@@ -32,10 +32,14 @@ namespace Project_Radon.Views
             this.InitializeComponent();
 
             ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values["profilePicture"] == null)
+            {
+                localSettings.Values["profilePicture"] = "default";
+            }
             string pfpsrc = localSettings.Values["profilePicture"] as string;
             profilePicture.ImageSource = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpsrc.ToString(), ".png" })));
-
         }
+    
 
         private void backBtn_Click(object sender, RoutedEventArgs e)
         {

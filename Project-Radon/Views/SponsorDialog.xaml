@@ -43,7 +43,7 @@
                     <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="Support me!"/>
                     <TextBlock TextWrapping="Wrap">
                          Help me with the development! I rely heavily on donations to get myself a new laptop as the current one is in a severely damaged condition and almost unusable.
-                        <Hyperlink NavigateUri="https://ko-fi.com/imscythra">Learn more</Hyperlink>.
+                        <Hyperlink NavigateUri="https://ko-fi.com/post/Well--this-is-quite-awkward-V7V11HVM66">Learn more</Hyperlink>.
                     </TextBlock>
                 </StackPanel>
             </StackPanel>

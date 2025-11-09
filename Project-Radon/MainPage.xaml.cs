@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -18,6 +19,7 @@ using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Core.Preview;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -95,8 +97,24 @@ namespace Yttrium_browser
 
         private async void ShowUpdateAnnouncement()
         {
-            SponsorDialog dialog = new SponsorDialog();
-            await dialog.ShowAsync();
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var version = Package.Current.Id.Version;
+            string appVersion = $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
+            if (localSettings.Values["lastUpdated"] != null)
+            {
+                if (localSettings.Values["lastUpdated"].ToString() != appVersion)
+                {
+                    SponsorDialog dialog = new SponsorDialog();
+                    await dialog.ShowAsync();
+                    localSettings.Values["lastUpdated"] = appVersion;
+                }
+            }
+            else
+            {
+                SponsorDialog dialog = new SponsorDialog();
+                await dialog.ShowAsync();
+                localSettings.Values["lastUpdated"] = appVersion;
+            }
         }
 
         public class TabViewItemData
@@ -524,11 +542,37 @@ namespace Yttrium_browser
             //_ = CurrentTabs[BrowserTabs.SelectedIndex].Tab.OpenDownloadsDialog();
             string downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "30868ItzBluebxrry.RadonBrowserDev_qc4twqjhevfwm!App");
 
-            StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
-            Debug.WriteLine(folder);
-            await Launcher.LaunchFolderAsync(folder);
-            if (Directory.Exists(downloadsPath))
+            try
             {
+                StorageFolder folder = await StorageFolder.GetFolderFromPathAsync(downloadsPath);
+                Debug.WriteLine(folder);
+                if (Directory.Exists(downloadsPath))
+                {
+                    await Launcher.LaunchFolderAsync(folder);
+                }
+                else 
+                {
+                    ContentDialog dg = new ContentDialog();
+                    dg.Title = "No downloads yet.";
+                    dg.Content = "Try downloading some files and come back here!";
+                    dg.CloseButtonText = "Dismiss";
+                    dg.DefaultButton = ContentDialogButton.Close;
+                    await dg.ShowAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                ContentDialog dg = new ContentDialog();
+                dg.Title = "Filesystem access needed";
+                dg.Content = "Please allow Radon to access the filesystem. Don't worry—we'll never take a peek on your files! Radon will close automatically.";
+                dg.PrimaryButtonText = "Open Settings";
+                dg.CornerRadius = new CornerRadius(12);
+                dg.CloseButtonText = "Dismiss";
+                dg.DefaultButton = ContentDialogButton.Primary;
+                var result = await dg.ShowAsync();
+
+                if (result == ContentDialogResult.Primary) { await Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-broadfilesystemaccess"));    }
+
             }
 
         }
@@ -806,9 +850,10 @@ namespace Yttrium_browser
             actionMsg.IsOpen = false;
         }
 
-        private void whatsnew_click(object sender, RoutedEventArgs e)
+        private async void whatsnew_click(object sender, RoutedEventArgs e)
         {
-
+            controlCenterButton.Flyout.Hide();
+            await Launcher.LaunchUriAsync(new Uri("https://ko-fi.com/Blog/Editor/Radon-Browser-July-2025-Update-is-here-F2F01I2ZZH"));
         }
 
         private void SearchBar_KeyUp(object sender, KeyRoutedEventArgs e)
@@ -849,6 +894,12 @@ namespace Yttrium_browser
             string pfpsrc = localSettings.Values["profilePicture"] as string;
             profileToolbarFlyoutPicture.ProfilePicture = new BitmapImage(new Uri(string.Join("", new string[] { "ms-appx:///accountpictures/", pfpsrc.ToString(), ".png" })));
             profileToolbarFlyoutUsername.Text = ApplicationData.Current.LocalSettings.Values["username"].ToString();
+        }
+
+        private async void SponsorButton_Click(object sender, RoutedEventArgs e)
+        {
+            controlCenterButton.Flyout.Hide();
+            await Launcher.LaunchUriAsync(new Uri("https://ko-fi.com/imscythra"));
         }
     }
 }

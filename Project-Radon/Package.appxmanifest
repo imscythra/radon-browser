@@ -18,13 +18,13 @@
   <Identity
     Name="30868ItzBluebxrry.RadonBrowserDev"
     Publisher="CN=EAB9B2B6-6338-4C0C-A002-D1666231438D"
-    Version="1.14.17.0" />
+    Version="1.14.18.0" />
 
-  <mp:PhoneIdentity PhoneProductId="60865762-084f-44cb-a356-f22b38e6d2ff" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="262bcd0f-375d-4e29-98b6-524c0f96cae1" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Radon (Developer preview)</DisplayName>
-    <PublisherDisplayName>ItzBluebxrry</PublisherDisplayName>
+    <PublisherDisplayName>Scythra</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -58,7 +58,7 @@
         <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
-        <uap:Extension Category="windows.protocol" StartPage="MainPage">
+        <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="radon">
             <uap:DisplayName>Project Radon</uap:DisplayName>
             <uap:Logo>Project Radon.png</uap:Logo>

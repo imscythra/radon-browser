@@ -553,7 +553,7 @@
                                     </TransitionCollection>
                                 </StackPanel.ChildrenTransitions>
                                 <Border BorderThickness="1" BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}" Margin="4,8"/>
-                                <Button x:Name="downloadsToolbarBtn"  Width="36" Height="36" Padding="2" CornerRadius="6" Style="{ThemeResource ToolbarButton}">
+                                <Button x:Name="downloadsToolbarBtn" Click="downloadbutton_Click" Width="36" Height="36" Padding="2" CornerRadius="6" Style="{ThemeResource ToolbarButton}">
                                     <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE896;" FontSize="16"/>
                                 </Button>
                                 <Button x:Name="shareToolbarBtn" Width="36" Height="36" Padding="2" CornerRadius="6" Style="{ThemeResource ToolbarButton}">
@@ -796,8 +796,8 @@
                                                             </StackPanel>
                                                         </Button>
 
-                                                        <Button Margin="1,4,1,2" HorizontalAlignment="Stretch" CornerRadius="8"
-                                                                HorizontalContentAlignment="Left">
+                                                        <Button x:Name="SponsorButton" Margin="1,4,1,2" HorizontalAlignment="Stretch" CornerRadius="8"
+                                                                HorizontalContentAlignment="Left" Click="SponsorButton_Click">
                                                             <StackPanel Orientation="Horizontal">
                                                                 <FontIcon Glyph="&#xF133;" FontSize="15"/>
                                                                 <StackPanel Margin="9,0,0,0">
